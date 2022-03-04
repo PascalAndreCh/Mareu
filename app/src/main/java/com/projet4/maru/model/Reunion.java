@@ -8,18 +8,9 @@ public class Reunion {
 
     private long idReunionRoom;
 
-    //private Date dateHourReunionStart;
+    private Date dateHourReunionStart;
 
-    //private Date dateHourReunionEnd;
-
-    private int yearReunion;
-    private int monthReunion;
-    private int dayReunion;
-    private int hourReunionStart;
-    private int minuteReunionStart;
-    private int hourReunionEnd;
-    private int minuteReunionEnd;
-
+    private Date dateHourReunionEnd;
 
     private String titleReunion;
 
@@ -45,16 +36,11 @@ public class Reunion {
 
     private long idPeopleReunion10;
 
-    public Reunion(long idReunion, long idReunionRoom, int yearReunion, int monthReunion, int dayReunion, int hourReunionStart, int minuteReunionStart, int hourReunionEnd, int minuteReunionEnd, String titleReunion, String descriptionReunion, long idPeopleReunion01, long idPeopleReunion02, long idPeopleReunion03, long idPeopleReunion04, long idPeopleReunion05, long idPeopleReunion06, long idPeopleReunion07, long idPeopleReunion08, long idPeopleReunion09, long idPeopleReunion10) {
+    public Reunion(long idReunion, long idReunionRoom, Date dateHourReunionStar, Date dateHourReunionEnd, String titleReunion, String descriptionReunion, long idPeopleReunion01, long idPeopleReunion02, long idPeopleReunion03, long idPeopleReunion04, long idPeopleReunion05, long idPeopleReunion06, long idPeopleReunion07, long idPeopleReunion08, long idPeopleReunion09, long idPeopleReunion10) {
         this.idReunion = idReunion;
         this.idReunionRoom = idReunionRoom;
-        this.yearReunion = yearReunion;
-        this.monthReunion = monthReunion;
-        this.dayReunion = dayReunion;
-        this.hourReunionStart = hourReunionStart;
-        this.minuteReunionStart = minuteReunionStart;
-        this.hourReunionEnd = hourReunionEnd;
-        this.minuteReunionEnd = minuteReunionEnd;
+        this.dateHourReunionStart = dateHourReunionStar;
+        this.dateHourReunionEnd = dateHourReunionEnd;
         this.titleReunion = titleReunion;
         this.descriptionReunion = descriptionReunion;
         this.idPeopleReunion01 = idPeopleReunion01;
@@ -85,63 +71,23 @@ public class Reunion {
         this.idReunionRoom = idReunionRoom;
     }
 
-    public int getYearReunion() {
-        return yearReunion;
+    public Date getDateHourReunionStart() {
+        return dateHourReunionStart;
     }
 
-    public void setYearReunion(int yearReunion) {
-        this.yearReunion = yearReunion;
+    public void setDateHourReunionStart(Date dateHourReunionStart) {
+        this.dateHourReunionStart = dateHourReunionStart;
     }
 
-    public int getMonthReunion() {
-        return monthReunion;
+    public Date getDateHourReunionEnd() {
+        return dateHourReunionEnd;
     }
 
-    public void setMonthReunion(int monthReunion) {
-        this.monthReunion = monthReunion;
+    public void setDateHourReunionEnd(Date dateHourReunionEnd) {
+        this.dateHourReunionEnd = dateHourReunionEnd;
     }
 
-    public int getDayReunion() {
-        return dayReunion;
-    }
-
-    public void setDayReunion(int dayReunion) {
-        this.dayReunion = dayReunion;
-    }
-
-    public int getHourReunionStart() {
-        return hourReunionStart;
-    }
-
-    public void setHourReunionStart(int hourReunionStart) {
-        this.hourReunionStart = hourReunionStart;
-    }
-
-    public int getMinuteReunionStart() {
-        return minuteReunionStart;
-    }
-
-    public void setMinuteReunionStart(int minuteReunionStart) {
-        this.minuteReunionStart = minuteReunionStart;
-    }
-
-    public int getHourReunionEnd() {
-        return hourReunionEnd;
-    }
-
-    public void setHourReunionEnd(int hourReunionEnd) {
-        this.hourReunionEnd = hourReunionEnd;
-    }
-
-    public int getMinuteReunionEnd() {
-        return minuteReunionEnd;
-    }
-
-    public void setMinuteReunionEnd(int minuteReunionEnd) {
-        this.minuteReunionEnd = minuteReunionEnd;
-    }
-
-    public String getTitleReunion() {
+     public String getTitleReunion() {
         return titleReunion;
     }
 

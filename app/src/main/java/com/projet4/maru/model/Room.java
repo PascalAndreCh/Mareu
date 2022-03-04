@@ -19,19 +19,19 @@ public class Room {
     /** location in the building */
     private int stageRoom;
 
-    /** usable room */
-    private boolean bookableRoom;
+//    /** usable room */
+//    private boolean bookableRoom;
 
     /**
      * Constructor
      */
-    public Room(long idRoom, String nameRoom, int numberRoom, int maximumParticipantRoom, int stageRoom, boolean bookableRoom) {
+    public Room(long idRoom, String nameRoom, int numberRoom, int maximumParticipantRoom, int stageRoom) {
         this.idRoom = idRoom;
         this.nameRoom = nameRoom;
         this.numberRoom = numberRoom;
         this.maximumParticipantRoom = maximumParticipantRoom;
         this.stageRoom = stageRoom;
-        this.bookableRoom = bookableRoom;
+//        this.bookableRoom = bookableRoom;
     }
 
 
@@ -84,13 +84,13 @@ public class Room {
      * la génération auto des getter et des setter à mis is à la place de get
      * @return
      */
-    public boolean isBookableRoom() {
-        return bookableRoom;
-    }
+//    public boolean isBookableRoom() {
+//        return bookableRoom;
+//    }
 
-    public void setBookableRoom(boolean bookableRoom) {
-        this.bookableRoom = bookableRoom;
-    }
+//    public void setBookableRoom(boolean bookableRoom) {
+//        this.bookableRoom = bookableRoom;
+//    }
 
 
     /**
