@@ -4,12 +4,11 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.projet4.maru.model.Reunion;
+import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.service.FakeReunionApiService;
+import com.projet4.maru.service.FakeMeetingApiService;
 import com.projet4.maru.service.RoomApiService;
 
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,18 +50,19 @@ public class InputControl {
     /**
      * Teste si la salle choisie est disponible pour la période souhaitée
      */
-    public FakeReunionApiService mReunionApiService;
-    public boolean RoomIsFree (long idRoom, Date reunionDateStart, Date reunionDateEnd) {
-        for (Reunion i: mReunionApiService.getReunions()) {
-            if (idRoom == i.getIdReunionRoom()){
-                if (i.getDateHourReunionStart().before(reunionDateStart) && reunionDateStart.before(i.getDateHourReunionEnd())) {
-//                    return i.getDateHourReunionStart();
-//                    return i.getDateHourReunionEnd();
+    public FakeMeetingApiService mMeetingApiService;
+    public boolean RoomIsFree (long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd) {
+
+        for (Meeting i: mMeetingApiService.getMeetings()) {
+            if (idRoom == i.getIdMeetingRoom()){
+                if (i.getDateHourMeetingStart().before(mMeetingDateStart) && mMeetingDateStart.before(i.getDateHourMeetingEnd())) {
+//                    return i.getDateHourMeetingStart();
+//                    return i.getDateHourMeetingEnd();
                     return false;
                 }
-                if (i.getDateHourReunionEnd().after(reunionDateEnd) && reunionDateEnd.after(i.getDateHourReunionStart())) {
-//                    return i.getDateHourReunionStart();
-//                    return i.getDateHourReunionEnd();
+                if (i.getDateHourMeetingEnd().after(mMeetingDateEnd) && mMeetingDateEnd.after(i.getDateHourMeetingStart())) {
+//                    return i.getDateHourMeetingStart();
+//                    return i.getDateHourMeetingEnd();
                     return false;
                 }
             }
@@ -75,10 +75,10 @@ public class InputControl {
      */
     public List<Room> roomFree = new ArrayList<Room>();
     public RoomApiService mRoomApiService;
-    public List<Room> ListRoomsFree (Date reunionDateStart, Date reunionDateEnd) {
+    public List<Room> ListRoomsFree (Date mMeetingDateStart, Date mMeetingDateEnd) {
         roomFree.clear();
         for (Room j: mRoomApiService.getRooms()) {
-            if (RoomIsFree(j.getIdRoom(), reunionDateStart, reunionDateEnd) == true) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
+            if (RoomIsFree(j.getIdRoom(), mMeetingDateStart, mMeetingDateEnd) == true) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
                 roomFree.add(j);
             }
         }
@@ -105,10 +105,10 @@ public class InputControl {
      * teste si la salle n'est pas surdimensionnée, ce qui aurait pour effet de la monopoliser inutilement
      * au détriment d'une autre réunion ayant plus de participants
      */
-    public long RoomIsBetter (long idRoom, int capacitePeople, int nbPeople, Date reunionDateStart, Date reunionDateEnd) {
+    public long RoomIsBetter (long idRoom, int capacitePeople, int nbPeople, Date mMeetingDateStart, Date mMeetingDateEnd) {
         long idRoomIsbetter = 0;
         int nbMinimumPeople = 99;
-        ListRoomsFree(reunionDateStart, reunionDateEnd);
+        ListRoomsFree(mMeetingDateStart, mMeetingDateEnd);
         for (Room l: roomFree){
             if (l.getMaximumParticipantRoom() >= nbPeople) {
                 if (l.getMaximumParticipantRoom() < nbMinimumPeople) {
@@ -129,9 +129,9 @@ public class InputControl {
      * suppression des réunions obsoletes (à exécuter une fois à chaque lancement de l'application
      */
     public void DeleteObsoleteMeetings () {
-        for (Reunion m: mReunionApiService.getReunions()) {
-            if (m.getDateHourReunionEnd().before(dateJ)) {
-                mReunionApiService.deleteReunion(m);
+        for (Meeting m: mMeetingApiService.getMeetings()) {
+            if (m.getDateHourMeetingEnd().before(dateJ)) {
+                mMeetingApiService.deleteMeeting(m);
             }
         }
     }

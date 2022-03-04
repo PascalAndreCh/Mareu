@@ -1,17 +1,17 @@
 package com.projet4.maru.di;
 
-import com.projet4.maru.service.FakeDummyReunionApiService;
-import com.projet4.maru.service.FakeReunionApiService;
+import com.projet4.maru.service.FakeDummyMeetingApiService;
+import com.projet4.maru.service.FakeMeetingApiService;
 
 public class DI {
 
 
-    public static FakeReunionApiService service = new FakeDummyReunionApiService();
+    public static FakeMeetingApiService service = new FakeDummyMeetingApiService();
 
-    public static FakeReunionApiService getFakeReunionApiService() { return service; }
+    public static FakeMeetingApiService getFakeMeetingApiService() { return service; }
 
-    public static FakeReunionApiService getNewInstanceApiService() {
-        return new FakeDummyReunionApiService();
+    public static FakeMeetingApiService getNewInstanceApiService() {
+        return new FakeDummyMeetingApiService();
     }
 
 }
