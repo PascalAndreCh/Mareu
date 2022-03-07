@@ -40,11 +40,7 @@ public class InputControl {
      * @return
      */
     public boolean EndDateSuperiorToStartDate (Date startDate, Date endDate) {
-        if (startDate.before(endDate)) {
-            return true;
-        }    else {
-            return false;
-        }
+        return startDate.before(endDate);
     }
 
     /**

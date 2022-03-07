@@ -36,10 +36,10 @@ public class Meeting {
 
     private long idPeopleMeeting10;
 
-    public Meeting(long idMeeting, long idMeetingRoom, Date dateHourMeetingStar, Date dateHourMeetingEnd, String titleMeeting, String descriptionMeeting, long idPeopleMeeting01, long idPeopleMeeting02, long idPeopleMeeting03, long idPeopleMeeting04, long idPeopleMeeting05, long idPeopleMeeting06, long idPeopleMeeting07, long idPeopleMeeting08, long idPeopleMeeting09, long idPeopleMeeting10) {
+    public Meeting(long idMeeting, long idMeetingRoom, Date dateHourMeetingStart, Date dateHourMeetingEnd, String titleMeeting, String descriptionMeeting, long idPeopleMeeting01, long idPeopleMeeting02, long idPeopleMeeting03, long idPeopleMeeting04, long idPeopleMeeting05, long idPeopleMeeting06, long idPeopleMeeting07, long idPeopleMeeting08, long idPeopleMeeting09, long idPeopleMeeting10) {
         this.idMeeting = idMeeting;
         this.idMeetingRoom = idMeetingRoom;
-        this.dateHourMeetingStart = dateHourMeetingStar;
+        this.dateHourMeetingStart = dateHourMeetingStart;
         this.dateHourMeetingEnd = dateHourMeetingEnd;
         this.titleMeeting = titleMeeting;
         this.descriptionMeeting = descriptionMeeting;

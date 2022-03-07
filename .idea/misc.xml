@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/drawable/circle.xml" value="0.36875" />
+        <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/drawable/ic_delete_white_24dp.xml" value="0.3151041666666667" />
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/activity_add_reunion.xml" value="0.36666666666666664" />
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/activity_detail_reunion.xml" value="0.36666666666666664" />
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/activity_list_reunion.xml" value="0.3484375" />
@@ -10,6 +12,7 @@
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/fragment_list_reunion.xml" value="0.36666666666666664" />
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/fragment_reunion.xml" value="0.36666666666666664" />
         <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/fragment_reunion_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projet-P4/P4/Mareu/app/src/main/res/layout/test_construction.xml" value="0.35260416666666666" />
       </map>
     </option>
   </component>

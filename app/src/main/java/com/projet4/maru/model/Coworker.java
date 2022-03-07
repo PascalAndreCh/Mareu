@@ -2,7 +2,7 @@ package com.projet4.maru.model;
 
 public class Coworker {
 
-    private long idCoworker;
+    private long id;
 
     private String nameCoworker;
 
@@ -12,20 +12,20 @@ public class Coworker {
 
     private String mailAddressCoworker;
 
-    public Coworker(long idCoworker, String nameCoworker, String departmentCoworker, String functionCoworker, String mailAddressCoworker) {
-        this.idCoworker = idCoworker;
+    public Coworker(long id, String nameCoworker, String departmentCoworker, String functionCoworker, String mailAddressCoworker) {
+        this.id = id;
         this.nameCoworker = nameCoworker;
         this.departmentCoworker = departmentCoworker;
         this.functionCoworker = functionCoworker;
         this.mailAddressCoworker = mailAddressCoworker;
     }
 
-    public long getIdCoworker() {
-        return idCoworker;
+    public long getId() {
+        return id;
     }
 
-    public void setIdCoworker(long idCoworker) {
-        this.idCoworker = idCoworker;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNameCoworker() {

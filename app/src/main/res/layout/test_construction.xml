@@ -3,19 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
->
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
 
     <ImageView
         android:id="@+id/picture"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
+        android:layout_margin="16dp"
         android:src="@drawable/circle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/item_list_delete_button"
@@ -25,23 +23,41 @@
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_delete_white_24dp" />
 
     <TextView
         android:id="@+id/meetingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:layout_marginStart="8dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/picture"
         app:layout_constraintTop_toTopOf="@id/picture"
-        app:layout_constraintEnd_toStartOf="@id/item_list_delete_button"
-        tools:text="Avancement appli pizza - 14/03/22 - Bermudes" />
+        tools:text="Avancement appli pizza" />
 
+    <TextView
+        android:id="@+id/dateStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        app:layout_constraintStart_toEndOf="@id/meetingTitle"
+        app:layout_constraintTop_toBottomTop="@id/meetingTitle"
+        tools:layout_editor_absoluteY="16dp"
+        tools:text="14/08/2021" />
+
+    <TextView
+        android:id="@+id/roomName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Bermudes" />
 
     <TextView
         android:id="@+id/mails"
