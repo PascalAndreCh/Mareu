@@ -1,4 +1,4 @@
-package com.projet4.maru.ui.reunion_list;
+package com.projet4.maru.ui.meeting;
 
 public class MyMeetingRecyclerViewAdapter {
 }

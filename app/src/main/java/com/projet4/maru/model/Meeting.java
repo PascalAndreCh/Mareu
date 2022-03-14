@@ -1,186 +1,101 @@
 package com.projet4.maru.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Meeting {
 
-    private long idMeeting;
+    private long id;
 
-    private long idMeetingRoom;
+    private long idRoom;
 
-    private Date dateHourMeetingStart;
+    private Date timeStart;
 
-    private Date dateHourMeetingEnd;
+    private Date timeEnd;
 
-    private String titleMeeting;
+    private long duration;
 
-    private String descriptionMeeting;
+    private String title;
 
-    private long idPeopleMeeting01;
+    private String description;
 
-    private long idPeopleMeeting02;
+    private List<Participant> participants;
 
-    private long idPeopleMeeting03;
+    public Meeting(long id, long idRoom, Date timeStart, Date timeEnd, long duration, String title, String description, List<Participant> participants) {
+        this.id = id;
+        this.idRoom = idRoom;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.title = title;
+        this.duration = duration;
+        this.description = description;
+        this.participants = participants;
 
-    private long idPeopleMeeting04;
-
-    private long idPeopleMeeting05;
-
-    private long idPeopleMeeting06;
-
-    private long idPeopleMeeting07;
-
-    private long idPeopleMeeting08;
-
-    private long idPeopleMeeting09;
-
-    private long idPeopleMeeting10;
-
-    public Meeting(long idMeeting, long idMeetingRoom, Date dateHourMeetingStart, Date dateHourMeetingEnd, String titleMeeting, String descriptionMeeting, long idPeopleMeeting01, long idPeopleMeeting02, long idPeopleMeeting03, long idPeopleMeeting04, long idPeopleMeeting05, long idPeopleMeeting06, long idPeopleMeeting07, long idPeopleMeeting08, long idPeopleMeeting09, long idPeopleMeeting10) {
-        this.idMeeting = idMeeting;
-        this.idMeetingRoom = idMeetingRoom;
-        this.dateHourMeetingStart = dateHourMeetingStart;
-        this.dateHourMeetingEnd = dateHourMeetingEnd;
-        this.titleMeeting = titleMeeting;
-        this.descriptionMeeting = descriptionMeeting;
-        this.idPeopleMeeting01 = idPeopleMeeting01;
-        this.idPeopleMeeting02 = idPeopleMeeting02;
-        this.idPeopleMeeting03 = idPeopleMeeting03;
-        this.idPeopleMeeting04 = idPeopleMeeting04;
-        this.idPeopleMeeting05 = idPeopleMeeting05;
-        this.idPeopleMeeting06 = idPeopleMeeting06;
-        this.idPeopleMeeting07 = idPeopleMeeting07;
-        this.idPeopleMeeting08 = idPeopleMeeting08;
-        this.idPeopleMeeting09 = idPeopleMeeting09;
-        this.idPeopleMeeting10 = idPeopleMeeting10;
     }
 
-    public long getIdMeeting() {
-        return idMeeting;
+    public long getId() {
+        return id;
     }
 
-    public void setIdMeeting(long idMeeting) {
-        this.idMeeting = idMeeting;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getIdMeetingRoom() {
-        return idMeetingRoom;
+    public long getIdRoom() {
+        return idRoom;
     }
 
-    public void setIdMeetingRoom(long idMeetingRoom) {
-        this.idMeetingRoom = idMeetingRoom;
+    public void setIdRoom(long idRoom) {
+        this.idRoom = idRoom;
     }
 
-    public Date getDateHourMeetingStart() {
-        return dateHourMeetingStart;
+    public Date getTimeStart() {
+        return timeStart;
     }
 
-    public void setDateHourMeetingStart(Date dateHourMeetingStart) {
-        this.dateHourMeetingStart = dateHourMeetingStart;
+    public void setTimeStart(Date timeStart) {
+        this.timeStart = timeStart;
     }
 
-    public Date getDateHourMeetingEnd() {
-        return dateHourMeetingEnd;
+    public Date getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setDateHourMeetingEnd(Date dateHourMeetingEnd) {
-        this.dateHourMeetingEnd = dateHourMeetingEnd;
+    public void setTimeEnd(Date timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
-     public String getTitleMeeting() {
-        return titleMeeting;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setTitleMeeting(String titleMeeting) {
-        this.titleMeeting = titleMeeting;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
-    public String getDescriptionMeeting() {
-        return descriptionMeeting;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescriptionMeeting(String descriptionMeeting) {
-        this.descriptionMeeting = descriptionMeeting;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public long getIdPeopleMeeting01() {
-        return idPeopleMeeting01;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIdPeopleMeeting01(long idPeopleMeeting01) {
-        this.idPeopleMeeting01 = idPeopleMeeting01;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public long getIdPeopleMeeting02() {
-        return idPeopleMeeting02;
+    public List getParticipants() {
+        return participants;
     }
 
-    public void setIdPeopleMeeting02(long idPeopleMeeting02) {
-        this.idPeopleMeeting02 = idPeopleMeeting02;
-    }
-
-    public long getIdPeopleMeeting03() {
-        return idPeopleMeeting03;
-    }
-
-    public void setIdPeopleMeeting03(long idPeopleMeeting03) {
-        this.idPeopleMeeting03 = idPeopleMeeting03;
-    }
-
-    public long getIdPeopleMeeting04() {
-        return idPeopleMeeting04;
-    }
-
-    public void setIdPeopleMeeting04(long idPeopleMeeting04) {
-        this.idPeopleMeeting04 = idPeopleMeeting04;
-    }
-
-    public long getIdPeopleMeeting05() {
-        return idPeopleMeeting05;
-    }
-
-    public void setIdPeopleMeeting05(long idPeopleMeeting05) {
-        this.idPeopleMeeting05 = idPeopleMeeting05;
-    }
-
-    public long getIdPeopleMeeting06() {
-        return idPeopleMeeting06;
-    }
-
-    public void setIdPeopleMeeting06(long idPeopleMeeting06) {
-        this.idPeopleMeeting06 = idPeopleMeeting06;
-    }
-
-    public long getIdPeopleMeeting07() {
-        return idPeopleMeeting07;
-    }
-
-    public void setIdPeopleMeeting07(long idPeopleMeeting07) {
-        this.idPeopleMeeting07 = idPeopleMeeting07;
-    }
-
-    public long getIdPeopleMeeting08() {
-        return idPeopleMeeting08;
-    }
-
-    public void setIdPeopleMeeting08(long idPeopleMeeting08) {
-        this.idPeopleMeeting08 = idPeopleMeeting08;
-    }
-
-    public long getIdPeopleMeeting09() {
-        return idPeopleMeeting09;
-    }
-
-    public void setIdPeopleMeeting09(long idPeopleMeeting09) {
-        this.idPeopleMeeting09 = idPeopleMeeting09;
-    }
-
-    public long getIdPeopleMeeting10() {
-        return idPeopleMeeting10;
-    }
-
-    public void setIdPeopleMeeting10(long idPeopleMeeting10) {
-        this.idPeopleMeeting10 = idPeopleMeeting10;
+    public void setParticipants(List participants) {
+        this.participants = participants;
     }
 }
 

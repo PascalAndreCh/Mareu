@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.meeting.AddMeetingActivity">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textMeetingtitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Titre de la Réunion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="31dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textMeetingComment"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="394dp"
+        android:layout_height="79dp"
+        android:layout_margin="8dp"
+        android:hint="Commentaires"
+        android:lines="4"
+        android:maxLines="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMeetingtitle"
+        tools:texte="réunion de suivi des avancesments de l'application pizza">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLines="4" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textMails"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="396dp"
+        android:layout_height="33dp"
+        android:layout_margin="8dp"
+        android:hint="Mails invités"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMeetingComment">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="189dp"
+        android:layout_height="379dp"
+        android:calendarViewShown="true"
+        android:spinnersShown="false"
+        app:layout_constraintTop_toEndOf="@+id/textMails"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="194dp"
+        android:layout_height="378dp"
+        tools:layout_editor_absoluteX="210dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="date_picker" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

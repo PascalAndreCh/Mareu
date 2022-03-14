@@ -1,4 +1,4 @@
-package com.projet4.maru.events;
+package com.projet4.maru.utils;
 
 import android.os.Build;
 
@@ -25,7 +25,7 @@ public class InputControl {
      * @param inputDate
      * @return
      */
-    public boolean InputDateSuperiorToThisDay (Date inputDate) {
+    public boolean inputDateSuperiorToThisDay(Date inputDate) {
         if (dateJ.before(inputDate)) {
                 return true;
         } else {
@@ -39,7 +39,7 @@ public class InputControl {
      * @param endDate
      * @return
      */
-    public boolean EndDateSuperiorToStartDate (Date startDate, Date endDate) {
+    public boolean endDateSuperiorToStartDate(Date startDate, Date endDate) {
         return startDate.before(endDate);
     }
 
@@ -47,16 +47,16 @@ public class InputControl {
      * Teste si la salle choisie est disponible pour la période souhaitée
      */
     public FakeMeetingApiService mMeetingApiService;
-    public boolean RoomIsFree (long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd) {
+    public boolean roomIsFree(long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd) {
 
         for (Meeting i: mMeetingApiService.getMeetings()) {
-            if (idRoom == i.getIdMeetingRoom()){
-                if (i.getDateHourMeetingStart().before(mMeetingDateStart) && mMeetingDateStart.before(i.getDateHourMeetingEnd())) {
+            if (idRoom == i.getIdRoom()){
+                if (i.getTimeStart().before(mMeetingDateStart) && mMeetingDateStart.before(i.getTimeEnd())) {
 //                    return i.getDateHourMeetingStart();
 //                    return i.getDateHourMeetingEnd();
                     return false;
                 }
-                if (i.getDateHourMeetingEnd().after(mMeetingDateEnd) && mMeetingDateEnd.after(i.getDateHourMeetingStart())) {
+                if (i.getTimeEnd().after(mMeetingDateEnd) && mMeetingDateEnd.after(i.getTimeStart())) {
 //                    return i.getDateHourMeetingStart();
 //                    return i.getDateHourMeetingEnd();
                     return false;
@@ -71,10 +71,10 @@ public class InputControl {
      */
     public List<Room> roomFree = new ArrayList<Room>();
     public RoomApiService mRoomApiService;
-    public List<Room> ListRoomsFree (Date mMeetingDateStart, Date mMeetingDateEnd) {
+    public List<Room> listRoomsFree(Date mMeetingDateStart, Date mMeetingDateEnd) {
         roomFree.clear();
         for (Room j: mRoomApiService.getRooms()) {
-            if (RoomIsFree(j.getIdRoom(), mMeetingDateStart, mMeetingDateEnd) == true) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
+            if (roomIsFree(j.getIdRoom(), mMeetingDateStart, mMeetingDateEnd) == true) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
                 roomFree.add(j);
             }
         }
@@ -84,7 +84,7 @@ public class InputControl {
     /**
      * Teste si la salle n'est pas trop petite
      */
-    public boolean RoomToSmall (long idRoom, int nbPeople) {
+    public boolean roomToSmall(long idRoom, int nbPeople) {
       for (Room k: mRoomApiService.getRooms())  {
           if (k.getIdRoom() == idRoom) {
               if (k.getMaximumParticipantRoom() >= nbPeople) {   // si la salle est suffisemment grande, on renvoie true, sinon on renvoi false
@@ -101,10 +101,10 @@ public class InputControl {
      * teste si la salle n'est pas surdimensionnée, ce qui aurait pour effet de la monopoliser inutilement
      * au détriment d'une autre réunion ayant plus de participants
      */
-    public long RoomIsBetter (long idRoom, int capacitePeople, int nbPeople, Date mMeetingDateStart, Date mMeetingDateEnd) {
+    public long roomIsBetter(long idRoom, int capacitePeople, int nbPeople, Date mMeetingDateStart, Date mMeetingDateEnd) {
         long idRoomIsbetter = 0;
         int nbMinimumPeople = 99;
-        ListRoomsFree(mMeetingDateStart, mMeetingDateEnd);
+        listRoomsFree(mMeetingDateStart, mMeetingDateEnd);
         for (Room l: roomFree){
             if (l.getMaximumParticipantRoom() >= nbPeople) {
                 if (l.getMaximumParticipantRoom() < nbMinimumPeople) {
@@ -124,9 +124,9 @@ public class InputControl {
     /**
      * suppression des réunions obsoletes (à exécuter une fois à chaque lancement de l'application
      */
-    public void DeleteObsoleteMeetings () {
+    public void deleteObsoleteMeetings() {
         for (Meeting m: mMeetingApiService.getMeetings()) {
-            if (m.getDateHourMeetingEnd().before(dateJ)) {
+            if (m.getTimeEnd().before(dateJ)) {
                 mMeetingApiService.deleteMeeting(m);
             }
         }
@@ -136,7 +136,7 @@ public class InputControl {
      * Sélectionne toutes les salles ayant la capacité d'accueillir la réunion
      */
     public List<Room> roomBigEnough = new ArrayList<Room>();
-    public List<Room> BigEnoughRooms (int nbPeople) {
+    public List<Room> bigEnoughRooms(int nbPeople) {
         roomBigEnough.clear();
         for (Room n: mRoomApiService.getRooms()) {
             if (n.getMaximumParticipantRoom() >= nbPeople) {
