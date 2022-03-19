@@ -4,10 +4,9 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.service.FakeMeetingApiService;
-import com.projet4.maru.service.RoomApiService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,10 +45,10 @@ public class InputControl {
     /**
      * Teste si la salle choisie est disponible pour la période souhaitée
      */
-    public FakeMeetingApiService mMeetingApiService;
+    public List<Meeting> mMeeting; // sera à supprimer, le liste sera rempli ailleur, ici pour cohérence du code qui suit
     public boolean roomIsFree(long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd) {
 
-        for (Meeting i: mMeetingApiService.getMeetings()) {
+        for (Meeting i: mMeeting) {
             if (idRoom == i.getIdRoom()){
                 if (i.getTimeStart().before(mMeetingDateStart) && mMeetingDateStart.before(i.getTimeEnd())) {
 //                    return i.getDateHourMeetingStart();
@@ -70,10 +69,11 @@ public class InputControl {
      * Etabli la liste des salles libres pour la période souhaitée
      */
     public List<Room> roomFree = new ArrayList<Room>();
-    public RoomApiService mRoomApiService;
+    private List<Room> mRoomApiService = new ArrayList<Room>();
+    //    private List<Room> mRoomApiService = DI.getStartListApiService(); Comment récupérer la liste des Rooms ?????????
     public List<Room> listRoomsFree(Date mMeetingDateStart, Date mMeetingDateEnd) {
         roomFree.clear();
-        for (Room j: mRoomApiService.getRooms()) {
+        for (Room j: mRoomApiService) {
             if (roomIsFree(j.getIdRoom(), mMeetingDateStart, mMeetingDateEnd) == true) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
                 roomFree.add(j);
             }
@@ -85,7 +85,7 @@ public class InputControl {
      * Teste si la salle n'est pas trop petite
      */
     public boolean roomToSmall(long idRoom, int nbPeople) {
-      for (Room k: mRoomApiService.getRooms())  {
+      for (Room k: mRoomApiService)  {
           if (k.getIdRoom() == idRoom) {
               if (k.getMaximumParticipantRoom() >= nbPeople) {   // si la salle est suffisemment grande, on renvoie true, sinon on renvoi false
                   return true;
@@ -125,9 +125,10 @@ public class InputControl {
      * suppression des réunions obsoletes (à exécuter une fois à chaque lancement de l'application
      */
     public void deleteObsoleteMeetings() {
-        for (Meeting m: mMeetingApiService.getMeetings()) {
+        for (Meeting m: mMeeting) {
             if (m.getTimeEnd().before(dateJ)) {
-                mMeetingApiService.deleteMeeting(m);
+//                mMeeting.deleteMeeting(m);
+                mMeeting.remove(m);
             }
         }
     }
@@ -138,7 +139,7 @@ public class InputControl {
     public List<Room> roomBigEnough = new ArrayList<Room>();
     public List<Room> bigEnoughRooms(int nbPeople) {
         roomBigEnough.clear();
-        for (Room n: mRoomApiService.getRooms()) {
+        for (Room n: mRoomApiService) {
             if (n.getMaximumParticipantRoom() >= nbPeople) {
                 roomBigEnough.add(n);
             }

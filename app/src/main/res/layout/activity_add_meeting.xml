@@ -68,27 +68,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <DatePicker
-        android:id="@+id/date_picker"
-        android:layout_width="189dp"
-        android:layout_height="379dp"
-        android:calendarViewShown="true"
-        android:spinnersShown="false"
-        app:layout_constraintTop_toEndOf="@+id/textMails"
-        tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="176dp" />
-
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_width="194dp"
-        android:layout_height="378dp"
-        tools:layout_editor_absoluteX="210dp"
-        tools:layout_editor_absoluteY="176dp" />
-
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="date_picker" />
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
