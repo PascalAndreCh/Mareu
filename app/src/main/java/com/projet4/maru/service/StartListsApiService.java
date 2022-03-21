@@ -14,12 +14,16 @@ public interface StartListsApiService {
     List<Room> getRooms();
     List<Vip> getVips();
     List<Meeting> getMeetings();
-//    List<Participant> getParticiapnts();
+    List<Participant> getParticipants();
 
 
     void createMeeting (Meeting meeting);
 
     void deleteMeeting (Meeting meeting);
+
+    void createParticipant(Participant participants);
+
+    void deleteParticipant(Participant participants);
 
 //    void createParticipant (Participant participant);
 

@@ -19,6 +19,7 @@ public class DummyStartListsGenerator {
     private static List<Participant> dummyParticipant1;
     public static List<Participant> dummyParticipant2;
     public static List<Meeting> DUMMY_MEETINGS;
+    public static List<Participant> participants;
 
     static {
         DUMMY_COWORKERS = Arrays.asList(
@@ -89,9 +90,11 @@ public class DummyStartListsGenerator {
 
     static List<Meeting> generateMeetings() {return new ArrayList<>(DUMMY_MEETINGS); }
 
-    static List<Participant> generateParticipants1() {return new ArrayList<>(dummyParticipant1); }
+    static List<Participant> generateParticipant1() {return new ArrayList<>(dummyParticipant1); }
 
-    static List<Participant> generateParticipants2() {return new ArrayList<>(dummyParticipant2); }
+    static List<Participant> generateParticipant2() {return new ArrayList<>(dummyParticipant2); }
+
+    static List<Participant> generateParticipant() { return new ArrayList<>(Participant); }
 
     /**
      * Les dates rentrées sont le 11/04/2022 de 10h30 à 11h30
