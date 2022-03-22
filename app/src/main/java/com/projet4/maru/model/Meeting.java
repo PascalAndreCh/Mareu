@@ -22,6 +22,17 @@ public class Meeting {
 
     private List<Participant> participants;
 
+    /**
+     *
+     * @param id
+     * @param idRoom
+     * @param timeStart
+     * @param timeEnd
+     * @param duration
+     * @param title
+     * @param description
+     * @param participants
+     */
     public Meeting(long id, long idRoom, Date timeStart, Date timeEnd, long duration, String title, String description, List<Participant> participants) {
         this.id = id;
         this.idRoom = idRoom;

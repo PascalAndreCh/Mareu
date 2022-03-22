@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class DummyStartListsGenerator {
+public class DummyMaReuGenerator {
 
     public static List<Coworker> DUMMY_COWORKERS;
     public static List<Room> DUMMY_ROOMS;
     public static List<Vip> DUMMY_VIPS;
     private static List<Participant> dummyParticipant1;
-    public static List<Participant> dummyParticipant2;
+    private static List<Participant> dummyParticipant2;
     public static List<Meeting> DUMMY_MEETINGS;
     public static List<Participant> participants;
 
@@ -90,11 +90,7 @@ public class DummyStartListsGenerator {
 
     static List<Meeting> generateMeetings() {return new ArrayList<>(DUMMY_MEETINGS); }
 
-    static List<Participant> generateParticipant1() {return new ArrayList<>(dummyParticipant1); }
-
-    static List<Participant> generateParticipant2() {return new ArrayList<>(dummyParticipant2); }
-
-    static List<Participant> generateParticipant() { return new ArrayList<>(Participant); }
+    static List<Participant> generateParticipant() { return new ArrayList<>(participants); }
 
     /**
      * Les dates rentrées sont le 11/04/2022 de 10h30 à 11h30

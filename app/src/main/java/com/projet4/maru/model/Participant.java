@@ -12,6 +12,14 @@ public class Participant {
 
     private String mailAddresses;
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param attachment
+     * @param function
+     * @param mailAddresses
+     */
     public Participant(long id, String name, String attachment, String function, String mailAddresses) {
         this.id = id;
         this.name = name;
