@@ -76,8 +76,8 @@ public class DummyMaReuGenerator {
                 new Participant(11, "Jacques COURT", "Development", "Developer_mobile", "jacques.court@pme.fr")
         );
         DUMMY_MEETINGS = Arrays.asList(
-                new Meeting(1001, 2, new Date(1649665800000L), new Date(1649669400000L), 60, "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", dummyParticipant1 ),
-                new Meeting(1003, 7, new Date(1649937600000L), new Date(1649940300000L), 45, "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", dummyParticipant2)
+                new Meeting(1001, 2, new Date(1649665800000L), new Date(1649669400000L), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", dummyParticipant1 ),
+                new Meeting(1003, 7, new Date(1649937600000L), new Date(1649940300000L), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", dummyParticipant2)
         );
 
     }

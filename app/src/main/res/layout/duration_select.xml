@@ -6,11 +6,11 @@
     android:padding="8dp"
     android:layout_height="match_parent">
 
-         <TimePicker
-            android:id="@+id/time_picker"
-            android:layout_width="388dp"
-            android:layout_height="136dp"
-            android:layout_weight="6" />
+         <Spinner
+            android:id="@+id/duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"  />
 
     <Button
         android:id="@+id/date_time_set"

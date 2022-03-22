@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="duration">
+        <item>0h15 15mn</item>
+        <item>0h30 30mn</item>
+        <item>0h45 45mn</item>
+        <item>1h00 60mn</item>
+        <item>1h15 75mn</item>
+        <item>1h30 90mn</item>
+        <item>1h45 105mn</item>
+        <item>2h00 120mn</item>
+        <item>2h15 135mn</item>
+        <item>2h30 150mn</item>
+        <item>2h45 165mn</item>
+        <item>3h00 180mn</item>
+        <item>3h15 195mn</item>
+        <item>3h30 210mn</item>
+        <item>3h45 225mn</item>
+        <item>4h00 240mn</item>
+    </string-array>
+</resources>

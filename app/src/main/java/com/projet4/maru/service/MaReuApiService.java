@@ -30,19 +30,88 @@ public interface MaReuApiService {
 
     /**
      *
+     * @param date
+     * @return
+     */
+    List<Meeting> getMeetingsByDate(Date date);
+
+    /**
+     *
+     * @param date
+     * @return
+     */
+    List<Room> getRoomsByDates (Date date);
+
+    /**
+     *
+     * @param idRoom
+     * @param mMeetingDateStart
+     * @param mMeetingDateEnd
+     * @return
+     */
+    boolean roomIsFree(long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd);
+
+    /**
+     *
+     * @param mMeetingDateStart
+     * @param mMeetingDateEnd
+     * @return
+     */
+    List<Room> listRoomsFree(Date mMeetingDateStart, Date mMeetingDateEnd);
+
+    /**
+     *
+     * @param idRoom
+     * @param capacityPeople
+     * @param nbPeople
+     * @param mMeetingDateStart
+     * @param mMeetingDateEnd
+     * @return
+     */
+    long roomIsBetter(long idRoom, int capacityPeople, int nbPeople, Date mMeetingDateStart, Date mMeetingDateEnd);
+
+    /**
+     *
+     * @param idRoom
+     * @param nbPeople
+     * @return
+     */
+    boolean roomToSmall(long idRoom, int nbPeople);
+
+    /**
+     *
+     */
+    void deleteObsoleteMeetings();
+
+    /**
+     *
+     * @param nbPeople
+     * @return
+     */
+    List<Room> bigEnoughRooms(int nbPeople);
+
+    /**
+     *
+     * @param inputDate
+     * @return
+     */
+    boolean inputDateSuperiorToThisDay(Date inputDate);
+
+    /**
+     *
      * @param startDate
      * @param endDate
      * @return
      */
-    List<Meeting> getMeetingsByDate(Date startDate, Date endDate);
+    boolean endDateSuperiorToStartDate(Date startDate, Date endDate);
 
     /**
      *
-     * @param starDate
-     * @param endDate
+     * @param startDate
+     * @param duration
      * @return
      */
-    List<Room> getRoomsByDates (Date starDate, Date endDate);
+    Date endDateMeeting(Date startDate, int duration);
 
 
 }

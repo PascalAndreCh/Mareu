@@ -6,13 +6,15 @@
     android:padding="8dp"
     android:layout_height="match_parent">
 
-         <TimePicker
-            android:id="@+id/time_picker"
-            android:layout_width="388dp"
-            android:layout_height="136dp"
-            android:layout_weight="6" />
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="388dp"
+        android:layout_height="48dp"
+        android:layout_weight="6"
+        android:calendarViewShown="true"
+        android:spinnersShown="false" />
 
-    <Button
+     <Button
         android:id="@+id/date_time_set"
         android:layout_weight="1"
         android:layout_width="match_parent"

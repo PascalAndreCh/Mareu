@@ -14,8 +14,6 @@ public class Meeting {
 
     private Date timeEnd;
 
-    private long duration;
-
     private String title;
 
     private String description;
@@ -28,18 +26,16 @@ public class Meeting {
      * @param idRoom
      * @param timeStart
      * @param timeEnd
-     * @param duration
      * @param title
      * @param description
      * @param participants
      */
-    public Meeting(long id, long idRoom, Date timeStart, Date timeEnd, long duration, String title, String description, List<Participant> participants) {
+    public Meeting(long id, long idRoom, Date timeStart, Date timeEnd, String title, String description, List<Participant> participants) {
         this.id = id;
         this.idRoom = idRoom;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.title = title;
-        this.duration = duration;
         this.description = description;
         this.participants = participants;
 
@@ -75,14 +71,6 @@ public class Meeting {
 
     public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
     }
 
     public String getTitle() {
