@@ -23,26 +23,26 @@ public class DummyMaReuGenerator {
 
     static {
         DUMMY_COWORKERS = Arrays.asList(
-                new Coworker(1, "Mathieu DUPONT", "Development", "Developer_front_end", "mathieu.dupont@pme.fr"),
-                new Coworker(2, "Henri DUPOND", "Development", "Developer_back_end", "henri.dupond@pme.fr"),
-                new Coworker(3, "Marie POPPY", "Development", "Developer_mobile", "marie.poppy@pme.fr"),
-                new Coworker(4, "Sophie DAPRES", "Development", "Developer_full_stack", "sophie.dapres@pme.fr"),
-                new Coworker(5, "Annie VERSAIRE", "Development", "Developer_mobile_android", "annie.versaire@pme.fr"),
-                new Coworker(6, "Paul NORD", "Development", "Developer_designer", "paul.nord@pme.fr"),
-                new Coworker(7, "Jean NEMARD", "Development", "Developer_mobile_IOS", "mathieu.dupont@pme.fr"),
-                new Coworker(8, "Pierre KIROULE", "Development", "Developer_front_end", "pierre.kiroule@pme.fr"),
-                new Coworker(9, "Estelle NONCPASL", "Development", "Developer_Chef_de_projet", "estelle.noncpasl@pme.fr"),
-                new Coworker(10, "Chloé MARTIN", "Development", "Developer_designer", "chloe.martin@pme.fr"),
-                new Coworker(11, "Jacques COURT", "Development", "Developer_mobile", "jacques.court@pme.fr"),
-                new Coworker(12, "Henry CREOLE", "Development", "Developer_full_stack", "henry.creole@pme.fr"),
-                new Coworker(13, "Bernard ROSIER", "Trade", "Manager", "bernard.rosier@pme.fr"),
-                new Coworker(14, "Emilie JOLIE", "Trade", "Seller", "emile.jolie@pme.fr"),
-                new Coworker(15, "Joseph ESPERE", "Trade", "Seller", "joseph.espere@pme.fr"),
-                new Coworker(16, "Michel LEGRAND", "Direction", "Pdg", "michel.legrand@pme.fr"),
-                new Coworker(17, "Yollande PETIT", "Direction", "Secretaire", "yollande.petit@pme.fr"),
-                new Coworker(18, "Serge PROPRE", "Maintenace", "Technicien_Polyvalent", "mathieu.dupont@pme.fr"),
-                new Coworker(19, "Nadine PELLA", "Human_Ressources", "DRH", "nadine.pella@pme.fr"),
-                new Coworker(20, "Mathieu DUPONT", "Development", "Developer_front_end", "mathieu.dupont@pme.fr")
+                new Coworker(1, "Mathieu DUPONT","mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+                new Coworker(2, "Henri DUPOND", "henri.dupond@pme.fr", "Development", "Developer_back_end"),
+                new Coworker(3, "Marie POPPY", "marie.poppy@pme.fr", "Development", "Developer_mobile"),
+                new Coworker(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
+                new Coworker(5, "Annie VERSAIRE", "annie.versaire@pme.fr", "Development", "Developer_mobile_android"),
+                new Coworker(6, "Paul NORD", "paul.nord@pme.fr", "Development", "Developer_designer"),
+                new Coworker(7, "Jean NEMARD", "mathieu.dupont@pme.fr", "Development", "Developer_mobile_IOS"),
+                new Coworker(8, "Pierre KIROULE", "pierre.kiroule@pme.fr", "Development", "Developer_front_end"),
+                new Coworker(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr", "Development", "Developer_Chef_de_projet"),
+                new Coworker(10, "Chloé MARTIN", "chloe.martin@pme.fr", "Development", "Developer_designer"),
+                new Coworker(11, "Jacques COURT", "jacques.court@pme.fr", "Development", "Developer_mobile"),
+                new Coworker(12, "Henry CREOLE", "henry.creole@pme.fr", "Development", "Developer_full_stack"),
+                new Coworker(13, "André PICK", "andre.pick@pme.fr", "Development", "Developer_mobile"),
+                new Coworker(14, "Bernard ROSIER", "bernard.rosier@pme.fr", "Trade", "Manager"),
+                new Coworker(15, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
+                new Coworker(16, "Joseph ESPERE", "joseph.espere@pme.fr", "Trade", "Seller"),
+                new Coworker(17, "Michel LEGRAND", "michel.legrand@pme.fr", "Direction", "Pdg"),
+                new Coworker(18, "Yollande PETIT", "yollande.petit@pme.fr", "Direction", "Secretaire"),
+                new Coworker(19, "Serge PROPRE", "mathieu.dupont@pme.fr", "Maintenace", "Technicien_Polyvalent"),
+                new Coworker(20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH")
         );
         DUMMY_ROOMS = Arrays.asList(
                 new Room(1, "Martinique", 104 , 6, 1),
@@ -57,23 +57,23 @@ public class DummyMaReuGenerator {
                 new Room(10, "Bermudes", 307 , 10, 3)
         );
         DUMMY_VIPS = Arrays.asList(
-                new Vip(901, "John ROUGE", "SA BLANCHE", "Directeur", "john.rouge@pme.fr"),
-                new Vip(902, "Jules FERRY", "SA BLANCHE", "Commercial", "jules.ferry@pme.fr"),
-                new Vip(903, "Anatole FRANCE", "SARL DUPONTIN", "Commercial", "anatole.france@pme.fr"),
-                new Vip(904, "Monique KIFFER", "SARL DUPONTIN", "Directeur", "monique.kiffer@pme.fr"),
-                new Vip(905, "Beatrice LE FORT", "SARL DUPONTIN", "Gection Financière", "beatrice.lefort@pme.fr")
+                new Vip(901, "John ROUGE", "john.rouge@pme.fr", "SA BLANCHE", "Directeur"),
+                new Vip(902, "Jules FERRY", "jules.ferry@pme.fr", "SA BLANCHE", "Commercial"),
+                new Vip(903, "Anatole FRANCE", "anatole.france@pme.fr", "SARL DUPONTIN", "Commercial"),
+                new Vip(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur"),
+                new Vip(905, "Beatrice LE FORT", "beatrice.lefort@pme.fr", "SARL DUPONTIN", "Gection Financière")
         );
         dummyParticipant1 = Arrays.asList(
-                new Participant(1, "Mathieu DUPONT", "Development", "Developer_front_end", "mathieu.dupont@pme.fr"),
-                new Participant(4, "Sophie DAPRES", "Development", "Developer_full_stack", "sophie.dapres@pme.fr"),
-                new Participant(14, "Emilie JOLIE", "Trade", "Seller", "emile.jolie@pme.fr"),
-                new Participant(20, "Mathieu DUPONT", "Development", "Developer_front_end", "mathieu.dupont@pme.fr"),
-                new Participant(904, "Monique KIFFER", "SARL DUPONTIN", "Directeur", "monique.kiffer@pme.fr")
+                new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+                new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
+                new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
+                new Participant(20, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+                new Participant(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur")
         );
         dummyParticipant2 = Arrays.asList(
-                new Participant(9, "Estelle NONCPASL", "Development", "Developer_Chef_de_projet", "estelle.noncpasl@pme.fr"),
-                new Participant(5, "Annie VERSAIRE", "Development", "Developer_mobile_android", "annie.versaire@pme.fr"),
-                new Participant(11, "Jacques COURT", "Development", "Developer_mobile", "jacques.court@pme.fr")
+                new Participant(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr", "Development", "Developer_Chef_de_projet"),
+                new Participant(5, "Annie VERSAIRE", "annie.versaire@pme.fr", "Development", "Developer_mobile_android"),
+                new Participant(11, "Jacques COURT", "jacques.court@pme.fr", "Development", "Developer_mobile")
         );
         DUMMY_MEETINGS = Arrays.asList(
                 new Meeting(1001, 2, new Date(1649665800000L), new Date(1649669400000L), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", dummyParticipant1 ),

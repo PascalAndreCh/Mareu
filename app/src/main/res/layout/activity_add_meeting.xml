@@ -6,41 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".ui.meeting.AddMeetingActivity">
 
+    <ImageButton
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:padding="4dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textMeetingtitle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_margin="8dp"
         android:hint="Titre de la Réunion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:texte="application pizza">
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="31dp" />
-
+            android:layout_height="25dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textMeetingComment"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="394dp"
-        android:layout_height="79dp"
+        android:layout_height="96dp"
         android:layout_margin="8dp"
-        android:hint="Commentaires"
+        android:hint="Description"
         android:lines="4"
         android:maxLines="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textMeetingtitle"
-        tools:texte="réunion de suivi des avancesments de l'application pizza">
+        tools:texte="réunion de suivi des avancesments de l'application pizza
+        présentation carte
+        précommandes
+        suivi des règlement par carte bancaire">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="73dp"
+            android:layout_height="96dp"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:lines="4"
@@ -50,27 +64,190 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
+    <ImageButton
+        android:id="@+id/dateMeeting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_calendar_24"
+        app:layout_constraintTop_toBottomOf="@+id/textMeetingComment"
+        app:layout_constraintTop_toEndOf="@id/textMeetingComment"
+        tools:layout_editor_absoluteX="9dp" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/dateMeeting"
+        app:layout_constraintTop_toTopOf="@id/dateMeeting"
+        tools:text="14/03/22" />
+
+    <ImageButton
+        android:id="@+id/hourStartMeeting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_access_time_24"
+        app:layout_constraintTop_toBottomOf="@+id/dateMeeting"
+        app:layout_constraintTop_toEndOf="@id/dateMeeting"
+        tools:layout_editor_absoluteX="9dp" />
+
+
+    <TextView
+        android:id="@+id/hourStartText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="264dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/hourStartMeeting"
+        app:layout_constraintTop_toTopOf="@id/hourStartMeeting"
+        tools:text="10h30" />
+
+    <ImageButton
+        android:id="@+id/durationMeeting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_timer_24"
+        app:layout_constraintTop_toBottomOf="@+id/hourStartMeeting"
+        app:layout_constraintTop_toEndOf="@id/hourStartMeeting"
+        tools:layout_editor_absoluteX="9dp" />
+
+
+    <TextView
+        android:id="@+id/durationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/durationMeeting"
+        app:layout_constraintTop_toTopOf="@id/durationMeeting"
+        tools:text="45 mn" />
+
+    <TextView
+        android:id="@+id/hourEndMeetingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:drawableLeft="@drawable/ic_baseline_timer_off_24"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/durationText"
+        app:layout_constraintTop_toTopOf="@id/durationText"
+        tools:text="11h15" />
+
+    <ImageButton
+        android:id="@+id/participantMeeting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_group_24"
+        app:layout_constraintTop_toBottomOf="@+id/durationMeeting"
+        app:layout_constraintTop_toEndOf="@id/durationMeeting"
+        tools:layout_editor_absoluteX="9dp" />
+
+    <TextView
+        android:id="@+id/participantText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/participantMeeting"
+        app:layout_constraintTop_toTopOf="@id/participantMeeting"
+        tools:text="Participants" />
+
+    <TextView
         android:id="@+id/textMails"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="396dp"
-        android:layout_height="33dp"
+        android:layout_width="380dp"
+        android:layout_height="224dp"
         android:layout_margin="8dp"
-        android:hint="Mails invités"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textMeetingComment">
+        android:layout_marginTop="8dp"
+        android:lines="10"
+        android:maxLines="10"
+        android:hint="Invités"
+        tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr
+        Henri DUPOND     , Development      , Developer back end       , henri.dupond@pme.fr
+        Marie POPPY      , Development      , Developer mobile         , marie.poppy@pme.fr
+        Sophie DAPRES    , Development      , Developer full stack     , sophie.dapres@pme.fr
+        Annie VERSAIRE   , Development      , Developer mobile android , annie.versaire@pme.fr
+        Paul NORD        , Development      , DeveloperDesigner        , paul.nord@pme.fr
+        Jean NEMARD      , Development      , Developer mobile IOS     , mathieu.dupont@pme.fr
+        Pierre KIROULE   , Development      , Developer front end      , pierre.kiroule@pme.fr
+        Estelle NONCPASL , Development      , Developer ChefDe projet  , estelle.noncpasl@pme.fr
+        Chloé MARTIN     , Development      , DeveloperDesigner        , chloe.martin@pme.fr"
+        app:layout_constraintEnd_toEndOf="@+id/dateMeeting"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/participantMeeting"
+        app:layout_constraintTop_toBottomOf="@+id/participantMeeting">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="36dp" />
+    <ImageButton
+        android:id="@+id/roomMeeting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_meeting_room_blue_24"
+        app:layout_constraintTop_toBottomOf="@+id/textMails"
+        app:layout_constraintTop_toEndOf="@id/textMails"
+        tools:layout_editor_absoluteX="9dp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
+    <TextView
+        android:id="@+id/roomText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/roomMeeting"
+        app:layout_constraintTop_toTopOf="@id/roomMeeting"
+        tools:text="Salle 104, Madagascar, 1er étage, 6 personnes max" />
+
+    <Button
+        android:id="@+id/Meeting_set"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:text="Set"
+        app:layout_constraintTop_toBottomOf="@+id/roomMeeting" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

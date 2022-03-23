@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="coworker">
+        <item>Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr</item>
+        <item>Henri DUPOND     , Development      , Developer back end       , henri.dupond@pme.fr</item>
+        <item>Marie POPPY      , Development      , Developer mobile         , marie.poppy@pme.fr</item>
+        <item>Sophie DAPRES    , Development      , Developer full stack     , sophie.dapres@pme.fr</item>
+        <item>Annie VERSAIRE   , Development      , Developer mobile android , annie.versaire@pme.fr</item>
+        <item>Paul NORD        , Development      , DeveloperDesigner        , paul.nord@pme.fr</item>
+        <item>Jean NEMARD      , Development      , Developer mobile IOS     , mathieu.dupont@pme.fr</item>
+        <item>Pierre KIROULE   , Development      , Developer front end      , pierre.kiroule@pme.fr</item>
+        <item>Estelle NONCPASL , Development      , Developer Chef De projet  , estelle.noncpasl@pme.fr</item>
+        <item>Chloé MARTIN     , Development      , DeveloperDesigner        , chloe.martin@pme.fr</item>
+        <item>Jacques COURT    , Development      , Developer mobile         , jacques.court@pme.fr</item>
+        <item>Henry CREOLE     , Development      , Developer full stack     , henry.creole@pme.fr</item>
+        <item>André PICK       , Development      , Developer mobile         , andre.pick@pme.fr</item>
+        <item>Bernard ROSIER   , Trade            , Manager                  , bernard.rosier@pme.fr</item>
+        <item>Emilie JOLIE     , Trade            , Seller                   , emile.jolie@pme.fr</item>
+        <item>Joseph ESPERE    , Trade            , Seller                   , joseph.espere@pme.fr</item>
+        <item>Michel LEGRAND   , Direction        , Pdg                      , michel.legrand@pme.fr</item>
+        <item>Yollande PETIT   , Direction        , Secretaire               , yollande.petit@pme.fr</item>
+        <item>Serge PROPRE     , Maintenace       , Technicien Polyvalent    , mathieu.dupont@pme.fr</item>
+        <item>Nadine PELLA     , Human Ressources , DRH                      , nadine.pella@pme.fr</item>
+     </string-array>
+</resources>
