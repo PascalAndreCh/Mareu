@@ -1,12 +1,16 @@
 package com.projet4.maru.ui.meeting;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.projet4.maru.R;
 
-public class AddMeetingActivity extends AppCompatActivity {
+
+public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener{
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,4 +19,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+    }
 }
