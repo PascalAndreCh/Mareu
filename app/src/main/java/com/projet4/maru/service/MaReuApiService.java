@@ -51,6 +51,16 @@ public interface MaReuApiService {
      */
     boolean roomIsFree(long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd);
 
+
+    /**
+     *
+     * @param idParticipant
+     * @param mMeetingDateStart
+     * @param mMeetingDateEnd
+     * @return
+     */
+    boolean participantIsFree(long idParticipant, Date mMeetingDateStart, Date mMeetingDateEnd);
+
     /**
      *
      * @param mMeetingDateStart

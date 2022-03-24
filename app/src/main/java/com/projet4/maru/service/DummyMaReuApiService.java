@@ -131,6 +131,31 @@ public class DummyMaReuApiService implements MaReuApiService {
         return true;
     }
 
+    /**
+     * Teste si la personne sélectionnée n'est pas déjà prise par une autre réunion
+     *
+     * @param idParticipant
+     * @param mMeetingDateStart
+     * @param mMeetingDateEnd
+     * @return
+     */
+    public boolean participantIsFree(long idParticipant, Date mMeetingDateStart, Date mMeetingDateEnd){
+        for (Meeting meeting: this.meetings) {
+            meeting.getParticipants();
+            for (Participant participant: participants){
+                if (idParticipant == participant.getId()){
+                    if (meeting.getTimeStart().before(mMeetingDateStart) && mMeetingDateStart.before(meeting.getTimeEnd())) {
+                        return false;
+                    }
+                    if (meeting.getTimeEnd().after(mMeetingDateEnd) && mMeetingDateEnd.after(meeting.getTimeStart())) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 
      /**
      * Etabli la liste des salles libres pour la période souhaitée

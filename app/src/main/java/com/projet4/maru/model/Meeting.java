@@ -1,6 +1,5 @@
 package com.projet4.maru.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,8 +88,8 @@ public class Meeting {
         this.description = description;
     }
 
-    public List getParticipants() {
-        return participants;
+    public Participant getParticipants() {
+        return (Participant) participants;
     }
 
     public void setParticipants(List participants) {
