@@ -22,7 +22,7 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     @Override
     public void createMeeting(Meeting meeting) {
-        this.meetings.add(meeting);
+        meetings.add(meeting);
     }
 
     @Override

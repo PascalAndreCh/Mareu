@@ -20,6 +20,7 @@ import com.projet4.maru.model.Meeting;
 import com.projet4.maru.service.DummyMaReuGenerator;
 import com.projet4.maru.service.MaReuApiService;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MaReuApiService mApiService;
     private ActivityMainBinding binding;
-    private List<Meeting> mMeetingArrayList = new ArrayList<>();
-    private Meeting mMeeting = (Meeting) DI.getStartListApiService().getMeetings();
+    private ArrayList<Meeting> mMeetingArrayList = new ArrayList<>();
+    private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService().getMeetings();
 
     private void initUI() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Calendar cal = Calendar.getInstance();
             cal.set(i, i1, i2);
             mMeetingArrayList.clear();
-            mMeetingArrayList.addAll(mMeetingArrayList.getMeetingsByDate(cal.getTime()));
+            mMeetingArrayList.addAll(mMeeting.getMeetingsByDate(cal.getTime()));
             binding.recyclerview.getAdapter().notifyDataSetChanged();
         }
 
@@ -107,11 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
-        mMeetingArrayList = new ArrayList<>(mMeetingArrayList.getMeetings());
+        mMeetingArrayList = new ArrayList<>(mMeeting.getMeetings());
     }
 
     private void setButton() {
-        binding.startAddActivity.setOnClickListener(this);
+        binding.addMeeting.setOnClickListener(this);
     }
 
 
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view == binding.startAddActivity) {
+        if (view == binding.addMeeting) {
             startActivity(new Intent(this, AddMeetingActivity.class));
         }
     }
