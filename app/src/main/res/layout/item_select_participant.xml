@@ -58,7 +58,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/item_participant_select_button"
+        app:layout_constraintEnd_toStartOf="@id/item_participant_delete_button"
         app:layout_constraintStart_toEndOf="@id/picture"
         app:layout_constraintTop_toTopOf="@id/picture"
         tools:text="Annie VERSAIRE, Development" />
@@ -74,7 +74,7 @@
         android:maxLines="1"
         app:layout_constraintStart_toEndOf="@id/picture"
         app:layout_constraintTop_toBottomOf="@id/participantText"
-        app:layout_constraintEnd_toStartOf="@id/item_participant_select_button"
+        app:layout_constraintEnd_toStartOf="@id/item_participant_delete_button"
         tools:text="Developer mobile android, annie.versaire@pme.fr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
