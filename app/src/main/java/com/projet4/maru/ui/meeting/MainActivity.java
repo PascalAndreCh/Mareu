@@ -8,26 +8,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.projet4.maru.R;
 import com.projet4.maru.databinding.ActivityMainBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
-import com.projet4.maru.service.DummyMaReuGenerator;
 import com.projet4.maru.service.MaReuApiService;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.List;
+import java.util.GregorianCalendar;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MaReuApiService mApiService;
     private ActivityMainBinding binding;
@@ -82,24 +77,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMeetingArrayList.addAll((Collection<? extends Meeting>) mMeeting);
         binding.recyclerview.getAdapter().notifyDataSetChanged();
     }
+
     private void dateDialog() {
         int selectedYear = 2022;
         int selectedMonth = 4;
         int selectedDayOfMonth = 1;
 
 
-    DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-            Calendar cal = Calendar.getInstance();
-            cal.set(i, i1, i2);
-            mMeetingArrayList.clear();
-            mMeetingArrayList.addAll(mMeeting.getMeetingsByDate(cal.getTime()));
-            binding.recyclerview.getAdapter().notifyDataSetChanged();
-        }
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                Calendar cal = GregorianCalendar.getInstance();
+                cal.set(i, i1, i2);
+                mMeetingArrayList.clear();
+                mMeetingArrayList.addAll(mMeeting.getMeetingsByDate(cal));
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
+            }
 
-    };
+        };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
@@ -114,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setButton() {
         binding.addMeeting.setOnClickListener(this);
     }
-
 
 
     @Override

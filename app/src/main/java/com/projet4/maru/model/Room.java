@@ -4,23 +4,32 @@ import java.util.Objects;
 
 public class Room {
 
-    /** Identifier */
+    /**
+     * Identifier
+     */
     private long idRoom;
 
-    /** Full name */
+    /**
+     * Full name
+     */
     private String nameRoom;
 
-    /** room number */
+    /**
+     * room number
+     */
     private int numberRoom;
 
-    /** maximum number of people */
+    /**
+     * maximum number of people
+     */
     private int maximumParticipantRoom;
 
-    /** location in the building */
+    /**
+     * location in the building
+     */
     private int stageRoom;
 
     /**
-     *
      * @param idRoom
      * @param nameRoom
      * @param numberRoom
@@ -37,6 +46,7 @@ public class Room {
 
     /**
      * s'il s'avère nécessaire de créer une nouvelle salle (set))
+     *
      * @return
      */
 
@@ -80,24 +90,16 @@ public class Room {
         this.stageRoom = stageRoom;
     }
 
-     /**
-     * récupérer d'entrevoisin, pas vraiment compris l'utilité de cette partie
-     * @param o
-     * @return
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return Objects.equals(idRoom, room.idRoom);
+        return idRoom == room.idRoom && numberRoom == room.numberRoom && maximumParticipantRoom == room.maximumParticipantRoom && stageRoom == room.stageRoom && Objects.equals(nameRoom, room.nameRoom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoom);
+        return Objects.hash(idRoom, nameRoom, numberRoom, maximumParticipantRoom, stageRoom);
     }
-
-
-
 }

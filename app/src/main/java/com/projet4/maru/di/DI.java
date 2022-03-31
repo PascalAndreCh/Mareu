@@ -13,9 +13,25 @@ import java.util.List;
 public class DI {
 
 
+    /**
+     *
+     */
     public static MaReuApiService service = new DummyMaReuApiService();
 
-    public static MaReuApiService getStartListApiService() { return service; }
+    /**
+     *
+     */
+    public static MaReuApiService getStartListApiService() {
+        return service;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static MaReuApiService getNewInstanceApiService () {
+        return new DummyMaReuApiService();
+    }
 
 
 }

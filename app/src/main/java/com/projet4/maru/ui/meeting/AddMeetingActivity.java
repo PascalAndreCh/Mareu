@@ -1,24 +1,19 @@
 package com.projet4.maru.ui.meeting;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.projet4.maru.R;
 import com.projet4.maru.databinding.ActivityAddMeetingBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.service.MaReuApiService;
-
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 
-public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityAddMeetingBinding binding;
     private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService().getMeetings();
@@ -53,9 +48,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     private long idRoom;
 
-    private Date timeStart;
+    private Calendar timeStart;
 
-    private Date timeEnd;
+    private Calendar timeEnd;
 
     private List<Participant> participants;
 
@@ -83,7 +78,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
 
 
-        mMeeting.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participants ));
+        mMeeting.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participants));
         Toast.makeText(this, "Meeting created !", Toast.LENGTH_SHORT).show();
         finish();
 

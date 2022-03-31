@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/reunion3"
+    android:background="@drawable/reunion2"
     tools:context=".ui.meeting.AddMeetingActivity">
 
     <ImageButton
@@ -69,13 +69,12 @@
         android:id="@+id/dateMeeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_margin="9dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_edit_calendar_24"
         app:layout_constraintTop_toBottomOf="@+id/textMeetingComment"
-        app:layout_constraintTop_toEndOf="@id/textMeetingComment"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <TextView
         android:id="@+id/dateText"
@@ -95,13 +94,12 @@
         android:id="@+id/hourStartMeeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_margin="9dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_access_time_24"
         app:layout_constraintTop_toBottomOf="@+id/dateMeeting"
-        app:layout_constraintTop_toEndOf="@id/dateMeeting"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 
     <TextView
@@ -123,13 +121,12 @@
         android:id="@+id/durationMeeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_margin="9dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_timer_24"
         app:layout_constraintTop_toBottomOf="@+id/hourStartMeeting"
-        app:layout_constraintTop_toEndOf="@id/hourStartMeeting"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 
     <TextView
@@ -181,13 +178,12 @@
         android:id="@+id/participantMeeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_margin="9dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_group_24"
         app:layout_constraintTop_toBottomOf="@+id/durationMeeting"
-        app:layout_constraintTop_toEndOf="@id/durationMeeting"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <TextView
         android:id="@+id/participantText"
@@ -246,7 +242,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/participantMeeting"
         app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
-        tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr
+        tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr\n
         Henri DUPOND     , Development      , Developer back end       , henri.dupond@pme.fr
         Marie POPPY      , Development      , Developer mobile         , marie.poppy@pme.fr
         Sophie DAPRES    , Development      , Developer full stack     , sophie.dapres@pme.fr
@@ -261,13 +257,12 @@
         android:id="@+id/roomMeeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_margin="9dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_meeting_room_blue_24"
         app:layout_constraintTop_toBottomOf="@+id/textMails"
-        app:layout_constraintTop_toEndOf="@id/textMails"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 
     <TextView

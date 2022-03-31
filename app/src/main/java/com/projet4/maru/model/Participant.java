@@ -1,13 +1,14 @@
 package com.projet4.maru.model;
 
-public class Participant extends Person{
+import java.util.Objects;
+
+public class Participant extends Person {
 
     private String attachment;
 
     private String job;
 
     /**
-     *
      * @param id
      * @param name
      * @param mailAddresses
@@ -35,5 +36,18 @@ public class Participant extends Person{
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Participant that = (Participant) o;
+        return Objects.equals(attachment, that.attachment) && Objects.equals(job, that.job);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attachment, job);
     }
 }

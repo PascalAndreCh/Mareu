@@ -1,76 +1,106 @@
 package com.projet4.maru.service;
 
 
+import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
+import com.projet4.maru.model.Vip;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public interface MaReuApiService {
 
 
-    void createMeeting (Meeting meeting);
-
-    void deleteMeeting (Meeting meeting);
-
-    List<Meeting> getMeetings ();
-
-    List<Participant> getParticipants ();
-
-    List<Room> getRooms ();
+    /**
+     *
+     * @param meeting
+     */
+    void createMeeting(Meeting meeting);
 
     /**
      *
+     * @param meeting
+     */
+    void deleteMeeting(Meeting meeting);
+
+    /**
+     *
+     * @return
+     */
+    List<Meeting> getMeetings();
+
+    /**
+     *
+     * @return
+     */
+    List<Participant> getParticipants();
+
+    /**
+     *
+     * @param participant
+     */
+    void deleteParticipant(Participant participant);
+
+    /**
+     *
+     * @param participant
+     */
+    void createParticipant(Participant participant);
+
+
+    List<Room> getRooms();
+
+    List<Coworker> getCoworkers();
+
+    List<Vip> getVips();
+
+
+    /**
      * @param room
      * @return
      */
-    List<Meeting> getMeetingsByRoom(Room room);
+    List<Meeting> getMeetingsByRoom(int room);
 
     /**
+     * @param date
+     * @return
+     */
+    List<Meeting> getMeetingsByDate(Calendar date);
+
+     /**
      *
      * @param date
      * @return
      */
-    List<Meeting> getMeetingsByDate(Date date);
+    List<Room> getRoomsByDates(Calendar date);
 
     /**
-     *
-     * @param date
-     * @return
-     */
-    List<Room> getRoomsByDates (Date date);
-
-    /**
-     *
      * @param idRoom
      * @param mMeetingDateStart
      * @param mMeetingDateEnd
      * @return
      */
-    boolean roomIsFree(long idRoom, Date mMeetingDateStart, Date mMeetingDateEnd);
+    boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd);
 
 
     /**
-     *
      * @param idParticipant
      * @param mMeetingDateStart
      * @param mMeetingDateEnd
      * @return
      */
-    boolean participantIsFree(long idParticipant, Date mMeetingDateStart, Date mMeetingDateEnd);
+    boolean participantIsFree(long idParticipant, Calendar mMeetingDateStart, Calendar mMeetingDateEnd);
 
     /**
-     *
      * @param mMeetingDateStart
      * @param mMeetingDateEnd
      * @return
      */
-    List<Room> listRoomsFree(Date mMeetingDateStart, Date mMeetingDateEnd);
+    List<Room> listRoomsFree(Calendar mMeetingDateStart, Calendar mMeetingDateEnd);
 
     /**
-     *
      * @param idRoom
      * @param capacityPeople
      * @param nbPeople
@@ -78,10 +108,9 @@ public interface MaReuApiService {
      * @param mMeetingDateEnd
      * @return
      */
-    long roomIsBetter(long idRoom, int capacityPeople, int nbPeople, Date mMeetingDateStart, Date mMeetingDateEnd);
+    long roomIsBetter(long idRoom, int capacityPeople, int nbPeople, Calendar mMeetingDateStart, Calendar mMeetingDateEnd);
 
     /**
-     *
      * @param idRoom
      * @param nbPeople
      * @return
@@ -94,34 +123,30 @@ public interface MaReuApiService {
     void deleteObsoleteMeetings();
 
     /**
-     *
      * @param nbPeople
      * @return
      */
     List<Room> bigEnoughRooms(int nbPeople);
 
     /**
-     *
      * @param inputDate
      * @return
      */
-    boolean inputDateSuperiorToThisDay(Date inputDate);
+    boolean inputDateSuperiorToThisDay(Calendar inputDate);
 
     /**
-     *
      * @param startDate
      * @param endDate
      * @return
      */
-    boolean endDateSuperiorToStartDate(Date startDate, Date endDate);
+    boolean endDateSuperiorToStartDate(Calendar startDate, Calendar endDate);
 
     /**
-     *
      * @param startDate
      * @param duration
      * @return
      */
-    Date endDateMeeting(Date startDate, int duration);
+    Calendar endDateMeeting(Calendar startDate, int duration);
 
 
 }

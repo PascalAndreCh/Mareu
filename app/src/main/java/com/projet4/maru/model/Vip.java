@@ -1,5 +1,7 @@
 package com.projet4.maru.model;
 
+import java.util.Objects;
+
 public class Vip extends Person {
 
     private String society;
@@ -17,9 +19,22 @@ public class Vip extends Person {
         return society;
     }
 
-     public String getResponsibility() {
+    public String getResponsibility() {
         return responsibility;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Vip vip = (Vip) o;
+        return Objects.equals(society, vip.society) && Objects.equals(responsibility, vip.responsibility);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), society, responsibility);
+    }
 }
 
