@@ -572,9 +572,9 @@ jQuery.cookie = function(name, value, options) {
     <body>
         <div id="container">
             <div id="header">
-                <div class="time" xmlns="">18 ms</div>
+                <div class="time" xmlns="">21 ms</div>
                 <h1>
-                    UnitTest: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">22 total, </span><span class="failed">2 failed, </span><span class="passed">20 passed</span></strong>
+                    UnitTest: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">22 total, </span><span class="passed">22 passed</span></strong>
                 </h1>
                 <div id="treecontrol">
                     <ul>
@@ -591,9 +591,9 @@ jQuery.cookie = function(name, value, options) {
             </div>
             <div id="content">
                 <ul id="tree">
-                    <li xmlns="" class="level top failed open">
+                    <li xmlns="" class="level top open">
                         <span><em class="time">
-                                <div class="time">18 ms</div>
+                                <div class="time">21 ms</div>
                             </em>com.projet4.maru.UnitTest</span>
                         <ul>
                             <li class="level test">
@@ -603,28 +603,18 @@ jQuery.cookie = function(name, value, options) {
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
+                                        <div class="time">1 ms</div>
                                     </em><em class="status">passed</em>deleteMeetingWithSuccess</span>
                             </li>
-                            <li class="level test failed open">
-                                <span><em class="time">
-                                        <div class="time">2 ms</div>
-                                    </em><em class="status">failed</em>deleteParticipantWithSuccess</span>
-                                <ul>
-                                    <li class="text">
-                                        <span class="stderr">java.lang.AssertionError<br/>	at org.junit.Assert.fail(Assert.java:87)<br/>	at org.junit.Assert.assertTrue(Assert.java:42)<br/>	at org.junit.Assert.assertFalse(Assert.java:65)<br/>	at org.junit.Assert.assertFalse(Assert.java:75)<br/>	at com.projet4.maru.UnitTest.deleteParticipantWithSuccess(UnitTest.java:90)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)<br/>	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)<br/>	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)<br/>	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)<br/>	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)<br/>	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)<br/>	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)<br/>	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)<br/>	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)<br/>	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)<br/>	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)<br/>	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)<br/>	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)<br/>	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)<br/>	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)<br/>	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)<br/>	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)<br/>	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)<br/>	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)<br/>	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)<br/>	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)<br/>	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)<br/>	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:121)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)<br/>	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)<br/>	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)<br/>	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)<br/>	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br/>	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br/>	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)<br/>	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)<br/>	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br/>	at java.base/java.lang.Thread.run(Thread.java:834)<br/></span>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="level test failed open">
+                            <li class="level test">
                                 <span><em class="time">
                                         <div class="time">0 ms</div>
-                                    </em><em class="status">failed</em>deleteObsolete</span>
-                                <ul>
-                                    <li class="text">
-                                        <span class="stderr">java.lang.AssertionError<br/>	at org.junit.Assert.fail(Assert.java:87)<br/>	at org.junit.Assert.assertTrue(Assert.java:42)<br/>	at org.junit.Assert.assertFalse(Assert.java:65)<br/>	at org.junit.Assert.assertFalse(Assert.java:75)<br/>	at com.projet4.maru.UnitTest.deleteObsolete(UnitTest.java:330)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)<br/>	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)<br/>	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)<br/>	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)<br/>	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)<br/>	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)<br/>	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)<br/>	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)<br/>	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)<br/>	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)<br/>	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)<br/>	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)<br/>	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)<br/>	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)<br/>	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)<br/>	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)<br/>	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)<br/>	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)<br/>	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)<br/>	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)<br/>	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)<br/>	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)<br/>	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)<br/>	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:121)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:566)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)<br/>	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)<br/>	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)<br/>	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)<br/>	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)<br/>	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br/>	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br/>	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)<br/>	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)<br/>	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br/>	at java.base/java.lang.Thread.run(Thread.java:834)<br/></span>
-                                    </li>
-                                </ul>
+                                    </em><em class="status">passed</em>deleteParticipantWithSuccess</span>
+                            </li>
+                            <li class="level test">
+                                <span><em class="time">
+                                        <div class="time">0 ms</div>
+                                    </em><em class="status">passed</em>deleteObsolete</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
@@ -643,7 +633,7 @@ jQuery.cookie = function(name, value, options) {
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">1 ms</div>
+                                        <div class="time">2 ms</div>
                                     </em><em class="status">passed</em>roomFree</span>
                             </li>
                             <li class="level test">
@@ -653,7 +643,7 @@ jQuery.cookie = function(name, value, options) {
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
+                                        <div class="time">1 ms</div>
                                     </em><em class="status">passed</em>getMeetingfiltereddate</span>
                             </li>
                             <li class="level test">
@@ -683,12 +673,12 @@ jQuery.cookie = function(name, value, options) {
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">1 ms</div>
+                                        <div class="time">3 ms</div>
                                     </em><em class="status">passed</em>roombetter</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">2 ms</div>
+                                        <div class="time">1 ms</div>
                                     </em><em class="status">passed</em>endDateMet</span>
                             </li>
                             <li class="level test">
@@ -698,7 +688,7 @@ jQuery.cookie = function(name, value, options) {
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
+                                        <div class="time">1 ms</div>
                                     </em><em class="status">passed</em>inputDate</span>
                             </li>
                             <li class="level test">
@@ -722,7 +712,7 @@ jQuery.cookie = function(name, value, options) {
             </div>
         </div>
         <div id="footer">
-            <p>Generated by Android Studio on 30/03/2022 19:14</p>
+            <p>Generated by Android Studio on 31/03/2022 14:13</p>
         </div>
     </body>
 </html>

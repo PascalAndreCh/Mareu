@@ -287,13 +287,17 @@ public class DummyMaReuApiService implements MaReuApiService {
      * suppression des réunions obsoletes (à exécuter une fois à chaque lancement de l'application
      */
     public void deleteObsoleteMeetings() {
+        List<Meeting> meetingsToDelete = new ArrayList<>();
         for (Meeting meeting : meetings) {
             if (meeting.getTimeEnd().before(dateJ)) {
-                deleteMeeting(meeting);
+//                deleteMeeting(meeting);
+                meetingsToDelete.add(meeting);
             }
         }
+        for (Meeting meeting : meetingsToDelete) {
+            deleteMeeting(meeting);
+        }
     }
-
 
     /**
      * Sélectionne toutes les salles ayant la capacité d'accueillir la réunion

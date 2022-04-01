@@ -58,11 +58,11 @@ public class DummyMaReuGenerator {
                 new Room(10, "Bermudes", 307, 10, 3)
         );
         DUMMY_VIPS = Arrays.asList(
-                new Vip(901, "John ROUGE", "john.rouge@pme.fr", "SA BLANCHE", "Directeur"),
-                new Vip(902, "Jules FERRY", "jules.ferry@pme.fr", "SA BLANCHE", "Commercial"),
-                new Vip(903, "Anatole FRANCE", "anatole.france@pme.fr", "SARL DUPONTIN", "Commercial"),
-                new Vip(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur"),
-                new Vip(905, "Beatrice LE FORT", "beatrice.lefort@pme.fr", "SARL DUPONTIN", "Gection Financière")
+                new Vip(901, "John ROUGE", "john.rouge@pmi.com", "SA BLANCHE", "Directeur"),
+                new Vip(902, "Jules FERRY", "jules.ferry@pmi.com", "SA BLANCHE", "Commercial"),
+                new Vip(903, "Anatole FRANCE", "anatole.france@pmi.com", "SARL DUPONTIN", "Commercial"),
+                new Vip(904, "Monique KIFFER", "monique.kiffer@pmi.com", "SARL DUPONTIN", "Directeur"),
+                new Vip(905, "Beatrice LE FORT", "beatrice.lefort@pmi.com", "SARL DUPONTIN", "Gection Financière")
         );
         DUMMY_PARTICIPANT1 = Arrays.asList(
                 new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
@@ -90,7 +90,7 @@ public class DummyMaReuGenerator {
                 new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
                 new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
                 new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
-                new Participant(20, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+                new Participant( 20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH"),
                 new Participant(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur")
         );
 
@@ -114,9 +114,6 @@ public class DummyMaReuGenerator {
 
     static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_PARTICIPANTS); }
 
-//    static List<Participant> generateParticipant() {
-//        return new ArrayList<>(participants);
-//    }
 
     /**
      * Les dates rentrées sont le 11/04/2022 de 10h30 à 11h30

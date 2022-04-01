@@ -18,4 +18,6 @@
     <color name="colorRoom08Menthe">#16B84E</color>
     <color name="colorRoom09VertDeVessie">#22780F</color>
     <color name="colorRoom10Tabac">#9F551E</color>
+    <color name="colorblue">#3030FF</color>
+    <color name="colorred">#F63939</color>
 </resources>

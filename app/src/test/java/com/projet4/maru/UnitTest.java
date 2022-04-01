@@ -87,8 +87,7 @@ public class UnitTest {
     public void deleteParticipantWithSuccess() {
         Participant participantToDelete = service.getParticipants().get(0);
         service.deleteParticipant(participantToDelete);
-//        assertFalse(service.getParticipants().contains(participantToDelete));
-        assertTrue(service.getParticipants().contains(participantToDelete));
+        assertFalse(service.getParticipants().contains(participantToDelete));
     }
 
     @Test
@@ -307,7 +306,6 @@ public class UnitTest {
                         "Developer_front_end"), new Participant(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr",
                         "Development", "Developer_Chef_de_projet")));
         service.createMeeting(newMeeting1);
-        assertTrue(service.getMeetings().contains(newMeeting1));
         Meeting newMeeting2 = new Meeting(101, 1,
                 new GregorianCalendar(2021, 4, 2, 10, 30),
                 new GregorianCalendar(2021, 4, 2, 11, 45),
@@ -315,22 +313,16 @@ public class UnitTest {
                 Arrays.asList(new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development",
                         "Developer_front_end"), new Participant(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr",
                         "Development", "Developer_Chef_de_projet")));
-
         service.createMeeting(newMeeting2);
+        assertTrue(service.getMeetings().contains(newMeeting1));
         assertTrue(service.getMeetings().contains(newMeeting2));
         assertEquals(service.getMeetings().size(), nb+2);
 
         service.deleteObsoleteMeetings();
 
-//        service.deleteMeeting(newMeeting1);
-//        service.deleteMeeting(newMeeting2);
-
-//        assertEquals(service.getMeetings().size(), nb);
-        assertEquals(service.getMeetings().size(), nb+1);
-
+        assertEquals(service.getMeetings().size(), nb);
         assertFalse(service.getMeetings().contains(newMeeting1));
-//        assertFalse(service.getMeetings().contains(newMeeting2));
-        assertTrue(service.getMeetings().contains(newMeeting2));
+        assertFalse(service.getMeetings().contains(newMeeting2));
     }
 
     @Test
