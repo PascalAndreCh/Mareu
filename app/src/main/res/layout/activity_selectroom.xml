@@ -6,23 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.meeting.MainActivity">
 
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/add_room"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginEnd="64dp"
+         app:backgroundTint="@color/colorblue"
+         android:layout_marginBottom="32dp"
+         android:src="@drawable/ic_baseline_check_24"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent" />
+
+
      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/item_select_participant" />
+        tools:listitem="@layout/item_select_room" />
 
-     <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:id="@+id/add_participant"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_margin="16dp"
-         android:layout_gravity="center"
-         android:src="@drawable/ic_baseline_person_add_alt_1_24"
-         android:tint="@android:color/white"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

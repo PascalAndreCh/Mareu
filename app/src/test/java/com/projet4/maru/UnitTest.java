@@ -125,8 +125,8 @@ public class UnitTest {
     @Test
     public void getMeetingfiltereddate() {
         List<Meeting> meetings = service.getMeetings();
-        Calendar dateA = new GregorianCalendar(2022, 03, 14);
-        Calendar dateB = new GregorianCalendar(2022, 03, 15);
+        Calendar dateA = new GregorianCalendar(2022, 3, 14);
+        Calendar dateB = new GregorianCalendar(2022, 3, 15);
         assertTrue(service.getMeetingsByDate(dateA).size() == 2);
         assertEquals(service.getMeetingsByDate(dateA).get(0).getId(), 1003);
         assertEquals(service.getMeetingsByDate(dateA).get(1).getId(), 1004);
@@ -136,12 +136,12 @@ public class UnitTest {
     @Test
     public void getRoomDate() {
         List<Meeting> meetings = service.getMeetings();
-        Calendar dateA = new GregorianCalendar(2022, 03, 14);
-        Calendar dateB = new GregorianCalendar(2022, 03, 15);
-        assertTrue(service.getRoomsByDates(dateA).size() == 2);
+        Calendar dateA = new GregorianCalendar(2022, 3, 14);
+        Calendar dateB = new GregorianCalendar(2022, 3, 15);
+        assertEquals(2, service.getRoomsByDates(dateA).size());
         assertEquals(service.getRoomsByDates(dateA).get(0).getIdRoom(), 7);
         assertEquals(service.getRoomsByDates(dateA).get(1).getIdRoom(), 4);
-        assertTrue(service.getRoomsByDates(dateB).size() == 0);
+        assertEquals(0, service.getRoomsByDates(dateB).size());
 
     }
 

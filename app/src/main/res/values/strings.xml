@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Maréu</string>
+    <string-array name="room_array">
+        <item>Salle 104, Martinique, 1er  étage,  6 personnes</item>
+        <item>Salle 118, Guadeloupe, 1er  étage,  7 personnes</item>
+        <item>Salle 120, Madagascar, 1er  étage, 10 personnes</item>
+        <item>Salle 205, Sicile    , 2ème étage,  8 personnes</item>
+        <item>Salle 212, Corse     , 2ème étage,  9 personnes</item>
+        <item>Salle 240, madère    , 2ème étage, 10 personnes</item>
+        <item>Salle 252, Canaris   , 2ème étage,  4 personnes</item>
+        <item>Salle 301, Baléares  , 3ème étage,  8 personnes</item>
+        <item>Salle 302, Jersey    , 3ème étage,  8 personnes</item>
+        <item>Salle 307, Bermudes  , 3ème étage, 10 personnes</item>
+    </string-array>
 </resources>

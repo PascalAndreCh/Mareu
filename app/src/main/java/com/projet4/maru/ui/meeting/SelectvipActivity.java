@@ -1,5 +1,4 @@
 package com.projet4.maru.ui.meeting;
 
-public class Test {
-
+public class SelectvipActivity {
 }

@@ -15,8 +15,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:maxLines="1"
-        android:lines="1"
         android:hint="Titre de la Réunion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:lines="1"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:hint="Description/Commentaires"
-            android:lines="3"
-            android:maxLines="3"
+            android:lines="4"
+            android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textMeetingtitle"
@@ -56,8 +53,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:lines="3"
-                android:maxLines="3" />
+                android:lines="4"
+                android:maxLines="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -216,38 +213,145 @@
             app:layout_constraintStart_toEndOf="@id/participantExtMeeting"
             app:layout_constraintTop_toTopOf="@id/participantExtMeeting" />
 
+        <LinearLayout
+            android:layout_width="394dp"
+            android:layout_height="160dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/participantMeeting"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/participantMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/participantMeeting">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textParticipant"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:hint="Participants"
-        android:layout_margin="0dp"
-        android:lines="4"
-        android:maxLines="4"
-        android:gravity="top"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/participantMeeting"
-        app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
-        tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:lines="4"
-            android:maxLines="4"
-            android:gravity="top"
-            tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/textParticipant1"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
+
+
+            <TextView
+                android:id="@+id/textParticipant2"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Henri DUPOND     , Development      , Developer back end       , henri.dupond@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant3"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Marie POPPY      , Development      , Developer mobile         , marie.poppy@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant4"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Sophie DAPRES    , Development      , Developer full stack     , sophie.dapres@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant5"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Annie VERSAIRE   , Development      , Developer mobile android , annie.versaire@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant6"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Paul NORD        , Development      , DeveloperDesigner        , paul.nord@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant7"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Jean NEMARD      , Development      , Developer mobile IOS     , mathieu.dupont@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant8"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Pierre KIROULE   , Development      , Developer front end      , pierre.kiroule@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant9"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorblue"
+                android:textStyle="bold"
+                tools:text="Estelle NONCPASL , Development      , Developer ChefDe projet  , estelle.noncpasl@pme.fr" />
+
+            <TextView
+                android:id="@+id/textParticipant10"
+                android:layout_width="394dp"
+                android:layout_height="16dp"
+                android:layout_margin="0dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorred"
+                android:textStyle="bold"
+                tools:text="Beatrice LE FORT , SARL DUPONTIN , Gestion Financiere , beatrice.lefort@pmi.com" />
+        </LinearLayout>
+
 
         <ImageButton
             android:id="@+id/roomMeeting"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="124dp"
+            android:layout_marginTop="164dp"
             android:background="@null"
             android:src="@drawable/ic_baseline_meeting_room_blue_24"
             app:layout_constraintStart_toStartOf="parent"

@@ -82,9 +82,9 @@ public class DummyMaReuGenerator {
                 new Participant(20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH")
         );
         DUMMY_MEETINGS = Arrays.asList(
-                new Meeting(1001, 4, new GregorianCalendar(2022, 3, 11, 10, 30), new GregorianCalendar(2022, 3, 11, 11, 30), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", DUMMY_PARTICIPANT1),
-                new Meeting(1003, 7, new GregorianCalendar(2022, 3, 14, 9, 15), new GregorianCalendar(2022, 3, 14, 10, 15), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", DUMMY_PARTICIPANT2),
-                new Meeting(1004, 4, new GregorianCalendar(2022, 3, 14, 14, 0), new GregorianCalendar(2022, 3, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3)
+                new Meeting(1001, 4, new GregorianCalendar(2022, 5, 11, 10, 30), new GregorianCalendar(2022, 3, 11, 11, 30), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", DUMMY_PARTICIPANT1),
+                new Meeting(1003, 7, new GregorianCalendar(2022, 5, 14, 9, 15), new GregorianCalendar(2022, 3, 14, 10, 15), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", DUMMY_PARTICIPANT2),
+                new Meeting(1004, 4, new GregorianCalendar(2022, 5, 14, 14, 0), new GregorianCalendar(2022, 3, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3)
         );
         DUMMY_PARTICIPANTS = Arrays.asList(
                 new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
@@ -100,7 +100,7 @@ public class DummyMaReuGenerator {
         return new ArrayList<>(DUMMY_COWORKERS);
     }
 
-    static List<Room> generateRooms() {
+    public static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 

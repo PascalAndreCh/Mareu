@@ -12,7 +12,18 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/item_select_room" />
+        tools:listitem="@layout/item_select_participant" />
 
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/add_participant"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+         app:backgroundTint="@color/colorblue"
+         android:layout_gravity="center"
+         android:src="@drawable/ic_baseline_person_add_alt_1_24"
+         android:tint="@android:color/white"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.projet4.maru.R;
 import com.projet4.maru.model.Meeting;
+import com.projet4.maru.model.Room;
+import com.projet4.maru.service.DummyMaReuGenerator;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
     private final List<Meeting> meetings;
+    private List<Room> rooms = DummyMaReuGenerator.generateRooms();
+
 
     public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> meetings) {
         this.meetings = meetings;
@@ -50,10 +55,23 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         }
 
         public void displayMeeting(Meeting meeting) {
-            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-
-            meetingText.setText(meeting.getTitle() + " " + fmtOut.format(meeting.getTimeStart() + " " + meeting.getIdRoom()));
-//            mails.setText(meeting.getParticipants()); // mailAdresses
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            SimpleDateFormat fmtEnd = new SimpleDateFormat("HH:mm");
+            List<Room> rooms = DummyMaReuGenerator.generateRooms();
+            String salle = "";
+        for (Room room : rooms) {
+            if (room.getIdRoom()==meeting.getIdRoom()) {
+                salle = room.getNameRoom();
+                break;
+            }
+        }
+            meetingText.setText(meeting.getTitle()+" "+fmtOut.format(meeting.getTimeStart().getTime())+" "+fmtEnd.format(meeting.getTimeEnd().getTime())+" "+salle);
+            String nom ="";
+            int k = meeting.getParticipants().size();
+            for (int i=0; i < k; i++) {
+                nom = nom+meeting.getParticipants().get(i).getMailAddresses()+" ; ";
+            }
+            mails.setText(nom);
         }
     }
 }

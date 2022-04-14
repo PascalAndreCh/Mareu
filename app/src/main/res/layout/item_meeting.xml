@@ -31,21 +31,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_baseline_delete_24" />
 
+
     <TextView
         android:id="@+id/meetingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:textStyle="bold"
         android:ellipsize="end"
+        android:gravity="left"
         android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/item_list_delete_button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/picture"
         app:layout_constraintTop_toTopOf="@id/picture"
-        tools:text="Avancement appli pizza - 14/03/22 10:30 - Bermudes" />
-
+        tools:text="Avancement appli  pizza - 14/03/22 10:30 - Bermudes" />
 
     <TextView
         android:id="@+id/mails"
@@ -55,6 +58,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
+        android:textSize="12sp"
         android:maxLines="1"
         app:layout_constraintStart_toEndOf="@id/picture"
         app:layout_constraintTop_toBottomOf="@id/meetingText"

@@ -1,5 +1,6 @@
 package com.projet4.maru.ui.meeting;
 
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,27 +8,43 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+
 import com.projet4.maru.R;
 import com.projet4.maru.databinding.ActivityMainBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.service.MaReuApiService;
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
+
 import java.util.GregorianCalendar;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private MaReuApiService mApiService;
     private ActivityMainBinding binding;
     private ArrayList<Meeting> mMeetingArrayList = new ArrayList<>();
-    private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService().getMeetings();
+    private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService();
+    private final MaReuApiService mRoom = (MaReuApiService) DI.getStartListApiService();
+    private final MaReuApiService mCoworker = (MaReuApiService) DI.getStartListApiService();
+    private final MaReuApiService mVip = (MaReuApiService) DI.getStartListApiService();
+    private Spinner spinner;
+    private int room = 1;
+    public static final String ID_ROOM = "ID_ROOM";
 
     private void initUI() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -64,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.filter_date:
                 dateDialog();
                 return true;
+            case R.id.filter_room:
+                selectRoom();
+                return true;
             case R.id.filter_reset:
                 resetFilter();
                 return true;
@@ -72,9 +92,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int roomId = data.getExtras().getInt("MESSAGE");
+        mMeetingArrayList.clear();
+        mMeetingArrayList.addAll(mMeeting.getMeetingsByRoom(roomId));
+        binding.recyclerview.getAdapter().notifyDataSetChanged();
+    }
+
+    private void selectRoom() {
+//        this.getApplicationContext().startActivity(new Intent(this, RoomspinnerActivity.class));
+        Intent idRoomIntent = new Intent (this, RoomspinnerActivity.class);
+//        startActivity(new Intent(this, RoomspinnerActivity.class));
+//        idRoomIntent.putExtra(ID_ROOM, 1);
+        startActivityForResult(idRoomIntent,2);
+     }
+
     private void resetFilter() {
         mMeetingArrayList.clear();
-        mMeetingArrayList.addAll((Collection<? extends Meeting>) mMeeting);
+        mMeetingArrayList.addAll(mMeeting.getMeetings());
         binding.recyclerview.getAdapter().notifyDataSetChanged();
     }
 
@@ -82,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int selectedYear = 2022;
         int selectedMonth = 4;
         int selectedDayOfMonth = 1;
-
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -94,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mMeetingArrayList.addAll(mMeeting.getMeetingsByDate(cal));
                 binding.recyclerview.getAdapter().notifyDataSetChanged();
             }
-
         };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -124,5 +159,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view == binding.addMeeting) {
             startActivity(new Intent(this, AddMeetingActivity.class));
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String choice = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(getApplicationContext(), choice, Toast.LENGTH_LONG).show();
+        room = i + 1;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
