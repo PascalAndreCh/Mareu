@@ -2,6 +2,7 @@ package com.projet4.maru.ui.meeting;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +17,15 @@ import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.model.Person;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class SelectcoworkerActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, Serializable {
+public class SelectcoworkerActivity extends AppCompatActivity implements MyCoworkerRecyclerViewAdapter.OnCoworkerClickListener {
 
     public ArrayList<Meeting> mMeeting = new ArrayList<>();
     int h = 1;
@@ -39,15 +42,13 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
 
     private ActivitySelectcoworkerBinding binding;
-    private ArrayList<Coworker> mCoworkerArrayList = new ArrayList<>();
     private ArrayList<Participant> mParticipantArrayList = new ArrayList<>();
-    private final MaReuApiService mCoworker = (MaReuApiService) DI.getStartListApiService();
+    private final MaReuApiService mApiService = DI.getStartListApiService();
 
     private void initUI() {
         binding = ActivitySelectcoworkerBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        setButton();
         initRecyclerView();
     }
 
@@ -56,7 +57,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
 
-        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(mCoworkerArrayList);
+        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(mParticipantArrayList,this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -66,11 +67,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
     private void initData() {
 //        mParticipantArrayList = new ArrayList<>(mParticipant.getParticipants());
-        mCoworkerArrayList = new ArrayList<>(mCoworker.getCoworkers());
-    }
-
-    private void setButton() {
-        binding.addCoworker.setOnClickListener(this);
+        mParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
     }
 
 
@@ -82,36 +79,21 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
         // on récupère la valeur en entrée
         Intent intent = getIntent();
-        if (h == 1) {
-//            Bundle args = intent.getBundleExtra("BUNDLE");
-//            ArrayList<Meeting> mMeeting = (ArrayList<Meeting>) args.getSerializable("MEETING_LIST");
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        List<Participant> participants = (List<Participant>) args.getSerializable("ARRAYLIST");
 
-            String message = intent.getStringExtra(AddMeetingActivity.MEETING2_LIST);
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(this,"Participants : "+participants.size(), Toast.LENGTH_SHORT).show();
+
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == binding.addCoworker) {
-
-            // on passe une valeur de retour
-            Intent i2 = new Intent();
-            i2.putExtra(AddMeetingActivity.MEETING2_LIST, "ceci est la valeur de retour");
-            SelectcoworkerActivity.this.setResult(1, i2);
-            SelectcoworkerActivity.this.finish();
-            // finish();
-        }
-    }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public void onCoworkerClick(Participant participant) {
+        Intent data = new Intent();
+        data.putExtra("PERSON_ID",participant.getId());
+        setResult(RESULT_OK, data);
+        finish();
 
     }
 }

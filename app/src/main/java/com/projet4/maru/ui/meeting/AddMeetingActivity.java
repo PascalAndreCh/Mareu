@@ -19,6 +19,7 @@ import com.projet4.maru.databinding.ActivityAddMeetingBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.model.Person;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
@@ -30,25 +31,29 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 
-public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener, Serializable, Parcelable {
+public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
 
     @NonNull ActivityAddMeetingBinding binding;
-    private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService();
+    private MaReuApiService mApiService = DI.getStartListApiService();
 
     boolean is24HView = true;
-    private Calendar selectedStartDate;
-    private Calendar selectedTimeStart;
-    private int selectedDuration;
     public Calendar dateStart =  GregorianCalendar.getInstance();
     public Calendar dateEnd =  GregorianCalendar.getInstance();
     private int durationNumber = 0;
 
+    private long id;
+
+    private long idRoom;
+
+    private Calendar timeStart;
+
+    private Calendar timeEnd;
+
+    private List<Participant> participants = new ArrayList<>();
+
+
     public static final String MEETING2_LIST = "MEETING2_LIST";
-    public static final String DATE2_START = "DATE2_START";
-    public static final String DATE2_END = "DATE2_END";
-    public static final String MEETING_LIST = "MEETING_LIST";
-    public static final String DATE_START = "DATE_START";
-    public static final String DATE_END = "DATE_END";
+
 
 
     private void initUI() {
@@ -87,33 +92,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
-//                Intent i = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
-//                Bundle args = new Bundle();
-//                args.putSerializable("MEETING_LIST",(Serializable)mMeeting);
-//                i.putExtra("BUNDLE",args);
-
-//                i.putExtra(DATE_START, dateStart);
-//                i.putExtra(DATE_END, dateEnd);
-
-//                List<Meeting> meetingss = mMeeting.getMeetings();
-//                Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelableArrayList("MEETING_LIST", (ArrayList<? extends Parcelable>) meetingss);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-
-                // on passe une valeur en entrée de la seconde activité
-                Intent i1 = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
-                i1.putExtra(MEETING2_LIST, "test de départ");
-//                i1.putExtra(MEETING_LIST, (Parcelable) mMeeting);
-//                Bundle args = new Bundle();
-//                List<Meeting> meet = mMeeting.getMeetings();
-//                args.putParcelableArrayList("MEETING_LIST", (ArrayList<? extends Parcelable>) meet);
-//                args.putSerializable("MEETING_LIST",(Serializable)mMeeting);
-//                i1.putExtra("BUNDLE",args);
+                Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
+                Bundle args = new Bundle();
+                args.putSerializable("ARRAYLIST",(Serializable)participants);
+                intent.putExtra("BUNDLE",args);
 
 
-                startActivityForResult(i1, 0);
+                startActivityForResult(intent, 0);
 
 //                 startActivityForResult(i,3);
 //                startActivity(new Intent(i));
@@ -224,15 +209,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    private long id;
-
-    private long idRoom;
-
-    private Calendar timeStart;
-
-    private Calendar timeEnd;
-
-    private List<Participant> participants;
 
     private void onSubmit() {
         String meetingtitle = binding.textMeetingtitle.getEditText().getText().toString();
@@ -258,7 +234,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
 
 
-        mMeeting.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participants));
+        mApiService.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participants));
         Toast.makeText(this, "Meeting created !", Toast.LENGTH_SHORT).show();
         finish();
 
@@ -267,22 +243,17 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // on récupère la valeur de retour
-        if( resultCode==1 ) {
-            String s = data.getStringExtra(MEETING2_LIST);
-            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            long id = data.getLongExtra("PERSON_ID", -1);
+            for (Participant participant : mApiService.getParticipants()){
+                if (participant.getId()==id) {
+                    participants.add(participant);
+                }
+            }
+            // display participant passer la list
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-    }
 }

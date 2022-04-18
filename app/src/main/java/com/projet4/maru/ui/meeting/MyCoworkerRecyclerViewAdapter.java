@@ -11,6 +11,7 @@ import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.model.Person;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ import java.util.List;
 public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCoworkerRecyclerViewAdapter.ViewHolder> {
 
 
-    private final List<Coworker> coworkers;
+    private final List<Participant> participants;
+    private OnCoworkerClickListener listener;
 
 
-    public MyCoworkerRecyclerViewAdapter(ArrayList<Coworker> coworkers) {
-        this.coworkers = coworkers;
+    public MyCoworkerRecyclerViewAdapter(ArrayList<Participant> participants ,OnCoworkerClickListener listener) {
+        this.participants = participants;
+        this.listener = listener;
     }
 
     @NonNull
@@ -38,13 +41,19 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Coworker coworker = coworkers.get(position);
-        viewHolder.displayCoworker(coworker);
+        Participant participant= participants.get(position);
+        viewHolder.displayCoworker(participant);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyCoworkerRecyclerViewAdapter.this.listener.onCoworkerClick(participants.get(viewHolder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return coworkers.size();
+        return participants.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,9 +66,9 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
             coworkerTextSuit = view.findViewById(R.id.coworkerTextSuit);
         }
 
-        public void displayCoworker(Coworker coworker) {
-            coworkerText.setText(coworker.getName()+" "+coworker.getFunction());
-            coworkerTextSuit.setText(coworker.getDepartment()+" "+coworker.getMailAddresses());
+        public void displayCoworker(Participant participant) {
+            coworkerText.setText(participant.getName());
+            coworkerTextSuit.setText(participant.getMailAddresses());
 //           if (participantIsFree(coworker.getId(), dateStart, dateEnd)){
 
 //            }
@@ -85,5 +94,11 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 //        }
 //        return true;
 //    }
+
+  public interface OnCoworkerClickListener {
+        void onCoworkerClick(Participant participant);
+
+  }
+
 }
 

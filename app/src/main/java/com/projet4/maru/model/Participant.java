@@ -1,8 +1,9 @@
 package com.projet4.maru.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Participant extends Person {
+public class Participant extends Person implements Serializable {
 
     private String attachment;
 
