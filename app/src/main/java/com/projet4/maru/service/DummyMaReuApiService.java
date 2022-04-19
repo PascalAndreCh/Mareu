@@ -347,7 +347,13 @@ public class DummyMaReuApiService implements MaReuApiService {
      * @return
      */
     public Calendar endDateMeeting(Calendar startDate, int duration) {
-        Calendar endDate = startDate;
+        int k3 = startDate.get(Calendar.YEAR);
+        int k4 = startDate.get(Calendar.MONTH);
+        int k5 = startDate.get(Calendar.DAY_OF_MONTH);
+        int k6 = startDate.get(Calendar.HOUR);
+        int k7 = startDate.get(Calendar.MINUTE);
+        Calendar endDate = GregorianCalendar.getInstance();
+        endDate.set(k3,k4,k5,k6,k7,0);
         endDate.add(Calendar.MINUTE, duration);
         return endDate;
     }

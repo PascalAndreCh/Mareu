@@ -17,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.projet4.maru.databinding.ActivityAddMeetingBinding;
 import com.projet4.maru.di.DI;
+import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Person;
+import com.projet4.maru.service.DummyMaReuApiService;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
@@ -37,19 +39,20 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     private MaReuApiService mApiService = DI.getStartListApiService();
 
     boolean is24HView = true;
-    public Calendar dateStart =  GregorianCalendar.getInstance();
-    public Calendar dateEnd =  GregorianCalendar.getInstance();
+    public Calendar dateStart;
+    public Calendar dateEnd;
+    public Calendar timeStart;
+    public Calendar timeEnd;
+
     private int durationNumber = 0;
 
     private long id;
 
     private long idRoom;
 
-    private Calendar timeStart;
-
-    private Calendar timeEnd;
-
     private List<Participant> participants = new ArrayList<>();
+    private List<Meeting> meetings = new ArrayList<>();
+    private List<Coworker> coworkers = new ArrayList<>();
 
 
     public static final String MEETING2_LIST = "MEETING2_LIST";
@@ -62,6 +65,11 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         setContentView(view);
         setButton();
         getSupportActionBar().setTitle("New meeting");
+        meetings = new ArrayList<>(mApiService.getMeetings());
+        coworkers = new ArrayList<>(mApiService.getCoworkers());
+        dateStart =  GregorianCalendar.getInstance();
+        dateEnd =  GregorianCalendar.getInstance();
+        participants = new ArrayList<Participant>(mApiService.getParticipants());
 
         // init select date button
         binding.dateMeeting.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +102,11 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
-                args.putSerializable("ARRAYLIST",(Serializable)participants);
+                args.putSerializable("ARRAYLIST1",(Serializable)participants);
+                args.putSerializable("ARRAYLIST2",(Serializable)meetings);
+                args.putSerializable("ARRAYLIST3",(Serializable)coworkers);
+                args.putSerializable("DATE1",(Serializable)dateStart);
+                args.putSerializable("DATE2",(Serializable)dateEnd);
                 intent.putExtra("BUNDLE",args);
 
 
@@ -175,9 +187,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                 binding.durationText.setText(format2.format(cal2.getTime()));
                 durationNumber = (l*60)+l1;
-                // dateEnd = endDateMeeting(dateStart, durationNumber);
-                dateEnd = dateStart;
-                dateEnd.add(Calendar.MINUTE, durationNumber);
+                int k3 = dateStart.get(Calendar.YEAR);
+                int k4 = dateStart.get(Calendar.MONTH);
+                int k5 = dateStart.get(Calendar.DAY_OF_MONTH);
+                int k6 = dateStart.get(Calendar.HOUR);
+                int k7 = dateStart.get(Calendar.MINUTE);
+                dateEnd.set(k3,k4,k5,k6,k7,0);
+//               dateEnd = DummyMaReuApiService.endDateMeeting(dateStart, durationNumber);
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
             }
         };

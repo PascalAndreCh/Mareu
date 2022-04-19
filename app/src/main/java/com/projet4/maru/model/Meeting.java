@@ -1,12 +1,13 @@
 package com.projet4.maru.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Meeting {
+public class Meeting implements Serializable {
 
     private long id;
 

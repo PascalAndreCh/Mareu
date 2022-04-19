@@ -146,7 +146,9 @@ public interface MaReuApiService {
      * @param duration
      * @return
      */
-    Calendar endDateMeeting(Calendar startDate, int duration);
+    static Calendar endDateMeeting(Calendar startDate, int duration) {
+        return null;
+    }
 
 
 }

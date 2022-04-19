@@ -87,11 +87,11 @@ public class DummyMaReuGenerator {
                 new Meeting(1004, 4, new GregorianCalendar(2022, 5, 14, 14, 0), new GregorianCalendar(2022, 3, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3)
         );
         DUMMY_PARTICIPANTS = Arrays.asList(
-                new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
-                new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
-                new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
-                new Participant( 20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH"),
-                new Participant(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur")
+//                new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+//                new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
+//                new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
+//                new Participant( 20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH"),
+//                new Participant(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur")
         );
 
     }

@@ -357,6 +357,7 @@ public class UnitTest {
         Calendar dateFin = GregorianCalendar.getInstance();
         dateFin.setTime(dateDeb.getTime());
         dateFin.set(2022, 2,30,18,45);
-        assertEquals(service.endDateMeeting(dateDeb, duration).getTime(), dateFin.getTime());
+        assertEquals(MaReuApiService.endDateMeeting(dateDeb, duration).getTime(),
+                dateFin.getTime());
     }
 }

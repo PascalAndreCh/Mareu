@@ -22,6 +22,7 @@ import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -29,16 +30,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements MyCowor
 
     public ArrayList<Meeting> mMeeting = new ArrayList<>();
     int h = 1;
-
-
-//    mMeeting = (ArrayList<Meeting>) getIntent().getSerializableExtra("MEETING2_LIST");
-
-//    Intent intent = getIntent();
-//    Bundle args = intent.getBundleExtra("BUNDLE");
-    //    ArrayList<Meeting> mMeeting = (ArrayList<Meeting>) args.getSerializable("MEETING_LIST");
-//    Calendar dateDeb = getIntent().getCalendarExtra(DATE_START);
-//    Calendar dateFin = getIntent().getCalendarExtra(DATE_END);
-//    ArrayList<Participant> participants;
 
 
     private ActivitySelectcoworkerBinding binding;
@@ -66,8 +57,12 @@ public class SelectcoworkerActivity extends AppCompatActivity implements MyCowor
     }
 
     private void initData() {
-//        mParticipantArrayList = new ArrayList<>(mParticipant.getParticipants());
-        mParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
+        mParticipantArrayList = new ArrayList<>();
+        mParticipantArrayList.clear();
+        for (Coworker coworker : mApiService.getCoworkers()){
+            Participant part = new Participant(coworker.getId(), coworker.getName(), coworker.getMailAddresses(), coworker.getDepartment(), coworker.getFunction());
+            mParticipantArrayList.add(part) ;
+        }
     }
 
 
@@ -80,10 +75,14 @@ public class SelectcoworkerActivity extends AppCompatActivity implements MyCowor
         // on récupère la valeur en entrée
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
-        List<Participant> participants = (List<Participant>) args.getSerializable("ARRAYLIST");
 
-            Toast.makeText(this,"Participants : "+participants.size(), Toast.LENGTH_SHORT).show();
+        Calendar dateStart = (Calendar) args.getSerializable("DATE1");
+        Calendar dateEnd = (Calendar) args.getSerializable("DATE2");
+        List<Meeting> meetings = (List<Meeting>) args.getSerializable("ARRAYLIST2");
+        List<Participant> participants = (List<Participant>) args.getSerializable("ARRAYLIST1");
+        List<Coworker> coworkers = (List<Coworker>) args.getSerializable("ARRAYLIST3");
 
+        Toast.makeText(this,"Participants : "+participants.size(), Toast.LENGTH_SHORT).show();
 
     }
 

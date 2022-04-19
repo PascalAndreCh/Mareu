@@ -1,8 +1,9 @@
 package com.projet4.maru.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Serializable {
 
     /**
      * Identifier

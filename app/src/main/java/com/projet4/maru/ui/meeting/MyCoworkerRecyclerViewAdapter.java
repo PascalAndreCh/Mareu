@@ -26,7 +26,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
     private OnCoworkerClickListener listener;
 
 
-    public MyCoworkerRecyclerViewAdapter(ArrayList<Participant> participants ,OnCoworkerClickListener listener) {
+    public MyCoworkerRecyclerViewAdapter(ArrayList<Participant> participants , OnCoworkerClickListener listener) {
         this.participants = participants;
         this.listener = listener;
     }

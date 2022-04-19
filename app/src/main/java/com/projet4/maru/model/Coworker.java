@@ -1,8 +1,9 @@
 package com.projet4.maru.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Coworker extends Person {
+public class Coworker extends Person implements Serializable {
 
     private String department;
 
