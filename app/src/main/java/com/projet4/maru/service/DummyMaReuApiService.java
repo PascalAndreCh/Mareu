@@ -1,11 +1,9 @@
 package com.projet4.maru.service;
 
 
-import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.model.Vip;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,8 +13,6 @@ import java.util.List;
 public class DummyMaReuApiService implements MaReuApiService {
 
     private List<Room> rooms = DummyMaReuGenerator.generateRooms();
-    private List<Coworker> coworkers = DummyMaReuGenerator.generateCoworkers();
-    private List<Vip> vips = DummyMaReuGenerator.generateVips();
     private List<Meeting> meetings = DummyMaReuGenerator.generateMeetings();
     private List<Participant> participants = DummyMaReuGenerator.generateParticipants();
 
@@ -72,35 +68,16 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
 
-    /**
-     * @return
-     */
     @Override
     public List<Room> getRooms() {
         return this.rooms;
     }
 
-    /**
-     * @return
-     */
-    @Override
-    public List<Coworker> getCoworkers() {
-        return this.coworkers;
-    }
 
-    /**
-     * @return
-     */
-    @Override
-    public List<Vip> getVips() {
-        return this.vips;
-    }
 
     /**
      * etabli la liste des réunions pour une salle donnée (filtre réunions par salle)
      *
-     * @param room
-     * @return
      */
     @Override
     public List<Meeting> getMeetingsByRoom(int room) {
@@ -342,19 +319,21 @@ public class DummyMaReuApiService implements MaReuApiService {
     /**
      * Calucle la date de fin en fonction de la date de départ et de la durée de la réunion
      *
-     * @param startDate
+     * @param dateStart
      * @param duration
      * @return
      */
-    public Calendar endDateMeeting(Calendar startDate, int duration) {
-        int k3 = startDate.get(Calendar.YEAR);
-        int k4 = startDate.get(Calendar.MONTH);
-        int k5 = startDate.get(Calendar.DAY_OF_MONTH);
-        int k6 = startDate.get(Calendar.HOUR);
-        int k7 = startDate.get(Calendar.MINUTE);
-        Calendar endDate = GregorianCalendar.getInstance();
-        endDate.set(k3,k4,k5,k6,k7,0);
-        endDate.add(Calendar.MINUTE, duration);
-        return endDate;
-    }
+
+    public Calendar endDateMeeting(Calendar dateStart, int duration) {
+        Calendar dateEnd = GregorianCalendar.getInstance();
+        int k3 = dateStart.get(Calendar.YEAR);
+        int k4 = dateStart.get(Calendar.MONTH);
+        int k5 = dateStart.get(Calendar.DAY_OF_MONTH);
+        int k6 = dateStart.get(Calendar.HOUR_OF_DAY);
+        int k7 = dateStart.get(Calendar.MINUTE);
+        dateEnd.set(k3,k4,k5,k6,k7,0);
+        dateEnd.add(Calendar.MINUTE, duration);
+        return dateEnd;
+     }
+
 }

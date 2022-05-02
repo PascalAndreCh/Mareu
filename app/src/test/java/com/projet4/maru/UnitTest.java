@@ -11,11 +11,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.*;
 
 import com.projet4.maru.di.DI;
-import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.model.Vip;
 import com.projet4.maru.service.DummyMaReuGenerator;
 import com.projet4.maru.service.MaReuApiService;
 
@@ -97,19 +95,7 @@ public class UnitTest {
         assertThat(rooms, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedRooms.toArray()));
     }
 
-    @Test
-    public void getCoworkersWithSuccess() {
-        List<Coworker> coworkers = service.getCoworkers();
-        List<Coworker> expectedCoworkers = DummyMaReuGenerator.DUMMY_COWORKERS;
-        assertThat(coworkers, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedCoworkers.toArray()));
-    }
 
-    @Test
-    public void getVipsWithSuccess() {
-        List<Vip> vips = service.getVips();
-        List<Vip> expectedVips = DummyMaReuGenerator.DUMMY_VIPS;
-        assertThat(vips, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedVips.toArray()));
-    }
 
     @Test
     public void getMeetingFilteredRoom() {
@@ -352,12 +338,11 @@ public class UnitTest {
     @Test
     public void endDateMet() {
         Calendar dateDeb = GregorianCalendar.getInstance();
-        dateDeb.set(2022, 2, 30, 18, 0);
+        dateDeb.set(2022, 2, 30, 18, 0,0);
         int duration = 45;
         Calendar dateFin = GregorianCalendar.getInstance();
         dateFin.setTime(dateDeb.getTime());
-        dateFin.set(2022, 2,30,18,45);
-        assertEquals(MaReuApiService.endDateMeeting(dateDeb, duration).getTime(),
-                dateFin.getTime());
+        dateFin.set(2022, 2,30,18,45, 0);
+        assertEquals(service.endDateMeeting(dateDeb, duration).getTime(), dateFin.getTime());
     }
 }

@@ -3,11 +3,18 @@ package com.projet4.maru.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Participant extends Person implements Serializable {
+public class Participant implements Serializable {
 
     private String attachment;
 
     private String job;
+
+    private long id;
+
+    private String name;
+
+    private String mailAddresses;
+
 
     /**
      * @param id
@@ -17,11 +24,36 @@ public class Participant extends Person implements Serializable {
      * @param job
      */
     public Participant(long id, String name, String mailAddresses, String attachment, String job) {
-        super(id, name, mailAddresses);
         this.attachment = attachment;
         this.job = job;
+        this.id = id;
+        this.name = name;
+        this.mailAddresses = mailAddresses;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMailAddresses() {
+        return mailAddresses;
+    }
+
+    public void setMailAddresses(String mailAddresses) {
+        this.mailAddresses = mailAddresses;
+    }
 
     public String getAttachment() {
         return attachment;
@@ -51,4 +83,7 @@ public class Participant extends Person implements Serializable {
     public int hashCode() {
         return Objects.hash(attachment, job);
     }
+
+
+
 }

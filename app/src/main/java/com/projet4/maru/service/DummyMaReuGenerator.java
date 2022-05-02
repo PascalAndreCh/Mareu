@@ -1,10 +1,8 @@
 package com.projet4.maru.service;
 
-import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.model.Vip;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +11,9 @@ import java.util.List;
 
 public class DummyMaReuGenerator {
 
-    public static List<Coworker> DUMMY_COWORKERS;
+    public static List<Participant> DUMMY_COWORKERS;
     public static List<Room> DUMMY_ROOMS;
-    public static List<Vip> DUMMY_VIPS;
+
     private static List<Participant> DUMMY_PARTICIPANT1;
     private static List<Participant> DUMMY_PARTICIPANT2;
     private static List<Participant> DUMMY_PARTICIPANT3;
@@ -24,26 +22,26 @@ public class DummyMaReuGenerator {
 
     static {
         DUMMY_COWORKERS = Arrays.asList(
-                new Coworker(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
-                new Coworker(2, "Henri DUPOND", "henri.dupond@pme.fr", "Development", "Developer_back_end"),
-                new Coworker(3, "Marie POPPY", "marie.poppy@pme.fr", "Development", "Developer_mobile"),
-                new Coworker(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
-                new Coworker(5, "Annie VERSAIRE", "annie.versaire@pme.fr", "Development", "Developer_mobile_android"),
-                new Coworker(6, "Paul NORD", "paul.nord@pme.fr", "Development", "Developer_designer"),
-                new Coworker(7, "Jean NEMARD", "mathieu.dupont@pme.fr", "Development", "Developer_mobile_IOS"),
-                new Coworker(8, "Pierre KIROULE", "pierre.kiroule@pme.fr", "Development", "Developer_front_end"),
-                new Coworker(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr", "Development", "Developer_Chef_de_projet"),
-                new Coworker(10, "Chloé MARTIN", "chloe.martin@pme.fr", "Development", "Developer_designer"),
-                new Coworker(11, "Jacques COURT", "jacques.court@pme.fr", "Development", "Developer_mobile"),
-                new Coworker(12, "Henry CREOLE", "henry.creole@pme.fr", "Development", "Developer_full_stack"),
-                new Coworker(13, "André PICK", "andre.pick@pme.fr", "Development", "Developer_mobile"),
-                new Coworker(14, "Bernard ROSIER", "bernard.rosier@pme.fr", "Trade", "Manager"),
-                new Coworker(15, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
-                new Coworker(16, "Joseph ESPERE", "joseph.espere@pme.fr", "Trade", "Seller"),
-                new Coworker(17, "Michel LEGRAND", "michel.legrand@pme.fr", "Direction", "Pdg"),
-                new Coworker(18, "Yollande PETIT", "yollande.petit@pme.fr", "Direction", "Secretaire"),
-                new Coworker(19, "Serge PROPRE", "mathieu.dupont@pme.fr", "Maintenace", "Technicien_Polyvalent"),
-                new Coworker(20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH")
+                new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
+                new Participant(2, "Henri DUPOND", "henri.dupond@pme.fr", "Development", "Developer_back_end"),
+                new Participant(3, "Marie POPPY", "marie.poppy@pme.fr", "Development", "Developer_mobile"),
+                new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
+                new Participant(5, "Annie VERSAIRE", "annie.versaire@pme.fr", "Development", "Developer_mobile_android"),
+                new Participant(6, "Paul NORD", "paul.nord@pme.fr", "Development", "Developer_designer"),
+                new Participant(7, "Jean NEMARD", "mathieu.dupont@pme.fr", "Development", "Developer_mobile_IOS"),
+                new Participant(8, "Pierre KIROULE", "pierre.kiroule@pme.fr", "Development", "Developer_front_end"),
+                new Participant(9, "Estelle NONCPASL", "estelle.noncpasl@pme.fr", "Development", "Developer_Chef_de_projet"),
+                new Participant(10, "Chloé MARTIN", "chloe.martin@pme.fr", "Development", "Developer_designer"),
+                new Participant(11, "Jacques COURT", "jacques.court@pme.fr", "Development", "Developer_mobile"),
+                new Participant(12, "Henry CREOLE", "henry.creole@pme.fr", "Development", "Developer_full_stack"),
+                new Participant(13, "André PICK", "andre.pick@pme.fr", "Development", "Developer_mobile"),
+                new Participant(14, "Bernard ROSIER", "bernard.rosier@pme.fr", "Trade", "Manager"),
+                new Participant(15, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
+                new Participant(16, "Joseph ESPERE", "joseph.espere@pme.fr", "Trade", "Seller"),
+                new Participant(17, "Michel LEGRAND", "michel.legrand@pme.fr", "Direction", "Pdg"),
+                new Participant(18, "Yollande PETIT", "yollande.petit@pme.fr", "Direction", "Secretaire"),
+                new Participant(19, "Serge PROPRE", "mathieu.dupont@pme.fr", "Maintenace", "Technicien_Polyvalent"),
+                new Participant(20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH")
         );
         DUMMY_ROOMS = Arrays.asList(
                 new Room(1, "Martinique", 104, 6, 1),
@@ -57,14 +55,7 @@ public class DummyMaReuGenerator {
                 new Room(9, "Jersey", 302, 8, 3),
                 new Room(10, "Bermudes", 307, 10, 3)
         );
-        DUMMY_VIPS = Arrays.asList(
-                new Vip(901, "John ROUGE", "john.rouge@pmi.com", "SA BLANCHE", "Directeur"),
-                new Vip(902, "Jules FERRY", "jules.ferry@pmi.com", "SA BLANCHE", "Commercial"),
-                new Vip(903, "Anatole FRANCE", "anatole.france@pmi.com", "SARL DUPONTIN", "Commercial"),
-                new Vip(904, "Monique KIFFER", "monique.kiffer@pmi.com", "SARL DUPONTIN", "Directeur"),
-                new Vip(905, "Beatrice LE FORT", "beatrice.lefort@pmi.com", "SARL DUPONTIN", "Gection Financière")
-        );
-        DUMMY_PARTICIPANT1 = Arrays.asList(
+         DUMMY_PARTICIPANT1 = Arrays.asList(
                 new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
                 new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
                 new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
@@ -86,17 +77,9 @@ public class DummyMaReuGenerator {
                 new Meeting(1003, 7, new GregorianCalendar(2022, 5, 14, 9, 15), new GregorianCalendar(2022, 3, 14, 10, 15), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", DUMMY_PARTICIPANT2),
                 new Meeting(1004, 4, new GregorianCalendar(2022, 5, 14, 14, 0), new GregorianCalendar(2022, 3, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3)
         );
-        DUMMY_PARTICIPANTS = Arrays.asList(
-//                new Participant(1, "Mathieu DUPONT", "mathieu.dupont@pme.fr", "Development", "Developer_front_end"),
-//                new Participant(4, "Sophie DAPRES", "sophie.dapres@pme.fr", "Development", "Developer_full_stack"),
-//                new Participant(14, "Emilie JOLIE", "emile.jolie@pme.fr", "Trade", "Seller"),
-//                new Participant( 20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH"),
-//                new Participant(904, "Monique KIFFER", "monique.kiffer@pme.fr", "SARL DUPONTIN", "Directeur")
-        );
-
     }
 
-    static List<Coworker> generateCoworkers() {
+    static List<Participant> generateCoworkers() {
         return new ArrayList<>(DUMMY_COWORKERS);
     }
 
@@ -104,15 +87,11 @@ public class DummyMaReuGenerator {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 
-    static List<Vip> generateVips() {
-        return new ArrayList<>(DUMMY_VIPS);
-    }
-
     static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 
-    static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_PARTICIPANTS); }
+    static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_COWORKERS); }
 
 
     /**

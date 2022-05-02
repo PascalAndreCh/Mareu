@@ -1,11 +1,9 @@
 package com.projet4.maru.service;
 
 
-import com.projet4.maru.model.Coworker;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
-import com.projet4.maru.model.Vip;
 
 import java.util.Calendar;
 import java.util.List;
@@ -13,34 +11,18 @@ import java.util.List;
 public interface MaReuApiService {
 
 
-    /**
-     *
-     * @param meeting
-     */
+
     void createMeeting(Meeting meeting);
 
-    /**
-     *
-     * @param meeting
-     */
     void deleteMeeting(Meeting meeting);
 
-    /**
-     *
-     * @return
-     */
+
     List<Meeting> getMeetings();
 
-    /**
-     *
-     * @return
-     */
+
     List<Participant> getParticipants();
 
-    /**
-     *
-     * @param participant
-     */
+
     void deleteParticipant(Participant participant);
 
     /**
@@ -51,10 +33,6 @@ public interface MaReuApiService {
 
 
     List<Room> getRooms();
-
-    List<Coworker> getCoworkers();
-
-    List<Vip> getVips();
 
 
     /**
@@ -146,9 +124,8 @@ public interface MaReuApiService {
      * @param duration
      * @return
      */
-    static Calendar endDateMeeting(Calendar startDate, int duration) {
-        return null;
-    }
+    Calendar endDateMeeting(Calendar startDate, int duration);
+
 
 
 }
