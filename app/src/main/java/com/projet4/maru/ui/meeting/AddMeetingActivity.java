@@ -53,6 +53,12 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     public static final String MEETING2_LIST = "MEETING2_LIST";
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initUI();
+    }
+
     public void setup() {
         service = DI.getNewInstanceApiService();
     }
@@ -67,10 +73,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         dateStart =  GregorianCalendar.getInstance();
         dateEnd =  GregorianCalendar.getInstance();
 //        participants = new ArrayList<Participant>(mApiService.getParticipants());
-        List<Participant> participants = new ArrayList<>();
-        participants.clear();
-        List<Participant> participantsList = new ArrayList<>();
-        participantsList.clear();
         setup();
 
         // init select date button
@@ -102,6 +104,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
+                Participant newParticipant = new Participant(16, "Joseph ESPERE", "joseph.espere@pme.fr", "Trade", "Seller");
+                participantsList.add(newParticipant);
+
+                // passage de la liste des participants de AddMeeting à Selectcoworker, la première fois, elle est vide
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST1",(Serializable)participantsList);
@@ -190,16 +196,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-
-
     private void setButton() {
         binding.meetingSet.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initUI();
     }
 
     @Override
@@ -208,8 +206,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             onSubmit();
         }
     }
-
-
 
     private void onSubmit() {
         String meetingtitle = binding.textMeetingtitle.getEditText().getText().toString();
@@ -233,10 +229,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-
-
         mApiService.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList));
-        Toast.makeText(this, "Meeting created !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Meeting created ! dans Add", Toast.LENGTH_SHORT).show();
         finish();
 
     }
@@ -246,18 +240,12 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         // on récupère la valeur de retour
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-//            long id = data.getLongExtra("PERSON_ID", -1);
-//            for (Coworker coworker : mApiService.getCoworkers()){
-//                if (coworker.getId()==id) {
-//                    Participant part = new Participant(coworker.getId(), coworker.getName(), coworker.getMailAddresses(), coworker.getDepartment(), coworker.getFunction());
-//                    participants.add(part) ;
-//            List<Participant> participantsList = this.getIntent().getExtras().getParcelable("ARRAYLIST1");
+            Intent intent = getIntent();
+            Bundle args = intent.getBundleExtra("BUNDLE");
+            List<Participant> participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
 
-                    Toast.makeText(this, "participant créé !", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this,"Participants : "+participantsList.size(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-            // display participant passer la list
+            Toast.makeText(this,"Part 5 : "+participantsList.size(), Toast.LENGTH_SHORT).show();
+
         }
 
     }

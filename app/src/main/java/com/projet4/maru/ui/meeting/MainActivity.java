@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        System.setProperty("server.port", "4000");
         super.onCreate(savedInstanceState);
         initData();
         initUI();
