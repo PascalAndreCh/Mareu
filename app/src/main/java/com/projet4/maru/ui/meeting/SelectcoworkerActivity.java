@@ -1,6 +1,7 @@
 package com.projet4.maru.ui.meeting;
 
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.projet4.maru.R;
 import com.projet4.maru.databinding.ActivitySelectcoworkerBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
@@ -29,18 +32,19 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     private List<Participant> allPossibleParticipantArrayList;
     private final MaReuApiService mApiService = DI.getStartListApiService();
     public List<Participant> participantsList = new ArrayList<>();
+
 //    public List<Participant> participantsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
+
         initData();
         initUI();
 
-        // on récupère en entrée la liste des participants, la première fois, elle est vide
-        Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        List<Participant> participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
 
         Toast.makeText(this, "Part 1 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
 
@@ -51,6 +55,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         View view = binding.getRoot();
         setContentView(view);
         initRecyclerView();
+        binding.addCoworker.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -58,7 +63,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
 
-        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, this);
+        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -80,35 +85,8 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 //        } else {
 //            participantsList.remove(participant);
 //        }
-        boolean test = false;
-        Toast.makeText(this, "Part 2 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
 
-
-        if (participantsList.size()==0) {
-            test = false;
-        } else {
-            for (Participant i : participantsList) {
-                if (i.getId() == participant.getId()) {
-                    test = true;
-                    break;
-                } else {
-                    test = false;
-                }
-            }
-        }
-        if (test) {
-            participantsList.remove(participant);
-        } else {
-            participantsList.add(participant);
-        }
-
-        Toast.makeText(this, "Part 3 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
-
-//        idList.add(participant.getId());
-//        Intent data = new Intent();
-//        data.putExtra("PERSON_ID",participant.getId());
-//        setResult(RESULT_OK, data);
-//        finish();
+         Toast.makeText(this, "Part 3 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,4 +103,20 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
             finish();
          }
     }
+
+//    FloatingActionButton fab = findViewById(R.id.add_coworker);
+//    fab.setOnClicListener(new View.OnClickListener() {
+//        @Override
+//                public void onClick(View view) {
+//                        // on passe la liste en retour de Selectcoworker à AddMeeting
+//            Intent data = new Intent();
+//            Bundle args = new Bundle();
+//            args.putSerializable("ARRAYLIST1",(Serializable)participantsList);
+//            data.putExtra("BUNDLE",args);
+//            setResult(RESULT_OK, data);
+//            Toast.makeText(this, "Part 4 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
+//            finish();
+//        }
+//    });
+
 }

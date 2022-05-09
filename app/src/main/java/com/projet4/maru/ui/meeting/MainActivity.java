@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final MaReuApiService mVip = (MaReuApiService) DI.getStartListApiService();
     private Spinner spinner;
     private int room = 1;
-    public static final String ID_ROOM = "ID_ROOM";
 
     private void initUI() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());

@@ -13,13 +13,7 @@
         <activity
             android:name=".ui.meeting.RoomspinnerActivity"
             android:label="select Room" />
-        <activity
-            android:name=".ui.meeting.AddMeetingActivity"
-            android:label="Ajout Meeting" />
-        <activity
-            android:name=".ui.meeting.SelectcoworkerActivity"
-            android:label="Selection participant" />
-        <activity
+         <activity
             android:name=".ui.meeting.DetailMeetingActivity"
             android:label="Détail Meeting"
             tools:ignore="Instantiatable" />
@@ -28,10 +22,37 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.meeting.AddMeetingActivity"
+            android:label="Ajout Meeting"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.meeting.SelectcoworkerActivity"
+            android:label="Selection participant"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.meeting.SelectroomActivity"
+            android:label="Selection room"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

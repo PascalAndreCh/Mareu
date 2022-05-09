@@ -13,10 +13,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.projet4.maru.databinding.ActivityAddMeetingBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.model.Room;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
@@ -29,7 +31,8 @@ import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @NonNull ActivityAddMeetingBinding binding;
+    @NonNull
+    ActivityAddMeetingBinding binding;
     private MaReuApiService mApiService = DI.getStartListApiService();
 
     private MaReuApiService service;
@@ -39,10 +42,14 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     public Calendar dateEnd;
     public Calendar timeStart;
     public Calendar timeEnd;
-
+    public static final String ID_ROOM = "ID_ROOM";
+    public static final String NBPEOPLE = "NBPEOPLE";
+    public static Room room;
+    public static Room room2;
+    public static Room room3;
     private int durationNumber = 0;
+    private List<Room> rooms1;
 
-    private long id;
 
     private long idRoom;
 
@@ -56,6 +63,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        List<Room> rooms1 = mApiService.getRooms();
         initUI();
     }
 
@@ -70,8 +78,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         setButton();
         getSupportActionBar().setTitle("New meeting");
         meetings = new ArrayList<>(mApiService.getMeetings());
-        dateStart =  GregorianCalendar.getInstance();
-        dateEnd =  GregorianCalendar.getInstance();
+        dateStart = GregorianCalendar.getInstance();
+        dateEnd = GregorianCalendar.getInstance();
 //        participants = new ArrayList<Participant>(mApiService.getParticipants());
         setup();
 
@@ -99,20 +107,29 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+
         // init select coworker button
         binding.participantMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Participant newParticipant = new Participant(16, "Joseph ESPERE", "joseph.espere@pme.fr", "Trade", "Seller");
-                participantsList.add(newParticipant);
-
                 // passage de la liste des participants de AddMeeting à Selectcoworker, la première fois, elle est vide
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
-                args.putSerializable("ARRAYLIST1",(Serializable)participantsList);
-                intent.putExtra("BUNDLE",args);
-                startActivityForResult(intent, 0);
+                args.putSerializable("ARRAYLIST1", (Serializable) participantsList);
+                intent.putExtra("BUNDLE", args);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        // init select room button
+        binding.roomMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
+                intent2.putExtra(ID_ROOM, idRoom);
+                intent2.putExtra(NBPEOPLE, participantsList.size());
+                startActivityForResult(intent2, 2);
             }
         });
     }
@@ -183,7 +200,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 cal2.set(k, k1, k2, l, l1, 0);
                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                 binding.durationText.setText(format2.format(cal2.getTime()));
-                durationNumber = (l*60)+l1;
+                durationNumber = (l * 60) + l1;
                 Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
             }
@@ -211,10 +228,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         String meetingtitle = binding.textMeetingtitle.getEditText().getText().toString();
         String meetingComment = binding.textMeetingComment.getEditText().getText().toString();
         long id = System.currentTimeMillis();
-//        long idRoom = binding.roomMeeting.getId();
         Calendar timeStart = dateStart;
         Calendar timeEnd = dateEnd;
-        List<Participant> participantsList = participants;
 
         if (meetingtitle.isEmpty()) {
             binding.textMeetingtitle.setError("Please type a title");
@@ -224,30 +239,59 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             binding.textMeetingComment.setError("Please type a comment");
             return;
         }
-        if (participants.size()==0) {
+        if (participantsList.size() == 0) {
             binding.textParticipant.setError("Please select participants");
             return;
         }
+
 
         mApiService.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList));
         Toast.makeText(this, "Meeting created ! dans Add", Toast.LENGTH_SHORT).show();
         finish();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         // on récupère la valeur de retour
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Intent intent = getIntent();
-            Bundle args = intent.getBundleExtra("BUNDLE");
-            List<Participant> participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
-
-            Toast.makeText(this,"Part 5 : "+participantsList.size(), Toast.LENGTH_SHORT).show();
-
+            if (requestCode == 1) {
+                Bundle args = data.getBundleExtra("BUNDLE");
+                participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
+                Toast.makeText(this, "Part 5 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
+            } else {
+                if (requestCode == 2) {
+                    idRoom = data.getLongExtra(ID_ROOM, 0);
+ //                   for (Room room : rooms1) {
+                    for (Room room : mApiService.getRooms())   {
+                        if (room.getIdRoom() == idRoom) {
+                            room2 = room;
+                            break;
+                        }
+                    }
+                   binding.roomText.setError(null);
+                   binding.roomText.setText(room2.getNameRoom());
+                    if (!service.roomToSmall(idRoom, participantsList.size())) {
+                        binding.roomText.setError("Please choice another room, this one is to small for all people");
+                    }
+                    long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), dateStart, dateEnd);
+                    if (idRoomB != idRoom) {
+                        for (Room room : mApiService.getRooms()) {
+                            if (room.getIdRoom() == idRoomB) {
+                                room3 = room;
+                                break;
+                            }
+                        }
+                        binding.roomText.setError("This room is better " + room3.getNameRoom());
+                    }
+                   if (service.roomIsFree(idRoom, dateStart, dateEnd)) {
+                        binding.roomText.setError("Please choice another room, this room is not free");
+                    }
+                }
+            }
         }
-
     }
 
 }

@@ -5,8 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.projet4.maru.R;
 import com.projet4.maru.model.Participant;
 
@@ -15,15 +17,15 @@ import java.util.List;
 
 public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCoworkerRecyclerViewAdapter.ViewHolder> {
 
-
+    private final List<Participant> coworkers;
     private final List<Participant> participants;
     private OnCoworkerClickListener listener;
 
 
-    public MyCoworkerRecyclerViewAdapter(List<Participant> participants , OnCoworkerClickListener listener) {
-        // TODO passer liste Coworker
+    public MyCoworkerRecyclerViewAdapter(List<Participant> coworkers, List<Participant> participants, OnCoworkerClickListener listener) {
         this.participants = participants;
         this.listener = listener;
+        this.coworkers = coworkers;
     }
 
     @NonNull
@@ -36,21 +38,28 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Participant participant = participants.get(position);
+        Participant participant = coworkers.get(position);
         viewHolder.displayCoworker(participant);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyCoworkerRecyclerViewAdapter.this.listener.onCoworkerClick(participants.get(viewHolder.getAdapterPosition()));
+                Participant p = coworkers.get(viewHolder.getAdapterPosition());
+                if (participants.contains(p)) {
+                    viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+                    participants.remove(p);
+                } else {
+                    viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
+                    participants.add(p);
+                }
+                MyCoworkerRecyclerViewAdapter.this.listener.onCoworkerClick(p);
             }
         });
-        // TODO
-//        viewHolder. image à changer
+
     }
 
     @Override
     public int getItemCount() {
-        return participants.size();
+        return coworkers.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +77,11 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
         public void displayCoworker(Participant participant) {
             coworkerText.setText(participant.getName());
             coworkerTextSuit.setText(participant.getMailAddresses());
-
+            if (participants.contains(participant)) {
+                itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
+            } else {
+                itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+            }
 //            itemCoworkerSelectButton.setImageIcon(ic_baseline_person_green_24);
 
 //           if (participantIsFree(coworker.getId(), dateStart, dateEnd)){
@@ -79,11 +92,10 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
     }
 
 
-
-  public interface OnCoworkerClickListener {
+    public interface OnCoworkerClickListener {
         void onCoworkerClick(Participant participant);
 
-  }
+    }
 
 }
 
