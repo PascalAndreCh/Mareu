@@ -76,7 +76,7 @@ public class Participant implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Participant that = (Participant) o;
-        return Objects.equals(attachment, that.attachment) && Objects.equals(job, that.job);
+        return Objects.equals(id, that.id);
     }
 
     @Override

@@ -183,39 +183,51 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Participant interne"
-            android:textSize="12sp"
+            android:text="Participants "
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toEndOf="@id/participantMeeting"
             app:layout_constraintTop_toTopOf="@id/participantMeeting" />
 
-
+    <TextView
+        android:id="@+id/participantNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toEndOf="@id/participantText"
+        app:layout_constraintTop_toTopOf="@id/participantText"
+        tools:text="6"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textParticipant"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:hint="Participants"
+        android:layout_width="382dp"
+        android:layout_height="119dp"
         android:layout_margin="0dp"
+        android:gravity="top"
+        android:hint="Participants"
         android:lines="4"
         android:maxLines="4"
-        android:gravity="top"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/participantMeeting"
         app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
         tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_width="386dp"
             android:layout_height="wrap_content"
+            android:gravity="top"
             android:inputType="textMultiLine"
             android:lines="4"
             android:maxLines="4"
-            android:gravity="top"
-            tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr"/>
+            tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
     </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton

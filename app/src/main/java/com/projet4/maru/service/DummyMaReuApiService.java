@@ -1,10 +1,13 @@
 package com.projet4.maru.service;
 
 
+import android.widget.Toast;
+
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -143,11 +146,35 @@ public class DummyMaReuApiService implements MaReuApiService {
      * @return
      */
     public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
-        for (Meeting meeting : this.meetings) {
-            if (idRoom == meeting.getIdRoom()) {
-                if (mMeetingDateEnd.before(meeting.getTimeStart()) || mMeetingDateEnd.equals(meeting.getTimeStart())) {
+        int YYd = mMeetingDateStart.get(Calendar.YEAR);
+        int MMd = mMeetingDateStart.get(Calendar.MONTH);
+        int DDd = mMeetingDateStart.get(Calendar.DAY_OF_MONTH);
+        int HHd = mMeetingDateStart.get(Calendar.HOUR);
+        int MNd = mMeetingDateStart.get(Calendar.MINUTE);
+        int SSd = mMeetingDateStart.get(Calendar.SECOND);
+        int YYf = mMeetingDateEnd.get(Calendar.YEAR);
+        int MMf = mMeetingDateEnd.get(Calendar.MONTH);
+        int DDf = mMeetingDateEnd.get(Calendar.DAY_OF_MONTH);
+        int HHf = mMeetingDateEnd.get(Calendar.HOUR);
+        int MNf = mMeetingDateEnd.get(Calendar.MINUTE);
+        int SSf = mMeetingDateEnd.get(Calendar.SECOND);
+        for (Meeting meet : this.meetings) {
+            if (idRoom == meet.getIdRoom()) {
+                int mYYd = meet.getTimeStart().get(Calendar.YEAR);
+                int mMMd = meet.getTimeStart().get(Calendar.MONTH);
+                int mDDd = meet.getTimeStart().get(Calendar.DAY_OF_MONTH);
+                int mHHd = meet.getTimeStart().get(Calendar.HOUR);
+                int mMNd = meet.getTimeStart().get(Calendar.MINUTE);
+                int mSSd = meet.getTimeStart().get(Calendar.SECOND);
+                int mYYf = meet.getTimeEnd().get(Calendar.YEAR);
+                int mMMf = meet.getTimeEnd().get(Calendar.MONTH);
+                int mDDf = meet.getTimeEnd().get(Calendar.DAY_OF_MONTH);
+                int mHHf = meet.getTimeEnd().get(Calendar.HOUR);
+                int mMNf = meet.getTimeEnd().get(Calendar.MINUTE);
+                int mSSf = meet.getTimeEnd().get(Calendar.SECOND);
+                if (mMeetingDateEnd.before(meet.getTimeStart()) || mMeetingDateEnd.equals(meet.getTimeStart())) {
                     continue;
-                } else if (mMeetingDateStart.after(meeting.getTimeEnd()) || mMeetingDateStart.equals(meeting.getTimeEnd())) {
+                } else if (mMeetingDateStart.after(meet.getTimeEnd()) || mMeetingDateStart.equals(meet.getTimeEnd())) {
                     continue;
                 } else {
                     return false;
