@@ -24,7 +24,6 @@
         tools:texte="application pizza">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textMeetingtitleEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -53,7 +52,6 @@
         suivi des règlement par carte bancaire">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textMeetingCommentEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -207,32 +205,37 @@
         app:layout_constraintTop_toTopOf="@id/participantText"
         tools:text="6"/>
 
-    <TextView
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textParticipant"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="382dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:ellipsize="end"
+        android:layout_height="119dp"
+        android:layout_margin="0dp"
         android:gravity="top"
         android:hint="Participants"
-        android:inputType="textMultiLine"
-        android:lines="10"
-        android:maxLines="10"
-        android:text="Participants "
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constrainedWidth="true"
+        android:lines="4"
+        android:maxLines="4"
         app:layout_constraintStart_toStartOf="@+id/participantMeeting"
         app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
-        tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
+        tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr">
 
-    <ImageButton
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="386dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLines="4"
+            tools:text="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
             android:id="@+id/roomMeeting"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="168dp"
+            android:layout_marginTop="124dp"
             android:background="@null"
             android:src="@drawable/ic_baseline_meeting_room_blue_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +260,7 @@
             android:id="@+id/meeting_set"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="Create Meeting"
             app:layout_constraintTop_toBottomOf="@+id/roomMeeting" />
 

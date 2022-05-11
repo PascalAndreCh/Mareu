@@ -98,7 +98,6 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
 
     public interface OnRoomClickListener {
         void onRoomClick(Room room);
-
     }
 
 }

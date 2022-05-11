@@ -126,6 +126,7 @@ public interface MaReuApiService {
      */
     Calendar endDateMeeting(Calendar startDate, int duration);
 
+    int dureeMinutes (Calendar startDate, Calendar endDate);
 
-
+    Calendar duree (Calendar startDate, Calendar endDate);
 }

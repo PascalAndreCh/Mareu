@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -12,6 +13,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.projet4.maru.databinding.ActivityAddMeetingBinding;
@@ -23,11 +25,13 @@ import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 
@@ -44,14 +48,29 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     public Calendar dateEnd;
     public Calendar timeStart;
     public Calendar timeEnd;
+    public String meetingtitle;
+    public String meetingComment;
     public static final String ID_ROOM = "ID_ROOM";
     public static final String NBPEOPLE = "NBPEOPLE";
     public static Room room;
     public static Room room2;
     public static Room room3;
+    public static Participant part;
+    public static Meeting meeting;
     private int durationNumber = 0;
+    private int nbParticipants;
     private List<Room> rooms1;
-
+    public long idMax;
+    public int provenance;
+    public int selectedHourNumber = 0;
+    public int selectedMinuteNumber = 0;
+    Calendar cal2 = GregorianCalendar.getInstance();
+    int selectedYear;
+    int selectedMonth;
+    int selectedDayOfMonth;
+    int selectedHourStartMeeting;
+    int selectedMinuteStartMeeting;
+    String textPart;
 
     private long idRoom;
 
@@ -65,6 +84,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setup();
         dateStart = GregorianCalendar.getInstance();
         dateStart.set(
                 dateStart.get(Calendar.YEAR),
@@ -75,7 +96,51 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 0);
         timeEnd = GregorianCalendar.getInstance();
         timeStart = GregorianCalendar.getInstance();
+        nbParticipants = 0;
         List<Room> rooms1 = mApiService.getRooms();
+
+        Intent intent = getIntent();
+        provenance = intent.getIntExtra("PROVENANCE", 0);
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        meeting = (Meeting) args.getSerializable("ARRAYLIST2");
+        meetings = (List<Meeting>) args.getSerializable("ARRAYLIST3");
+
+        if (provenance == 4) {
+        idMax = meeting.getId();
+        idRoom = meeting.getIdRoom();
+        timeStart = meeting.getTimeStart();
+        dateStart = timeStart;
+        timeEnd = meeting.getTimeEnd();
+        dateEnd = timeEnd;
+        meetingtitle = meeting.getTitle();
+        meetingComment = meeting.getDescription();
+        participantsList = meeting.getParticipants();
+        nbParticipants = participantsList.size();
+        durationNumber = service.dureeMinutes(timeStart, timeEnd);
+        cal2 = service.duree(timeStart, timeEnd);
+        dateStart = timeStart;
+        dateEnd = timeEnd;
+        selectedYear = dateStart.get(Calendar.YEAR);
+        selectedMonth = dateStart.get(Calendar.MONTH);
+        selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
+        selectedHourStartMeeting = timeStart.get(Calendar.HOUR);
+        selectedMinuteStartMeeting = timeStart.get(Calendar.MINUTE);
+        selectedHourNumber = cal2.get(Calendar.HOUR);
+        selectedMinuteNumber = cal2.get(Calendar.MINUTE);
+        for (Room room : mApiService.getRooms()) {
+            if (room.getIdRoom() == idRoom) {
+                room2 = room;
+                break;
+            }
+        }
+        textPart = "";
+        for (Participant part : participantsList) {
+            textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
+        }
+    }
+
+
+
         initUI();
     }
 
@@ -89,11 +154,29 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         setContentView(view);
         setButton();
         getSupportActionBar().setTitle("New meeting");
-        meetings = new ArrayList<>(mApiService.getMeetings());
+//        meetings = new ArrayList<>(mApiService.getMeetings());
 //       dateStart = GregorianCalendar.getInstance();
-        dateEnd = GregorianCalendar.getInstance();
+//       dateEnd = GregorianCalendar.getInstance();
 //        participants = new ArrayList<Participant>(mApiService.getParticipants());
-        setup();
+//        setup();
+
+        if (provenance == 4) {
+        binding.textMeetingtitleEdit.setText(meetingtitle);
+        binding.textMeetingCommentEdit.setText(meetingComment);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+        binding.dateText.setText(format1.format(dateStart.getTime()));
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+        binding.hourStartText.setText(format2.format(dateStart.getTime()));
+        binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
+        binding.durationText.setText(format2.format(cal2.getTime()));
+        binding.participantNumber.setText(Integer.toString(nbParticipants));
+        binding.textParticipant.setText(textPart);
+        room3 = room2;
+        binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
+    }
+
+
+
 
         // init select date button
         binding.dateMeeting.setOnClickListener(new View.OnClickListener() {
@@ -130,18 +213,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST1", (Serializable) participantsList);
                 intent.putExtra("BUNDLE", args);
-                int mYYd6 = dateStart.get(Calendar.YEAR);
-                int mMMd6 = dateStart.get(Calendar.MONTH);
-                int mDDd6 = dateStart.get(Calendar.DAY_OF_MONTH);
-                int mHHd6 = dateStart.get(Calendar.HOUR);
-                int mMNd6 = dateStart.get(Calendar.MINUTE);
-                int mSSd6 = dateStart.get(Calendar.SECOND);
-                int mYYf6 = dateEnd.get(Calendar.YEAR);
-                int mMMf6 = dateEnd.get(Calendar.MONTH);
-                int mDDf6 = dateEnd.get(Calendar.DAY_OF_MONTH);
-                int mHHf6 = dateEnd.get(Calendar.HOUR);
-                int mMNf6 = dateEnd.get(Calendar.MINUTE);
-                int mSSf6 = dateEnd.get(Calendar.SECOND);
                 startActivityForResult(intent, 1);
             }
         });
@@ -153,33 +224,18 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
                 intent2.putExtra(ID_ROOM, idRoom);
                 intent2.putExtra(NBPEOPLE, participantsList.size());
-                int mYYd5 = dateStart.get(Calendar.YEAR);
-                int mMMd5 = dateStart.get(Calendar.MONTH);
-                int mDDd5 = dateStart.get(Calendar.DAY_OF_MONTH);
-                int mHHd5 = dateStart.get(Calendar.HOUR);
-                int mMNd5 = dateStart.get(Calendar.MINUTE);
-                int mSSd5 = dateStart.get(Calendar.SECOND);
-                int mYYf5 = dateEnd.get(Calendar.YEAR);
-                int mMMf5 = dateEnd.get(Calendar.MONTH);
-                int mDDf5 = dateEnd.get(Calendar.DAY_OF_MONTH);
-                int mHHf5 = dateEnd.get(Calendar.HOUR);
-                int mMNf5 = dateEnd.get(Calendar.MINUTE);
-                int mSSf5 = dateEnd.get(Calendar.SECOND);
                 startActivityForResult(intent2, 2);
             }
         });
     }
 
     private void dateDialog() {
-        int selectedYear = dateStart.get(Calendar.YEAR);
-        int selectedMonth = dateStart.get(Calendar.MONTH);
-        int selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                dateStart.set(i,i1,i2);
+                dateStart.set(i, i1, i2);
                 SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
                 binding.dateText.setText(format1.format(dateStart.getTime()));
             }
@@ -203,9 +259,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void timeDialog() {
-        int selectedHourStartMeeting = 0;
-        int selectedMinuteStartMeeting = 0;
-        int selectedSecondStartMeeting = 0;
 
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
@@ -230,8 +283,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 //
 
 
-
-             }
+            }
         };
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -241,15 +293,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void durationDialog() {
-        int selectedHourNumber = 0;
-        int selectedMinuteNumber = 0;
 
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
             @Override
             public void onTimeSet(TimePicker timePicker, int l, int l1) {
 
-                Calendar cal2 = GregorianCalendar.getInstance();
+ //               Calendar cal2 = GregorianCalendar.getInstance();
                 int k = cal2.get(Calendar.YEAR);
                 int k1 = cal2.get(Calendar.MONTH);
                 int k2 = cal2.get(Calendar.DAY_OF_MONTH);
@@ -260,30 +310,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 timeEnd.setTime(dateEnd.getTime());
                 timeStart.setTime(dateStart.getTime());
-                int mYYd = dateStart.get(Calendar.YEAR);
-                int mMMd = dateStart.get(Calendar.MONTH);
-                int mDDd = dateStart.get(Calendar.DAY_OF_MONTH);
-                int mHHd = dateStart.get(Calendar.HOUR);
-                int mMNd = dateStart.get(Calendar.MINUTE);
-                int mSSd = dateStart.get(Calendar.SECOND);
-                int mYYf = dateEnd.get(Calendar.YEAR);
-                int mMMf = dateEnd.get(Calendar.MONTH);
-                int mDDf = dateEnd.get(Calendar.DAY_OF_MONTH);
-                int mHHf = dateEnd.get(Calendar.HOUR);
-                int mMNf = dateEnd.get(Calendar.MINUTE);
-                int mSSf = dateEnd.get(Calendar.SECOND);
-                int mYYf9 = timeEnd.get(Calendar.YEAR);
-                int mMMf9 = timeEnd.get(Calendar.MONTH);
-                int mDDf9 = timeEnd.get(Calendar.DAY_OF_MONTH);
-                int mHHf9 = timeEnd.get(Calendar.HOUR);
-                int mMNf9 = timeEnd.get(Calendar.MINUTE);
-                int mSSf9 = timeEnd.get(Calendar.SECOND);
-                int mYYf90 = timeStart.get(Calendar.YEAR);
-                int mMMf90 = timeStart.get(Calendar.MONTH);
-                int mDDf90 = timeStart.get(Calendar.DAY_OF_MONTH);
-                int mHHf90 = timeStart.get(Calendar.HOUR);
-                int mMNf90 = timeStart.get(Calendar.MINUTE);
-                int mSSf90 = timeStart.get(Calendar.SECOND);
+
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
             }
         };
@@ -291,38 +318,17 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 timeSetListener, selectedHourNumber, selectedMinuteNumber, is24HView);
 
-        int mYYd6 = dateStart.get(Calendar.YEAR);
-        int mMMd6 = dateStart.get(Calendar.MONTH);
-        int mDDd6 = dateStart.get(Calendar.DAY_OF_MONTH);
-        int mHHd6 = dateStart.get(Calendar.HOUR);
-        int mMNd6 = dateStart.get(Calendar.MINUTE);
-        int mSSd6 = dateStart.get(Calendar.SECOND);
-        int mYYf6 = dateEnd.get(Calendar.YEAR);
-        int mMMf6 = dateEnd.get(Calendar.MONTH);
-        int mDDf6 = dateEnd.get(Calendar.DAY_OF_MONTH);
-        int mHHf6 = dateEnd.get(Calendar.HOUR);
-        int mMNf6 = dateEnd.get(Calendar.MINUTE);
-        int mSSf6 = dateEnd.get(Calendar.SECOND);
+
         timePickerDialog.show();
-        int mYYd7 = dateStart.get(Calendar.YEAR);
-        int mMMd7 = dateStart.get(Calendar.MONTH);
-        int mDDd7 = dateStart.get(Calendar.DAY_OF_MONTH);
-        int mHHd7 = dateStart.get(Calendar.HOUR);
-        int mMNd7 = dateStart.get(Calendar.MINUTE);
-        int mSSd7 = dateStart.get(Calendar.SECOND);
-        int mYYf7 = dateEnd.get(Calendar.YEAR);
-        int mMMf7 = dateEnd.get(Calendar.MONTH);
-        int mDDf7 = dateEnd.get(Calendar.DAY_OF_MONTH);
-        int mHHf7 = dateEnd.get(Calendar.HOUR);
-        int mMNf7 = dateEnd.get(Calendar.MINUTE);
-        int mSSf7 = dateEnd.get(Calendar.SECOND);
-        int mSSf77 = dateEnd.get(Calendar.SECOND);
+
     }
 
     private void setButton() {
         binding.meetingSet.setOnClickListener(this);
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
         if (view == binding.meetingSet) {
@@ -330,10 +336,16 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void onSubmit() {
         String meetingtitle = binding.textMeetingtitle.getEditText().getText().toString();
         String meetingComment = binding.textMeetingComment.getEditText().getText().toString();
-        long id = System.currentTimeMillis();
+
+        long idMax = 1;
+        Optional<Long> idMaxOpt = meetings.stream().map(Meeting::getId).max((i1, i2)-> (int) (i1-i2));
+        if (idMaxOpt.isPresent()) {
+            idMax = idMaxOpt.get()+1;
+        }
         Calendar timeStart = dateStart;
         Calendar timeEnd = dateEnd;
 
@@ -349,12 +361,38 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             binding.textParticipant.setError("Please select participants");
             return;
         }
-
-
-        mApiService.createMeeting(new Meeting(id, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList));
-        Toast.makeText(this, "Meeting created ! dans Add", Toast.LENGTH_SHORT).show();
+        if (idRoom ==0) {
+            binding.roomText.setError("Please select room");
+            return;
+        }
+        if (durationNumber > 240) {
+            binding.durationText.setError("Please choice a duration inferior to 4h00");
+            return;
+        }
+        if (durationNumber == 0) {
+            binding.durationText.setError("Please choice a duration");
+            return;
+        }
+        if (!mApiService.inputDateSuperiorToThisDay(timeEnd)){
+            binding.hourEndMeetingText.setError("The end time doesn't inferior to now time");
+            return;
+        }
+        if (!mApiService.inputDateSuperiorToThisDay(timeStart)){
+            binding.hourStartText.setError("This meeting is starting");
+            return;
+        }
+        if (provenance == 3) {
+            mApiService.createMeeting(new Meeting(idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList));
+            Toast.makeText(this, "Meeting created ! dans Add", Toast.LENGTH_SHORT).show();
+        } else  if (provenance == 4) {
+            meeting.setIdRoom(idRoom);
+            meeting.setTimeStart(timeStart);
+            meeting.setTimeEnd(timeEnd);
+            meeting.setTitle(meetingtitle);
+            meeting.setDescription(meetingComment);
+            meeting.setParticipants(participantsList);
+        }
         finish();
-
     }
 
     @Override
@@ -363,124 +401,56 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         // on récupère la valeur de retour
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            int mYYd = dateStart.get(Calendar.YEAR);
-            int mMMd = dateStart.get(Calendar.MONTH);
-            int mDDd = dateStart.get(Calendar.DAY_OF_MONTH);
-            int mHHd = dateStart.get(Calendar.HOUR);
-            int mMNd = dateStart.get(Calendar.MINUTE);
-            int mSSd = dateStart.get(Calendar.SECOND);
-            int mYYf = dateEnd.get(Calendar.YEAR);
-            int mMMf = dateEnd.get(Calendar.MONTH);
-            int mDDf = dateEnd.get(Calendar.DAY_OF_MONTH);
-            int mHHf = dateEnd.get(Calendar.HOUR);
-            int mMNf = dateEnd.get(Calendar.MINUTE);
-            int mSSf = dateEnd.get(Calendar.SECOND);
+
             if (requestCode == 1) {
                 Bundle args = data.getBundleExtra("BUNDLE");
                 participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
+                nbParticipants = participantsList.size();
+                binding.participantNumber.setText(Integer.toString(nbParticipants));
+                binding.participantNumber.setError(null);
+                if (nbParticipants > 10) {
+                    int diff = nbParticipants - 10;
+                    binding.participantNumber.setError("The number's people is to high, please, remove " + diff + " people");
+                }
+                String textPart = "";
+                for (Participant part : participantsList) {
+                    textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
+                }
+                binding.textParticipant.setText(textPart);
             } else {
                 if (requestCode == 2) {
                     idRoom = data.getLongExtra(ID_ROOM, 0);
-                    for (Room room : mApiService.getRooms())   {
+                    for (Room room : mApiService.getRooms()) {
                         if (room.getIdRoom() == idRoom) {
                             room2 = room;
                             break;
                         }
                     }
-                   binding.roomText.setError(null);
-                   binding.roomText.setText(room2.getNumberRoom()+" "+room2.getNameRoom()+" Etage : "+room2.getStageRoom()+" "+room2.getMaximumParticipantRoom()+" person max");
-                    if (!service.roomToSmall(idRoom, participantsList.size())) {
-                        binding.roomText.setError("Please choice another room, this one is to small for all people");
-                    }
-                    int mYYd4 = dateStart.get(Calendar.YEAR);
-                    int mMMd4 = dateStart.get(Calendar.MONTH);
-                    int mDDd4 = dateStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHd4 = dateStart.get(Calendar.HOUR);
-                    int mMNd4 = dateStart.get(Calendar.MINUTE);
-                    int mSSd4 = dateStart.get(Calendar.SECOND);
-                    int mYYf4 = dateEnd.get(Calendar.YEAR);
-                    int mMMf4 = dateEnd.get(Calendar.MONTH);
-                    int mDDf4 = dateEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf4 = dateEnd.get(Calendar.HOUR);
-                    int mMNf4 = dateEnd.get(Calendar.MINUTE);
-                    int mSSf4 = dateEnd.get(Calendar.SECOND);
-                    int mYYf88 = timeEnd.get(Calendar.YEAR);
-                    int mMMf88 = timeEnd.get(Calendar.MONTH);
-                    int mDDf88 = timeEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf88 = timeEnd.get(Calendar.HOUR);
-                    int mMNf88 = timeEnd.get(Calendar.MINUTE);
-                    int mSSf88 = timeEnd.get(Calendar.SECOND);
-                    int mYYf9001 = timeStart.get(Calendar.YEAR);
-                    int mMMf9001 = timeStart.get(Calendar.MONTH);
-                    int mDDf9001 = timeStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHf9001 = timeStart.get(Calendar.HOUR);
-                    int mMNf9001 = timeStart.get(Calendar.MINUTE);
-                    int mSSf9001 = timeStart.get(Calendar.SECOND);
-                    long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
-                    int mYYd2 = dateStart.get(Calendar.YEAR);
-                    int mMMd2 = dateStart.get(Calendar.MONTH);
-                    int mDDd2 = dateStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHd2 = dateStart.get(Calendar.HOUR);
-                    int mMNd2 = dateStart.get(Calendar.MINUTE);
-                    int mSSd2 = dateStart.get(Calendar.SECOND);
-                    int mYYf2 = dateEnd.get(Calendar.YEAR);
-                    int mMMf2 = dateEnd.get(Calendar.MONTH);
-                    int mDDf2 = dateEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf2 = dateEnd.get(Calendar.HOUR);
-                    int mMNf2 = dateEnd.get(Calendar.MINUTE);
-                    int mSSf2 = dateEnd.get(Calendar.SECOND);
-                    int mYYf89 = timeEnd.get(Calendar.YEAR);
-                    int mMMf89 = timeEnd.get(Calendar.MONTH);
-                    int mDDf89 = timeEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf89 = timeEnd.get(Calendar.HOUR);
-                    int mMNf89 = timeEnd.get(Calendar.MINUTE);
-                    int mSSf89 = timeEnd.get(Calendar.SECOND);
-                    int mYYf9002 = timeStart.get(Calendar.YEAR);
-                    int mMMf9002 = timeStart.get(Calendar.MONTH);
-                    int mDDf9002 = timeStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHf9002 = timeStart.get(Calendar.HOUR);
-                    int mMNf9002 = timeStart.get(Calendar.MINUTE);
-                    int mSSf9002 = timeStart.get(Calendar.SECOND);
-                    if (idRoomB != idRoom) {
-                        for (Room room : mApiService.getRooms()) {
-                            if (room.getIdRoom() == idRoomB) {
-                                room3 = room;
-                                break;
-                            }
-                        }
-                        binding.roomText.setError("This room is better " + room3.getNameRoom());
-                    }
-                    int mYYd3 = dateStart.get(Calendar.YEAR);
-                    int mMMd3 = dateStart.get(Calendar.MONTH);
-                    int mDDd3 = dateStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHd3 = dateStart.get(Calendar.HOUR);
-                    int mMNd3 = dateStart.get(Calendar.MINUTE);
-                    int mSSd3 = dateStart.get(Calendar.SECOND);
-                    int mYYf3 = dateEnd.get(Calendar.YEAR);
-                    int mMMf3 = dateEnd.get(Calendar.MONTH);
-                    int mDDf3 = dateEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf3 = dateEnd.get(Calendar.HOUR);
-                    int mMNf3 = dateEnd.get(Calendar.MINUTE);
-                    int mSSf3 = dateEnd.get(Calendar.SECOND);
-                    int mYYf8 = timeEnd.get(Calendar.YEAR);
-                    int mMMf8 = timeEnd.get(Calendar.MONTH);
-                    int mDDf8 = timeEnd.get(Calendar.DAY_OF_MONTH);
-                    int mHHf8 = timeEnd.get(Calendar.HOUR);
-                    int mMNf8 = timeEnd.get(Calendar.MINUTE);
-                    int mSSf8 = timeEnd.get(Calendar.SECOND);
-                    int mYYf900 = timeStart.get(Calendar.YEAR);
-                    int mMMf900 = timeStart.get(Calendar.MONTH);
-                    int mDDf900 = timeStart.get(Calendar.DAY_OF_MONTH);
-                    int mHHf900 = timeStart.get(Calendar.HOUR);
-                    int mMNf900 = timeStart.get(Calendar.MINUTE);
-                    int mSSf900 = timeStart.get(Calendar.SECOND);
+                    binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
+
+                    binding.roomText.setError(null);
 
                     if (!service.roomIsFree(idRoom, timeStart, timeEnd)) {
                         binding.roomText.setError("Please choice another room, this room is not free");
+                    }
+
+                    if (participantsList.size() != 0) {
+                        if (!service.roomToSmall(idRoom, participantsList.size())) {
+                            binding.roomText.setError("This room is to small ");
+                        }
+                        long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
+                        if (idRoomB != idRoom) {
+                            for (Room room : mApiService.getRooms()) {
+                                if (room.getIdRoom() == idRoomB) {
+                                    room3 = room;
+                                    break;
+                                }
+                            }
+                            binding.roomText.setError("This room is better " + room3.getNameRoom());
+                        }
                     }
                 }
             }
         }
     }
-
 }

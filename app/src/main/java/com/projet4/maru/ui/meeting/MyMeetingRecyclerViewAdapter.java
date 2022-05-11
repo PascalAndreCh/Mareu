@@ -18,11 +18,15 @@ import java.util.List;
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
     private final List<Meeting> meetings;
+    private final Meeting meeting;
     private List<Room> rooms = DummyMaReuGenerator.generateRooms();
+    private MyMeetingRecyclerViewAdapter.OnMeetingClickListener listener;
 
 
-    public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> meetings) {
+    public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> meetings, Meeting meeting, OnMeetingClickListener listener) {
         this.meetings = meetings;
+        this.listener = listener;
+        this.meeting = meeting;
     }
 
     @NonNull
@@ -37,6 +41,13 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Meeting meeting = meetings.get(position);
         viewHolder.displayMeeting(meeting);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyMeetingRecyclerViewAdapter.this.listener.onMeetingClick(meetings.get(viewHolder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -53,6 +64,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             meetingText = view.findViewById(R.id.meetingText);
             mails = view.findViewById(R.id.mails);
         }
+
+
 
         public void displayMeeting(Meeting meeting) {
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -74,5 +87,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             mails.setText(nom);
         }
     }
+
+    public interface OnMeetingClickListener {
+        void onMeetingClick(Meeting meeting);
+    }
+
 }
 
