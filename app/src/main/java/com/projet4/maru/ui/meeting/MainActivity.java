@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final MaReuApiService mVip = (MaReuApiService) DI.getStartListApiService();
     private Spinner spinner;
     private int room = 1;
+    int provenance = 0;
 
 
     @Override
@@ -72,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initRecyclerView() {
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
 
-        MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(meetings, meeting, this);
+//        MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(meetings, meeting, this);
+        MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(mMeetingArrayList, meeting, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -112,24 +113,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
-        int roomId = data.getExtras().getInt("MESSAGE");
-        mMeetingArrayList.clear();
-        mMeetingArrayList.addAll(mMeeting.getMeetingsByRoom(roomId));
-        binding.recyclerview.getAdapter().notifyDataSetChanged();
-    } else if (requestCode == 3) {
-            mMeetingArrayList.clear();
-            mMeetingArrayList.addAll(mMeeting.getMeetings());
-            binding.recyclerview.getAdapter().notifyDataSetChanged();
-
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {
+                int roomId = data.getExtras().getInt("MESSAGE");
+                mMeetingArrayList.clear();
+                mMeetingArrayList.addAll(mMeeting.getMeetingsByRoom(roomId));
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
+            } else if (requestCode == 3) {
+                mMeetingArrayList.clear();
+                mMeetingArrayList.addAll(mMeeting.getMeetings());
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
+            } else if (requestCode == 4) {
+                Bundle args = data.getBundleExtra("BUNDLE");
+                meeting = (Meeting) args.getSerializable("ARRAYLIST2");
+                meetings = (ArrayList<Meeting>) args.getSerializable("ARRAYLIST3");
+                mMeetingArrayList.clear();
+                mMeetingArrayList.addAll(meetings);
+//                mMeetingArrayList.addAll(mMeeting.getMeetings());
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
+            }
         }
     }
 
     private void selectRoom() {
-//        this.getApplicationContext().startActivity(new Intent(this, RoomspinnerActivity.class));
         Intent idRoomIntent = new Intent (this, RoomspinnerActivity.class);
-//        startActivity(new Intent(this, RoomspinnerActivity.class));
-//        idRoomIntent.putExtra(ID_ROOM, 1);
         startActivityForResult(idRoomIntent,0);
      }
 
@@ -140,12 +147,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void dateDialog() {
-        int selectedYear = 2022;
-        int selectedMonth = 4;
-        int selectedDayOfMonth = 1;
-
+        Calendar dateInit = GregorianCalendar.getInstance();
+        int selectedYear = dateInit.get(Calendar.YEAR);
+        int selectedMonth = dateInit.get(Calendar.MONTH);
+        int selectedDayOfMonth = dateInit.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 Calendar cal = GregorianCalendar.getInstance();
@@ -155,17 +161,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 binding.recyclerview.getAdapter().notifyDataSetChanged();
             }
         };
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
-
         datePickerDialog.show();
     }
 
     private void setButton() {
         binding.addMeeting.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         if (view == binding.addMeeting) {
@@ -192,9 +195,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String meetingtitle = "";
             String meetingComment = "";
             List<Participant> participantsList = new ArrayList();
-            Meeting meet = new Meeting (idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList ) ;
+            Meeting meeting = new Meeting (idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList ) ;
             intent.putExtra("PROVENANCE", 3);
-            args.putSerializable("ARRAYLIST2", (Serializable) meet);
+            args.putSerializable("ARRAYLIST2", (Serializable) meeting);
             args.putSerializable("ARRAYLIST3", (Serializable) meetings);
             intent.putExtra("BUNDLE", args);
             startActivityForResult(intent,3);

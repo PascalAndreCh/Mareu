@@ -86,60 +86,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
 
         setup();
-        dateStart = GregorianCalendar.getInstance();
-        dateStart.set(
-                dateStart.get(Calendar.YEAR),
-                dateStart.get(Calendar.MONTH),
-                dateStart.get(Calendar.DAY_OF_MONTH),
-                0,
-                0,
-                0);
-        timeEnd = GregorianCalendar.getInstance();
-        timeStart = GregorianCalendar.getInstance();
-        nbParticipants = 0;
-        List<Room> rooms1 = mApiService.getRooms();
 
-        Intent intent = getIntent();
-        provenance = intent.getIntExtra("PROVENANCE", 0);
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        meeting = (Meeting) args.getSerializable("ARRAYLIST2");
-        meetings = (List<Meeting>) args.getSerializable("ARRAYLIST3");
-
-        if (provenance == 4) {
-        idMax = meeting.getId();
-        idRoom = meeting.getIdRoom();
-        timeStart = meeting.getTimeStart();
-        dateStart = timeStart;
-        timeEnd = meeting.getTimeEnd();
-        dateEnd = timeEnd;
-        meetingtitle = meeting.getTitle();
-        meetingComment = meeting.getDescription();
-        participantsList = meeting.getParticipants();
-        nbParticipants = participantsList.size();
-        durationNumber = service.dureeMinutes(timeStart, timeEnd);
-        cal2 = service.duree(timeStart, timeEnd);
-        dateStart = timeStart;
-        dateEnd = timeEnd;
-        selectedYear = dateStart.get(Calendar.YEAR);
-        selectedMonth = dateStart.get(Calendar.MONTH);
-        selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
-        selectedHourStartMeeting = timeStart.get(Calendar.HOUR);
-        selectedMinuteStartMeeting = timeStart.get(Calendar.MINUTE);
-        selectedHourNumber = cal2.get(Calendar.HOUR);
-        selectedMinuteNumber = cal2.get(Calendar.MINUTE);
-        for (Room room : mApiService.getRooms()) {
-            if (room.getIdRoom() == idRoom) {
-                room2 = room;
-                break;
-            }
-        }
-        textPart = "";
-        for (Participant part : participantsList) {
-            textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
-        }
-    }
-
-
+        initVariables();
 
         initUI();
     }
@@ -153,30 +101,14 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         View view = binding.getRoot();
         setContentView(view);
         setButton();
-        getSupportActionBar().setTitle("New meeting");
-//        meetings = new ArrayList<>(mApiService.getMeetings());
-//       dateStart = GregorianCalendar.getInstance();
-//       dateEnd = GregorianCalendar.getInstance();
-//        participants = new ArrayList<Participant>(mApiService.getParticipants());
-//        setup();
+        if (provenance == 3) {
+            getSupportActionBar().setTitle("New meeting");
+        }
 
         if (provenance == 4) {
-        binding.textMeetingtitleEdit.setText(meetingtitle);
-        binding.textMeetingCommentEdit.setText(meetingComment);
-        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-        binding.dateText.setText(format1.format(dateStart.getTime()));
-        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
-        binding.hourStartText.setText(format2.format(dateStart.getTime()));
-        binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
-        binding.durationText.setText(format2.format(cal2.getTime()));
-        binding.participantNumber.setText(Integer.toString(nbParticipants));
-        binding.textParticipant.setText(textPart);
-        room3 = room2;
-        binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
+            getSupportActionBar().setTitle("Modify meeting");
+            affichage();
     }
-
-
-
 
         // init select date button
         binding.dateMeeting.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +139,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         binding.participantMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // passage de la liste des participants de AddMeeting à Selectcoworker, la première fois, elle est vide
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
@@ -230,9 +161,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void dateDialog() {
-
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 dateStart.set(i, i1, i2);
@@ -240,28 +169,19 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 binding.dateText.setText(format1.format(dateStart.getTime()));
             }
         };
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
-
         datePickerDialog.show();
         timeStart.setTime(dateStart.getTime());
-
-        //
         SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
         Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
         timeEnd.setTime(dateEnd.getTime());
         binding.hourStartText.setText(format2.format(dateStart.getTime()));
         binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
-        //
-
-
     }
 
     private void timeDialog() {
-
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
             @Override
             public void onTimeSet(TimePicker timePicker, int j, int j1) {
                 dateStart.set(
@@ -275,31 +195,20 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                 binding.hourStartText.setText(format2.format(dateStart.getTime()));
                 timeStart.setTime(dateStart.getTime());
-
-                //
                 Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 timeEnd.setTime(dateEnd.getTime());
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
-                //
-
-
             }
         };
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 timeSetListener, selectedHourStartMeeting, selectedMinuteStartMeeting, is24HView);
-
         timePickerDialog.show();
     }
 
     private void durationDialog() {
-
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
             @Override
             public void onTimeSet(TimePicker timePicker, int l, int l1) {
-
- //               Calendar cal2 = GregorianCalendar.getInstance();
                 int k = cal2.get(Calendar.YEAR);
                 int k1 = cal2.get(Calendar.MONTH);
                 int k2 = cal2.get(Calendar.DAY_OF_MONTH);
@@ -310,24 +219,17 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 timeEnd.setTime(dateEnd.getTime());
                 timeStart.setTime(dateStart.getTime());
-
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
             }
         };
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 timeSetListener, selectedHourNumber, selectedMinuteNumber, is24HView);
-
-
         timePickerDialog.show();
-
     }
 
     private void setButton() {
         binding.meetingSet.setOnClickListener(this);
     }
-
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
@@ -340,7 +242,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     private void onSubmit() {
         String meetingtitle = binding.textMeetingtitle.getEditText().getText().toString();
         String meetingComment = binding.textMeetingComment.getEditText().getText().toString();
-
         long idMax = 1;
         Optional<Long> idMaxOpt = meetings.stream().map(Meeting::getId).max((i1, i2)-> (int) (i1-i2));
         if (idMaxOpt.isPresent()) {
@@ -348,7 +249,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
         Calendar timeStart = dateStart;
         Calendar timeEnd = dateEnd;
-
         if (meetingtitle.isEmpty()) {
             binding.textMeetingtitle.setError("Please type a title");
             return;
@@ -383,7 +283,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
         if (provenance == 3) {
             mApiService.createMeeting(new Meeting(idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList));
-            Toast.makeText(this, "Meeting created ! dans Add", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Meeting created !", Toast.LENGTH_SHORT).show();
         } else  if (provenance == 4) {
             meeting.setIdRoom(idRoom);
             meeting.setTimeStart(timeStart);
@@ -391,17 +291,35 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             meeting.setTitle(meetingtitle);
             meeting.setDescription(meetingComment);
             meeting.setParticipants(participantsList);
+            Optional<Meeting> optEmp = meetings.stream().filter(e -> e.getId() == meeting.getId()).findFirst();
+            if (optEmp.isPresent()) {
+                int index = meetings.indexOf(optEmp.get());
+                meetings.set(index, meeting);
+            }
+
+            Optional<Meeting> optEmp2 = mApiService.getMeetings().stream().filter(e -> e.getId() == meeting.getId()).findFirst();
+            if (optEmp2.isPresent()) {
+                int index = mApiService.getMeetings().indexOf(optEmp2.get());
+                mApiService.setMeeting(index, meeting);
+            }
+
+            Intent intent = new Intent();
+            Bundle args = new Bundle();
+            args.putSerializable("ARRAYLIST2",(Serializable)meeting);
+            args.putSerializable("ARRAYLIST3",(Serializable)meetings);
+            intent.putExtra("BUNDLE",args);
+            intent.putExtra("PROVENANCE", 4);
+            setResult(RESULT_OK, intent);
+            Toast.makeText(this, "Meeting modify !", Toast.LENGTH_SHORT).show();
         }
         finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         // on récupère la valeur de retour
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             if (requestCode == 1) {
                 Bundle args = data.getBundleExtra("BUNDLE");
                 participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
@@ -427,13 +345,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
-
                     binding.roomText.setError(null);
-
                     if (!service.roomIsFree(idRoom, timeStart, timeEnd)) {
                         binding.roomText.setError("Please choice another room, this room is not free");
                     }
-
                     if (participantsList.size() != 0) {
                         if (!service.roomToSmall(idRoom, participantsList.size())) {
                             binding.roomText.setError("This room is to small ");
@@ -453,4 +368,75 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             }
         }
     }
+
+    private void initVariables () {
+        dateStart = GregorianCalendar.getInstance();
+        dateStart.set(
+                dateStart.get(Calendar.YEAR),
+                dateStart.get(Calendar.MONTH),
+                dateStart.get(Calendar.DAY_OF_MONTH),
+                0,
+                0,
+                0);
+        timeEnd = GregorianCalendar.getInstance();
+        timeStart = GregorianCalendar.getInstance();
+        nbParticipants = 0;
+        List<Room> rooms1 = mApiService.getRooms();
+
+        Intent intent = getIntent();
+        provenance = intent.getIntExtra("PROVENANCE", 0);
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        meeting = (Meeting) args.getSerializable("ARRAYLIST2");
+        meetings = (List<Meeting>) args.getSerializable("ARRAYLIST3");
+
+        if (provenance == 4) {
+            idMax = meeting.getId();
+            idRoom = meeting.getIdRoom();
+            timeStart = meeting.getTimeStart();
+            dateStart = timeStart;
+            timeEnd = meeting.getTimeEnd();
+            dateEnd = timeEnd;
+            meetingtitle = meeting.getTitle();
+            meetingComment = meeting.getDescription();
+            participantsList = meeting.getParticipants();
+            nbParticipants = participantsList.size();
+            durationNumber = service.dureeMinutes(timeStart, timeEnd);
+            cal2 = service.duree(timeStart, timeEnd);
+            dateStart = timeStart;
+            dateEnd = timeEnd;
+            selectedYear = dateStart.get(Calendar.YEAR);
+            selectedMonth = dateStart.get(Calendar.MONTH);
+            selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
+            selectedHourStartMeeting = timeStart.get(Calendar.HOUR);
+            selectedMinuteStartMeeting = timeStart.get(Calendar.MINUTE);
+            selectedHourNumber = cal2.get(Calendar.HOUR);
+            selectedMinuteNumber = cal2.get(Calendar.MINUTE);
+            for (Room room : mApiService.getRooms()) {
+                if (room.getIdRoom() == idRoom) {
+                    room2 = room;
+                    break;
+                }
+            }
+            textPart = "";
+            for (Participant part : participantsList) {
+                textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
+            }
+        }
+    }
+
+    private void affichage() {
+        binding.textMeetingtitleEdit.setText(meetingtitle);
+        binding.textMeetingCommentEdit.setText(meetingComment);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+        binding.dateText.setText(format1.format(dateStart.getTime()));
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+        binding.hourStartText.setText(format2.format(dateStart.getTime()));
+        binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
+        binding.durationText.setText(format2.format(cal2.getTime()));
+        binding.participantNumber.setText(Integer.toString(nbParticipants));
+        binding.textParticipant.setText(textPart);
+        room3 = room2;
+        binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
+    }
+
 }

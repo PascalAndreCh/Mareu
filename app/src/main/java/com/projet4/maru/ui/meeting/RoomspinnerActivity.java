@@ -40,7 +40,7 @@ public class RoomspinnerActivity extends AppCompatActivity implements AdapterVie
                     Toast.makeText(getApplicationContext(), " "+room, Toast.LENGTH_LONG).show();
                     Intent intent=new Intent();
                     intent.putExtra("MESSAGE",room);
-                    setResult(2,intent);
+                    setResult(RESULT_OK,intent);
                     finish();
             }
         });

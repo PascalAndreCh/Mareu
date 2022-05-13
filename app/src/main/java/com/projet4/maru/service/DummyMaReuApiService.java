@@ -42,6 +42,9 @@ public class DummyMaReuApiService implements MaReuApiService {
         return this.meetings;
     }
 
+    @Override
+    public void setMeeting(int i, Meeting meeting) {meetings.set(i, meeting);}
+
     /**
      * @param participant
      */

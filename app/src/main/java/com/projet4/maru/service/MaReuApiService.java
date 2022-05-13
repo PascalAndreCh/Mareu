@@ -22,6 +22,7 @@ public interface MaReuApiService {
 
     List<Participant> getParticipants();
 
+    void setMeeting(int i, Meeting meeting);
 
     void deleteParticipant(Participant participant);
 

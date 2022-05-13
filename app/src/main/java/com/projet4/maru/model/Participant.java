@@ -75,8 +75,8 @@ public class Participant implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Participant that = (Participant) o;
-        return Objects.equals(id, that.id);
+        Participant participant = (Participant) o;
+        return id == participant.id && Objects.equals(name, participant.name) && Objects.equals(mailAddresses, participant.mailAddresses) && Objects.equals(attachment, participant.attachment)  && Objects.equals(job, participant.job);
     }
 
     @Override
