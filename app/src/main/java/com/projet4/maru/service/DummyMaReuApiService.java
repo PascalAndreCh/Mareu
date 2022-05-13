@@ -4,6 +4,7 @@ import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -146,7 +147,7 @@ public class DummyMaReuApiService implements MaReuApiService {
      */
     public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         for (Meeting meet : this.meetings) {
-            if (idRoom == meet.getIdRoom()) {
+             if (idRoom == meet.getIdRoom()) {
                 if (mMeetingDateEnd.before(meet.getTimeStart()) || mMeetingDateEnd.equals(meet.getTimeStart())) {
                     continue;
                 } else if (mMeetingDateStart.after(meet.getTimeEnd()) || mMeetingDateStart.equals(meet.getTimeEnd())) {
@@ -380,6 +381,35 @@ public class DummyMaReuApiService implements MaReuApiService {
         Calendar duree = Calendar.getInstance();
         duree.set(h1, h2, h3, hh1, mm1, 0 );
         return duree;
+    }
+
+    public void impDate (Calendar dateX) {
+        int h1= dateX.get(Calendar.YEAR);
+        int h2= dateX.get(Calendar.MONTH);
+        int h3= dateX.get(Calendar.DAY_OF_MONTH);
+        int h4= dateX.get(Calendar.HOUR);
+        int h5= dateX.get(Calendar.MINUTE);
+        int h6= dateX.get(Calendar.SECOND);
+        int h7= dateX.get(Calendar.MILLISECOND);
+    }
+
+    public String dateToString (Calendar dateX) {
+        String stringDate = "";
+        SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy-HH:mm:00");
+        stringDate = (format0.format(dateX.getTime()));
+        return stringDate;
+    }
+
+    public Calendar stringToDate (String stringDate) {
+        Calendar dateX = GregorianCalendar.getInstance();
+        String h1s = stringDate.substring(0,2);
+        String h2s = stringDate.substring(3,5);
+        String h3s = stringDate.substring(6,10);
+        String h4s = stringDate.substring(11,13);
+        String h5s = stringDate.substring(14,16);
+        String h6s = stringDate.substring(17,19);
+        dateX.set(Integer.valueOf(h3s), Integer.valueOf(h2s),Integer.valueOf(h1s), Integer.valueOf(h4s),Integer.valueOf(h5s), Integer.valueOf(h6s) );
+        return dateX;
     }
 
 }

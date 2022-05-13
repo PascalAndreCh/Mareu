@@ -2,11 +2,13 @@ package com.projet4.maru.ui.meeting;
 
 
 import android.app.DatePickerDialog;
+import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -52,6 +54,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     public String meetingComment;
     public static final String ID_ROOM = "ID_ROOM";
     public static final String NBPEOPLE = "NBPEOPLE";
+    public static final String DATE_START = "DATE_START";
+    public static final String DATE_END = "DATE_END";
     public static Room room;
     public static Room room2;
     public static Room room3;
@@ -71,6 +75,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     int selectedHourStartMeeting;
     int selectedMinuteStartMeeting;
     String textPart;
+    String dateString;
 
     private long idRoom;
 
@@ -153,8 +158,15 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
+//                Bundle args = new Bundle();
                 intent2.putExtra(ID_ROOM, idRoom);
                 intent2.putExtra(NBPEOPLE, participantsList.size());
+                dateString = service.dateToString(dateStart);
+                intent2.putExtra(DATE_START, dateString);
+                dateString = service.dateToString(dateEnd);
+                intent2.putExtra(DATE_END, dateString);
+//                intent2.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateStart );
+//                args.putSerializable("ARRAYLIST4", (Serializable) dateStart.getTime());
                 startActivityForResult(intent2, 2);
             }
         });
@@ -174,7 +186,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         datePickerDialog.show();
         timeStart.setTime(dateStart.getTime());
         SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
-        Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
+        dateEnd = service.endDateMeeting(dateStart, durationNumber);
         timeEnd.setTime(dateEnd.getTime());
         binding.hourStartText.setText(format2.format(dateStart.getTime()));
         binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
@@ -195,7 +207,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                 binding.hourStartText.setText(format2.format(dateStart.getTime()));
                 timeStart.setTime(dateStart.getTime());
-                Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
+                dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 timeEnd.setTime(dateEnd.getTime());
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
             }
@@ -216,7 +228,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
                 binding.durationText.setText(format2.format(cal2.getTime()));
                 durationNumber = (l * 60) + l1;
-                Calendar dateEnd = service.endDateMeeting(dateStart, durationNumber);
+                dateEnd = service.endDateMeeting(dateStart, durationNumber);
                 timeEnd.setTime(dateEnd.getTime());
                 timeStart.setTime(dateStart.getTime());
                 binding.hourEndMeetingText.setText(format2.format(dateEnd.getTime()));
@@ -247,8 +259,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         if (idMaxOpt.isPresent()) {
             idMax = idMaxOpt.get()+1;
         }
-        Calendar timeStart = dateStart;
-        Calendar timeEnd = dateEnd;
+
+ //TODO
+        timeStart = dateStart;
+        timeEnd = dateEnd;
         if (meetingtitle.isEmpty()) {
             binding.textMeetingtitle.setError("Please type a title");
             return;
@@ -388,6 +402,14 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         Bundle args = intent.getBundleExtra("BUNDLE");
         meeting = (Meeting) args.getSerializable("ARRAYLIST2");
         meetings = (List<Meeting>) args.getSerializable("ARRAYLIST3");
+
+        if (provenance == 3) {
+        selectedYear = dateStart.get(Calendar.YEAR);
+        selectedMonth = dateStart.get(Calendar.MONTH);
+        selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
+        selectedHourStartMeeting = dateStart.get(Calendar.HOUR);
+        selectedMinuteStartMeeting = dateStart.get(Calendar.MINUTE);
+    }
 
         if (provenance == 4) {
             idMax = meeting.getId();

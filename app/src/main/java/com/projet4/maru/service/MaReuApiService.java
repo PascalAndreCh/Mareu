@@ -130,4 +130,11 @@ public interface MaReuApiService {
     int dureeMinutes (Calendar startDate, Calendar endDate);
 
     Calendar duree (Calendar startDate, Calendar endDate);
+
+     void impDate (Calendar dateX) ;
+
+     String dateToString(Calendar dateX);
+
+     Calendar stringToDate(String stringDate);
+
 }

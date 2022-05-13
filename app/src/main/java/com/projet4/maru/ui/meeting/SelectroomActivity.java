@@ -1,10 +1,14 @@
 package com.projet4.maru.ui.meeting;
 
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_END;
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_START;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.ID_ROOM;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.NBPEOPLE;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,15 +32,26 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
     private final MaReuApiService mApiService = DI.getStartListApiService();
     long idRoom;
     int nbPeople;
+    Calendar dateStart;
+    Calendar dateEnd;
+    String stringDate;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+//        Bundle args = intent.getBundleExtra("BUNDLE");
+//        dateStart = (Calendar) args.getSerializable(CalendarContract.EXTRA_EVENT_BEGIN_TIME);
+//        dateStart = (Calendar) args.getSerializable("ARRAYLIST4");
 
         idRoom = intent.getLongExtra(ID_ROOM, 0);
         nbPeople = intent.getIntExtra(NBPEOPLE, 0);
+        stringDate = intent.getStringExtra(DATE_START);
+        dateStart = mApiService.stringToDate(stringDate);
+        stringDate = intent.getStringExtra(DATE_END);
+        dateEnd = mApiService.stringToDate(stringDate);
+
         initData();
         initUI();
     }
@@ -51,7 +66,7 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
-        MyRoomRecyclerViewAdapter mAdapter = new MyRoomRecyclerViewAdapter(allPossibleRoomArrayList, idRoom, nbPeople,this);
+        MyRoomRecyclerViewAdapter mAdapter = new MyRoomRecyclerViewAdapter(allPossibleRoomArrayList, idRoom, nbPeople, dateStart, dateEnd, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());

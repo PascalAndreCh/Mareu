@@ -46,6 +46,20 @@
         app:srcCompat="@drawable/ic_baseline_meeting_room_standby_24" />
 
     <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginEnd="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/item_room_select_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_room_select_button"
+        app:layout_constraintTop_toTopOf="@id/item_room_select_button"
+        tools:text="" />
+
+    <TextView
         android:id="@+id/roomText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
