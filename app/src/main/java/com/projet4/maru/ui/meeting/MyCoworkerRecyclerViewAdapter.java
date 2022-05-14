@@ -10,9 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projet4.maru.R;
+import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.service.MaReuApiService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCoworkerRecyclerViewAdapter.ViewHolder> {
@@ -20,12 +23,20 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
     private final List<Participant> coworkers;
     private final List<Participant> participants;
     private OnCoworkerClickListener listener;
+    private Calendar dateStart;
+    private Calendar dateEnd;
+    private MaReuApiService mApiService = DI.getStartListApiService();
+    private MaReuApiService service;
 
 
-    public MyCoworkerRecyclerViewAdapter(List<Participant> coworkers, List<Participant> participants, OnCoworkerClickListener listener) {
+
+
+    public MyCoworkerRecyclerViewAdapter(List<Participant> coworkers, List<Participant> participants, Calendar dateStart, Calendar dateEnd, OnCoworkerClickListener listener) {
         this.participants = participants;
         this.listener = listener;
         this.coworkers = coworkers;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
 
     @NonNull
@@ -45,7 +56,11 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
             public void onClick(View view) {
                 Participant p = coworkers.get(viewHolder.getAdapterPosition());
                 if (participants.contains(p)) {
-                    viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+                    if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {
+                        viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_off_24);
+                    } else {
+                        viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+                    }
                     participants.remove(p);
                 } else {
                     viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
@@ -77,16 +92,16 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
         public void displayCoworker(Participant participant) {
             coworkerText.setText(participant.getName());
             coworkerTextSuit.setText(participant.getMailAddresses());
+
             if (participants.contains(participant)) {
                 itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
             } else {
-                itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+                if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {
+                    itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_off_24);
+                } else {
+                    itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
+                }
             }
-//            itemCoworkerSelectButton.setImageIcon(ic_baseline_person_green_24);
-
-//           if (participantIsFree(coworker.getId(), dateStart, dateEnd)){
-
-//            }
         }
 
     }

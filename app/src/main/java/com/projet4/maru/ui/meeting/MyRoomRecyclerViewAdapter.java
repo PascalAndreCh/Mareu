@@ -82,6 +82,9 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
             roomText.setText("Salle " + room.getNumberRoom() + " " + room.getNameRoom() + " Etage : " + room.getStageRoom());
             nbPeople.setText(Integer.toString(room.getMaximumParticipantRoom()));
 
+//            mApiService.impDate(dateStart);
+//            mApiService.impDate(dateEnd);
+
              if (idRoom == 0) {
                 if (nbPeople2 != 0 && nbPeople2 > room.getMaximumParticipantRoom()) {
                     if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd)) {

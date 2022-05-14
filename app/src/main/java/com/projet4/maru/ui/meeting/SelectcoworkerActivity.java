@@ -2,6 +2,9 @@ package com.projet4.maru.ui.meeting;
 
 
 
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_END;
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_START;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +35,10 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     private List<Participant> allPossibleParticipantArrayList;
     private final MaReuApiService mApiService = DI.getStartListApiService();
     public List<Participant> participantsList = new ArrayList<>();
+    Calendar dateStart;
+    Calendar dateEnd;
+    String stringDate;
+
 
 //    public List<Participant> participantsList;
 
@@ -41,6 +48,11 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
+        stringDate = intent.getStringExtra(DATE_START);
+        dateStart = mApiService.stringToDate(stringDate);
+        stringDate = intent.getStringExtra(DATE_END);
+        dateEnd = mApiService.stringToDate(stringDate);
+
 
         initData();
         initUI();
@@ -63,7 +75,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
 
-        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, this);
+        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -73,7 +85,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
     private void initData() {
         allPossibleParticipantArrayList = mApiService.getParticipants();
-
     }
 
     @Override
@@ -104,19 +115,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
          }
     }
 
-//    FloatingActionButton fab = findViewById(R.id.add_coworker);
-//    fab.setOnClicListener(new View.OnClickListener() {
-//        @Override
-//                public void onClick(View view) {
-//                        // on passe la liste en retour de Selectcoworker à AddMeeting
-//            Intent data = new Intent();
-//            Bundle args = new Bundle();
-//            args.putSerializable("ARRAYLIST1",(Serializable)participantsList);
-//            data.putExtra("BUNDLE",args);
-//            setResult(RESULT_OK, data);
-//            Toast.makeText(this, "Part 4 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
-//    });
+
 
 }

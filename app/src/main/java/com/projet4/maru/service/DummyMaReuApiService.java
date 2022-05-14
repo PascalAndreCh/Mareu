@@ -147,6 +147,10 @@ public class DummyMaReuApiService implements MaReuApiService {
      */
     public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         for (Meeting meet : this.meetings) {
+//            if (meet.getIdRoom()==6){
+//                impDate(meet.getTimeStart());
+//                impDate(meet.getTimeEnd());
+//            }
              if (idRoom == meet.getIdRoom()) {
                 if (mMeetingDateEnd.before(meet.getTimeStart()) || mMeetingDateEnd.equals(meet.getTimeStart())) {
                     continue;

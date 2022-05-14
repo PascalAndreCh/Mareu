@@ -149,6 +149,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST1", (Serializable) participantsList);
                 intent.putExtra("BUNDLE", args);
+                dateString = service.dateToString(dateStart);
+                intent.putExtra(DATE_START, dateString);
+                dateString = service.dateToString(dateEnd);
+                intent.putExtra(DATE_END, dateString);
                 startActivityForResult(intent, 1);
             }
         });
@@ -260,7 +264,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             idMax = idMaxOpt.get()+1;
         }
 
- //TODO
         timeStart = dateStart;
         timeEnd = dateEnd;
         if (meetingtitle.isEmpty()) {
