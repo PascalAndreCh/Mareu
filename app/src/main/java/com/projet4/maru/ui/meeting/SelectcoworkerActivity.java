@@ -45,6 +45,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        allPossibleParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");

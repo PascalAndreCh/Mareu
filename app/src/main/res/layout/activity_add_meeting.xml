@@ -208,6 +208,22 @@
         tools:text="6"/>
 
     <TextView
+        android:id="@+id/errorTextParticipant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorred"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/participantMeeting"
+        app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
+        tools:text=""/>
+
+    <TextView
         android:id="@+id/textParticipant"
         android:layout_width="382dp"
         android:layout_height="wrap_content"
@@ -252,6 +268,22 @@
             app:layout_constraintStart_toEndOf="@id/roomMeeting"
             app:layout_constraintTop_toTopOf="@id/roomMeeting"
             tools:text="Salle 104, Madagascar, 1er étage, 6 personnes max" />
+
+    <TextView
+        android:id="@+id/errorTextSalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorred"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/roomMeeting"
+        app:layout_constraintTop_toBottomOf="@+id/roomMeeting"
+        tools:text=""/>
 
         <Button
             android:id="@+id/meeting_set"

@@ -5,6 +5,7 @@ import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.model.Room;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -131,10 +132,10 @@ public interface MaReuApiService {
 
     Calendar duree (Calendar startDate, Calendar endDate);
 
-     void impDate (Calendar dateX) ;
+     Calendar impDate (Calendar dateX) ;
 
      String dateToString(Calendar dateX);
 
-     Calendar stringToDate(String stringDate);
+     Calendar stringToDate(String stringDate) throws ParseException;
 
 }

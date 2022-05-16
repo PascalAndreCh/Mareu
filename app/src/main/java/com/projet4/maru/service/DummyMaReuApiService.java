@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class DummyMaReuApiService implements MaReuApiService {
 
@@ -174,6 +175,13 @@ public class DummyMaReuApiService implements MaReuApiService {
      */
     public boolean participantIsFree(long idParticipant, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         for (Meeting meeting : this.meetings) {
+            if (meeting.getIdRoom()==6){
+                impDate(meeting.getTimeStart());
+                impDate(meeting.getTimeEnd());
+            }
+
+
+
             participants = (List<Participant>) meeting.getParticipants();
             for (Participant participant : participants) {
                 if (idParticipant == participant.getId()) {
@@ -387,7 +395,7 @@ public class DummyMaReuApiService implements MaReuApiService {
         return duree;
     }
 
-    public void impDate (Calendar dateX) {
+    public Calendar impDate (Calendar dateX) {
         int h1= dateX.get(Calendar.YEAR);
         int h2= dateX.get(Calendar.MONTH);
         int h3= dateX.get(Calendar.DAY_OF_MONTH);
@@ -395,6 +403,7 @@ public class DummyMaReuApiService implements MaReuApiService {
         int h5= dateX.get(Calendar.MINUTE);
         int h6= dateX.get(Calendar.SECOND);
         int h7= dateX.get(Calendar.MILLISECOND);
+        return dateX;
     }
 
     public String dateToString (Calendar dateX) {
@@ -413,6 +422,7 @@ public class DummyMaReuApiService implements MaReuApiService {
         String h5s = stringDate.substring(14,16);
         String h6s = stringDate.substring(17,19);
         dateX.set(Integer.valueOf(h3s), Integer.valueOf(h2s),Integer.valueOf(h1s), Integer.valueOf(h4s),Integer.valueOf(h5s), Integer.valueOf(h6s) );
+        impDate(dateX);
         return dateX;
     }
 

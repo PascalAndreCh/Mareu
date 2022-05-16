@@ -38,17 +38,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, MyMeetingRecyclerViewAdapter.OnMeetingClickListener {
 
-    private MaReuApiService mApiService;
+    private MaReuApiService mApiService = DI.getStartListApiService();
     private ActivityMainBinding binding;
     private ArrayList<Meeting> mMeetingArrayList = new ArrayList<>();
     private Meeting meeting;
-    private MaReuApiService mMeeting = (MaReuApiService) DI.getStartListApiService();
-    private ArrayList<Meeting> meetings;
-    private final MaReuApiService mRoom = (MaReuApiService) DI.getStartListApiService();
-    private final MaReuApiService mCoworker = (MaReuApiService) DI.getStartListApiService();
-    private final MaReuApiService mVip = (MaReuApiService) DI.getStartListApiService();
     private Spinner spinner;
-    private int room = 1;
+    private int idRoom = -1;
     int provenance = 0;
 
 
@@ -59,9 +54,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initUI();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mMeetingArrayList.clear();
+        if (idRoom == -1){
+            mMeetingArrayList.addAll(mApiService.getMeetings());
+        } else {
+            mMeetingArrayList.addAll(mApiService.getMeetingsByRoom(idRoom));
+        }
+        binding.recyclerview.getAdapter().notifyDataSetChanged();
+    }
+
     private void initData() {
-        mMeetingArrayList = new ArrayList<>(mMeeting.getMeetings());
-        meetings = new ArrayList<>(mMeeting.getMeetings());
+        mMeetingArrayList = new ArrayList<>(mApiService.getMeetings());
     }
 
     private void initUI() {
@@ -115,22 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 0) {
-                int roomId = data.getExtras().getInt("MESSAGE");
-                mMeetingArrayList.clear();
-                mMeetingArrayList.addAll(mMeeting.getMeetingsByRoom(roomId));
-                binding.recyclerview.getAdapter().notifyDataSetChanged();
-            } else if (requestCode == 3) {
-                mMeetingArrayList.clear();
-                mMeetingArrayList.addAll(mMeeting.getMeetings());
-                binding.recyclerview.getAdapter().notifyDataSetChanged();
-            } else if (requestCode == 4) {
-                Bundle args = data.getBundleExtra("BUNDLE");
-                meeting = (Meeting) args.getSerializable("ARRAYLIST2");
-                meetings = (ArrayList<Meeting>) args.getSerializable("ARRAYLIST3");
-                mMeetingArrayList.clear();
-                mMeetingArrayList.addAll(meetings);
-//                mMeetingArrayList.addAll(mMeeting.getMeetings());
-                binding.recyclerview.getAdapter().notifyDataSetChanged();
+                idRoom = data.getExtras().getInt("MESSAGE");
+
             }
         }
     }
@@ -141,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      }
 
     private void resetFilter() {
+        idRoom=-1;
         mMeetingArrayList.clear();
-        mMeetingArrayList.addAll(mMeeting.getMeetings());
+        mMeetingArrayList.addAll(mApiService.getMeetings());
         binding.recyclerview.getAdapter().notifyDataSetChanged();
     }
 
@@ -157,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Calendar cal = GregorianCalendar.getInstance();
                 cal.set(i, i1, i2);
                 mMeetingArrayList.clear();
-                mMeetingArrayList.addAll(mMeeting.getMeetingsByDate(cal));
+                mMeetingArrayList.addAll(mApiService.getMeetingsByDate(cal));
                 binding.recyclerview.getAdapter().notifyDataSetChanged();
             }
         };
@@ -198,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Meeting meeting = new Meeting (idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList ) ;
             intent.putExtra("PROVENANCE", 3);
             args.putSerializable("ARRAYLIST2", (Serializable) meeting);
-            args.putSerializable("ARRAYLIST3", (Serializable) meetings);
+            args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayList);
             intent.putExtra("BUNDLE", args);
             startActivityForResult(intent,3);
         }
@@ -208,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
         Toast.makeText(getApplicationContext(), choice, Toast.LENGTH_LONG).show();
-        room = i + 1;
     }
 
     @Override
@@ -222,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bundle args = new Bundle();
         intent.putExtra("PROVENANCE", 4);
         args.putSerializable("ARRAYLIST2", (Serializable) meeting);
-        args.putSerializable("ARRAYLIST3", (Serializable) meetings);
+        args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayList);
         intent.putExtra("BUNDLE", args);
         startActivityForResult(intent, 4);
     }

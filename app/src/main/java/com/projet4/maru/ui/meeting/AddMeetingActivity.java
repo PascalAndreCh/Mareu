@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -181,7 +182,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 dateStart.set(i, i1, i2);
-                SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
                 binding.dateText.setText(format1.format(dateStart.getTime()));
             }
         };
@@ -189,7 +190,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
         datePickerDialog.show();
         timeStart.setTime(dateStart.getTime());
-        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm", Locale.FRANCE);
         dateEnd = service.endDateMeeting(dateStart, durationNumber);
         timeEnd.setTime(dateEnd.getTime());
         binding.hourStartText.setText(format2.format(dateStart.getTime()));
@@ -343,9 +344,11 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 nbParticipants = participantsList.size();
                 binding.participantNumber.setText(Integer.toString(nbParticipants));
                 binding.participantNumber.setError(null);
+                binding.errorTextParticipant.setText("");
                 if (nbParticipants > 10) {
                     int diff = nbParticipants - 10;
                     binding.participantNumber.setError("The number's people is to high, please, remove " + diff + " people");
+                    binding.errorTextParticipant.setText("The number's people is to high, please, remove " + diff + " people");
                 }
                 String textPart = "";
                 for (Participant part : participantsList) {
@@ -363,12 +366,15 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                     }
                     binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
                     binding.roomText.setError(null);
+                    binding.errorTextSalle.setText("");
                     if (!service.roomIsFree(idRoom, timeStart, timeEnd)) {
                         binding.roomText.setError("Please choice another room, this room is not free");
+                        binding.errorTextSalle.setText("Please choice another room, this room is not free");
                     }
                     if (participantsList.size() != 0) {
                         if (!service.roomToSmall(idRoom, participantsList.size())) {
                             binding.roomText.setError("This room is to small ");
+                            binding.errorTextSalle.setText("This room is to small ");
                         }
                         long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
                         if (idRoomB != idRoom) {
@@ -379,6 +385,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                                 }
                             }
                             binding.roomText.setError("This room is better " + room3.getNameRoom());
+                            binding.errorTextSalle.setText("This room is better " + room3.getNameRoom());
                         }
                     }
                 }

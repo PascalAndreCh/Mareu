@@ -19,18 +19,19 @@ import com.projet4.maru.service.MaReuApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Meeting> meetings;
+    private final ArrayList<Meeting> mMeetingArrayList;
     private final Meeting meeting;
     private List<Room> rooms = DummyMaReuGenerator.generateRooms();
     private MyMeetingRecyclerViewAdapter.OnMeetingClickListener listener;
-    private MaReuApiService mApiService;
+    private static MaReuApiService mApiService;
 
-    public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> meetings, Meeting meeting, OnMeetingClickListener listener) {
-        this.meetings = meetings;
+    public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> mMeetingArrayList, Meeting meeting, OnMeetingClickListener listener) {
+        this.mMeetingArrayList= mMeetingArrayList;
         this.listener = listener;
         this.meeting = meeting;
     }
@@ -45,7 +46,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Meeting meeting = meetings.get(position);
+        Meeting meeting = mMeetingArrayList.get(position);
         viewHolder.displayMeeting(meeting);
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +59,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 myPopup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    meetings.remove(meeting);
-//                    mApiService.deleteMeeting(meeting);
-
+                    mMeetingArrayList.remove(meeting);
                     }
                 });
                 myPopup.setNegativeButton("NON", new DialogInterface.OnClickListener() {
@@ -77,14 +76,14 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyMeetingRecyclerViewAdapter.this.listener.onMeetingClick(meetings.get(viewHolder.getAdapterPosition()));
+                MyMeetingRecyclerViewAdapter.this.listener.onMeetingClick(mMeetingArrayList.get(viewHolder.getAdapterPosition()));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return meetings.size();
+        return mMeetingArrayList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -112,6 +111,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 break;
             }
         }
+
             meetingText.setText(meeting.getTitle()+" "+fmtOut.format(meeting.getTimeStart().getTime())+" "+fmtEnd.format(meeting.getTimeEnd().getTime())+" "+salle);
             String nom ="";
             int k = meeting.getParticipants().size();
