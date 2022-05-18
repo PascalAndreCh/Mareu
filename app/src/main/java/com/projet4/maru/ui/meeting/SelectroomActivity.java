@@ -47,10 +47,21 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
 
         idRoom = intent.getLongExtra(ID_ROOM, 0);
         nbPeople = intent.getIntExtra(NBPEOPLE, 0);
+
         stringDate = intent.getStringExtra(DATE_START);
-        dateStart = mApiService.stringToDate(stringDate);
+        try {
+            dateStart = mApiService.stringToDate(stringDate);
+        } catch (Exception e) {
+            String zz = "erreur format";
+        }
         stringDate = intent.getStringExtra(DATE_END);
-        dateEnd = mApiService.stringToDate(stringDate);
+        try {
+            dateEnd = mApiService.stringToDate(stringDate);
+        } catch (Exception e) {
+                       String zz = "erreur format";
+        }
+
+
 
         initData();
         initUI();

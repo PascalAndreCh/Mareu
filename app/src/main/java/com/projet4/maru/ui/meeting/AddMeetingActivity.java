@@ -47,6 +47,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     private MaReuApiService service;
 
     boolean is24HView = true;
+    public Calendar dateSave;
     public Calendar dateStart;
     public Calendar dateEnd;
     public Calendar timeStart;
@@ -120,6 +121,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         binding.dateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.hourStartText.setError(null);
+                binding.errorTextStart.setText("");
                 dateDialog();
             }
         });
@@ -128,6 +131,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         binding.hourStartMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.hourStartText.setError(null);
+                binding.errorTextStart.setText("");
                 timeDialog();
             }
         });
@@ -136,6 +141,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         binding.durationMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.durationText.setError(null);
+                binding.errorTextDuration.setText("");
                 durationDialog();
             }
         });
@@ -145,6 +152,12 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         binding.participantMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.participantNumber.setError(null);
+                binding.errorTextParticipant.setText("");
+                if (durationNumber == 0) {
+                    binding.participantNumber.setError("Choice before a date");
+                    binding.errorTextParticipant.setText("Choice before a date");
+                } else {
                 // passage de la liste des participants de AddMeeting à Selectcoworker, la première fois, elle est vide
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
@@ -156,23 +169,32 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra(DATE_END, dateString);
                 startActivityForResult(intent, 1);
             }
+            }
         });
+
 
         // init select room button
         binding.roomMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
+                binding.roomText.setError(null);
+                binding.errorTextRoom.setText("");
+                if (nbParticipants == 0) {
+                    binding.roomText.setError("Choice before some participants");
+                    binding.errorTextRoom.setText("Choice before some participants");
+                } else {
+                    Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
 //                Bundle args = new Bundle();
-                intent2.putExtra(ID_ROOM, idRoom);
-                intent2.putExtra(NBPEOPLE, participantsList.size());
-                dateString = service.dateToString(dateStart);
-                intent2.putExtra(DATE_START, dateString);
-                dateString = service.dateToString(dateEnd);
-                intent2.putExtra(DATE_END, dateString);
+                    intent2.putExtra(ID_ROOM, idRoom);
+                    intent2.putExtra(NBPEOPLE, participantsList.size());
+                    dateString = service.dateToString(dateStart);
+                    intent2.putExtra(DATE_START, dateString);
+                    dateString = service.dateToString(dateEnd);
+                    intent2.putExtra(DATE_END, dateString);
 //                intent2.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateStart );
 //                args.putSerializable("ARRAYLIST4", (Serializable) dateStart.getTime());
-                startActivityForResult(intent2, 2);
+                    startActivityForResult(intent2, 2);
+                }
             }
         });
     }
@@ -276,27 +298,33 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             return;
         }
         if (participantsList.size() == 0) {
-            binding.textParticipant.setError("Please select participants");
+            binding.participantNumber.setError("Please select participants");
+            binding.errorTextParticipant.setText("Please select participants");
             return;
         }
         if (idRoom ==0) {
             binding.roomText.setError("Please select room");
+            binding.errorTextRoom.setText("Please select room");
             return;
         }
         if (durationNumber > 240) {
             binding.durationText.setError("Please choice a duration inferior to 4h00");
+            binding.errorTextDuration.setText("Please choice a duration inferior to 4h00");
             return;
         }
         if (durationNumber == 0) {
             binding.durationText.setError("Please choice a duration");
+            binding.errorTextDuration.setText("Please choice a duration");
             return;
         }
         if (!mApiService.inputDateSuperiorToThisDay(timeEnd)){
             binding.hourEndMeetingText.setError("The end time doesn't inferior to now time");
+            binding.errorTextDuration.setText("The end time doesn't inferior to now time");
             return;
         }
         if (!mApiService.inputDateSuperiorToThisDay(timeStart)){
             binding.hourStartText.setError("This meeting is starting");
+            binding.errorTextStart.setText("This meeting is starting");
             return;
         }
         if (provenance == 3) {
@@ -342,6 +370,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Bundle args = data.getBundleExtra("BUNDLE");
                 participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
                 nbParticipants = participantsList.size();
+
+                List<Participant> allPossibleParticipantArrayList = mApiService.getParticipants();
                 binding.participantNumber.setText(Integer.toString(nbParticipants));
                 binding.participantNumber.setError(null);
                 binding.errorTextParticipant.setText("");
@@ -366,15 +396,15 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                     }
                     binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
                     binding.roomText.setError(null);
-                    binding.errorTextSalle.setText("");
+                    binding.errorTextRoom.setText("");
                     if (!service.roomIsFree(idRoom, timeStart, timeEnd)) {
                         binding.roomText.setError("Please choice another room, this room is not free");
-                        binding.errorTextSalle.setText("Please choice another room, this room is not free");
+                        binding.errorTextRoom.setText("Please choice another room, this room is not free");
                     }
                     if (participantsList.size() != 0) {
                         if (!service.roomToSmall(idRoom, participantsList.size())) {
                             binding.roomText.setError("This room is to small ");
-                            binding.errorTextSalle.setText("This room is to small ");
+                            binding.errorTextRoom.setText("This room is to small ");
                         }
                         long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
                         if (idRoomB != idRoom) {
@@ -385,7 +415,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                                 }
                             }
                             binding.roomText.setError("This room is better " + room3.getNameRoom());
-                            binding.errorTextSalle.setText("This room is better " + room3.getNameRoom());
+                            binding.errorTextRoom.setText("This room is better " + room3.getNameRoom());
                         }
                     }
                 }
@@ -395,6 +425,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     private void initVariables () {
         dateStart = GregorianCalendar.getInstance();
+        dateEnd = GregorianCalendar.getInstance();
+        dateSave = GregorianCalendar.getInstance();
         dateStart.set(
                 dateStart.get(Calendar.YEAR),
                 dateStart.get(Calendar.MONTH),
@@ -402,8 +434,21 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 0,
                 0,
                 0);
+        dateStart.set(Calendar.MILLISECOND, 0);
+        dateEnd.set(
+                dateEnd.get(Calendar.YEAR),
+                dateEnd.get(Calendar.MONTH),
+                dateEnd.get(Calendar.DAY_OF_MONTH),
+                0,
+                0,
+                0);
+        dateEnd.set(Calendar.MILLISECOND, 0);
+        dateSave.setTime(dateEnd.getTime());
         timeEnd = GregorianCalendar.getInstance();
         timeStart = GregorianCalendar.getInstance();
+        timeStart.setTime(dateStart.getTime());
+        timeEnd.setTime(dateEnd.getTime());
+        durationNumber = 0;
         nbParticipants = 0;
         List<Room> rooms1 = mApiService.getRooms();
 
@@ -425,9 +470,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             idMax = meeting.getId();
             idRoom = meeting.getIdRoom();
             timeStart = meeting.getTimeStart();
-            dateStart = timeStart;
+            dateStart = meeting.getTimeStart();
             timeEnd = meeting.getTimeEnd();
-            dateEnd = timeEnd;
+            dateEnd = meeting.getTimeEnd();
             meetingtitle = meeting.getTitle();
             meetingComment = meeting.getDescription();
             participantsList = meeting.getParticipants();

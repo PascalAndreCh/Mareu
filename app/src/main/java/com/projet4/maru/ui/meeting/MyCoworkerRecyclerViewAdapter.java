@@ -20,21 +20,20 @@ import java.util.List;
 
 public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCoworkerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Participant> coworkers;
-    private final List<Participant> participants;
+    private final List<Participant> allPossibleParticipantArrayList;
+    private final List<Participant> participantsList;
     private OnCoworkerClickListener listener;
     private Calendar dateStart;
     private Calendar dateEnd;
     private MaReuApiService mApiService = DI.getStartListApiService();
-    private MaReuApiService service;
 
 
 
 
-    public MyCoworkerRecyclerViewAdapter(List<Participant> coworkers, List<Participant> participants, Calendar dateStart, Calendar dateEnd, OnCoworkerClickListener listener) {
-        this.participants = participants;
+    public MyCoworkerRecyclerViewAdapter(List<Participant> allPossibleParticipantArrayList, List<Participant> participantsList, Calendar dateStart, Calendar dateEnd, OnCoworkerClickListener listener) {
+        this.participantsList = participantsList;
         this.listener = listener;
-        this.coworkers = coworkers;
+        this.allPossibleParticipantArrayList = allPossibleParticipantArrayList;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
@@ -49,22 +48,22 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Participant participant = coworkers.get(position);
+        Participant participant = allPossibleParticipantArrayList.get(position);
         viewHolder.displayCoworker(participant);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Participant p = coworkers.get(viewHolder.getAdapterPosition());
-                if (participants.contains(p)) {
+                Participant p = allPossibleParticipantArrayList.get(viewHolder.getAdapterPosition());
+                if (participantsList.contains(p)) {
                     if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {
                         viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_off_24);
                     } else {
                         viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
                     }
-                    participants.remove(p);
+                    participantsList.remove(p);
                 } else {
                     viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
-                    participants.add(p);
+                    participantsList.add(p);
                 }
                 MyCoworkerRecyclerViewAdapter.this.listener.onCoworkerClick(p);
             }
@@ -74,7 +73,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     @Override
     public int getItemCount() {
-        return coworkers.size();
+        return allPossibleParticipantArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -93,7 +92,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
             coworkerText.setText(participant.getName());
             coworkerTextSuit.setText(participant.getMailAddresses());
 
-            if (participants.contains(participant)) {
+            if (participantsList.contains(participant)) {
                 itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
             } else {
                 if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {

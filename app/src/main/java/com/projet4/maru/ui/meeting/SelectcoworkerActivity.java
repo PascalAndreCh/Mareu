@@ -20,6 +20,7 @@ import com.projet4.maru.databinding.ActivitySelectcoworkerBinding;
 import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Participant;
+import com.projet4.maru.service.DummyMaReuGenerator;
 import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
@@ -32,9 +33,10 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
 
     private ActivitySelectcoworkerBinding binding;
-    private List<Participant> allPossibleParticipantArrayList;
+//    private List<Participant> allPossibleParticipantArrayList;
     private final MaReuApiService mApiService = DI.getStartListApiService();
     public List<Participant> participantsList = new ArrayList<>();
+    private List<Participant> allPossibleParticipantArrayList = DummyMaReuGenerator.generateParticipants();
     Calendar dateStart;
     Calendar dateEnd;
     String stringDate;
@@ -45,17 +47,24 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        allPossibleParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
+//        allPossibleParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
         stringDate = intent.getStringExtra(DATE_START);
-        dateStart = mApiService.stringToDate(stringDate);
+        try {
+            dateStart = mApiService.stringToDate(stringDate);
+        } catch (Exception e) {
+            String zz = "erreur format";
+        }
         stringDate = intent.getStringExtra(DATE_END);
-        dateEnd = mApiService.stringToDate(stringDate);
+        try {
+            dateEnd = mApiService.stringToDate(stringDate);
+        } catch (Exception e) {
+                       String zz = "erreur format";
+        }
 
-
-        initData();
+//        initData();
         initUI();
 
 
@@ -85,7 +94,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     }
 
     private void initData() {
-        allPossibleParticipantArrayList = mApiService.getParticipants();
+//        allPossibleParticipantArrayList = mApiService.getParticipants();
     }
 
     @Override
@@ -104,6 +113,8 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         if (view == binding.addCoworker) {
+
+//            allPossibleParticipantArrayList = mApiService.getParticipants();
 
             // on passe la liste en retour de Selectcoworker à AddMeeting
             Intent data = new Intent();

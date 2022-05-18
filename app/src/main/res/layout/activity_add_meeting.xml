@@ -111,6 +111,22 @@
             app:layout_constraintTop_toTopOf="@id/hourStartMeeting"
             tools:text="10h30" />
 
+    <TextView
+        android:id="@+id/errorTextStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorred"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/hourStartText"
+        app:layout_constraintTop_toBottomOf="@+id/hourStartText"
+        tools:text=""/>
+
         <ImageButton
             android:id="@+id/durationMeeting"
             android:layout_width="32dp"
@@ -136,6 +152,24 @@
             app:layout_constraintStart_toEndOf="@id/durationMeeting"
             app:layout_constraintTop_toTopOf="@id/durationMeeting"
             tools:text="120 mn" />
+
+    <TextView
+        android:id="@+id/errorTextDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorred"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/durationMeeting"
+        app:layout_constraintTop_toBottomOf="@+id/durationMeeting"
+        tools:text=""/>
+
+
 
         <ImageView
             android:id="@+id/hourEndMeeting"
@@ -211,7 +245,7 @@
         android:id="@+id/errorTextParticipant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="0dp"
         android:ellipsize="end"
         android:maxLines="1"
@@ -270,10 +304,10 @@
             tools:text="Salle 104, Madagascar, 1er étage, 6 personnes max" />
 
     <TextView
-        android:id="@+id/errorTextSalle"
+        android:id="@+id/errorTextRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="0dp"
         android:ellipsize="end"
         android:maxLines="1"

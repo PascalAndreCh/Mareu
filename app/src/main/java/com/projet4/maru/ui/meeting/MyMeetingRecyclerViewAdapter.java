@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.projet4.maru.R;
+import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Meeting;
 import com.projet4.maru.model.Room;
 import com.projet4.maru.service.DummyMaReuGenerator;
@@ -28,7 +29,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     private final Meeting meeting;
     private List<Room> rooms = DummyMaReuGenerator.generateRooms();
     private MyMeetingRecyclerViewAdapter.OnMeetingClickListener listener;
-    private static MaReuApiService mApiService;
+//    private static MaReuApiService mApiService;
+    private final MaReuApiService mApiService = DI.getStartListApiService();
 
     public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> mMeetingArrayList, Meeting meeting, OnMeetingClickListener listener) {
         this.mMeetingArrayList= mMeetingArrayList;
@@ -43,6 +45,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 .inflate(R.layout.item_meeting, parent, false);
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
@@ -59,7 +62,13 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 myPopup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    mMeetingArrayList.remove(meeting);
+                    mMeetingArrayList.remove(meeting); // ???
+                    mApiService.deleteMeeting(meeting);
+
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, mMeetingArrayList.size());
+                    viewHolder.itemView.setVisibility(View.GONE);
+
                     }
                 });
                 myPopup.setNegativeButton("NON", new DialogInterface.OnClickListener() {
@@ -71,7 +80,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 myPopup.show();
             }
         });
-
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +105,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             mails = view.findViewById(R.id.mails);
             deleteButton = view.findViewById(R.id.item_list_delete_button);
         }
-
-
 
         public void displayMeeting(Meeting meeting) {
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm");

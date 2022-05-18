@@ -72,10 +72,10 @@ public class DummyMaReuGenerator {
                 new Participant(20, "Nadine PELLA", "nadine.pella@pme.fr", "Human_Ressources", "DRH")
         );
         DUMMY_MEETINGS = Arrays.asList(
-                new Meeting(1001, 4, new GregorianCalendar(2022, 6, 11, 10, 30), new GregorianCalendar(2022, 6, 11, 11, 30), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", DUMMY_PARTICIPANT1),
-                new Meeting(1003, 6, new GregorianCalendar(2022, 6, 14, 9, 15), new GregorianCalendar(2022, 6, 14, 10, 15), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", DUMMY_PARTICIPANT2),
-                new Meeting(1004, 4, new GregorianCalendar(2022, 6, 14, 14, 0), new GregorianCalendar(2022, 6, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3),
-                new Meeting(1005, 7, new GregorianCalendar(2022, 6, 14, 9, 10), new GregorianCalendar(2022, 6, 14, 10, 5), "Repas de la nouvelle année", "Choisir la salle et le traiteur", DUMMY_PARTICIPANT3)
+                new Meeting(1001, 4, new GregorianCalendar(2022, 5, 11, 10, 30), new GregorianCalendar(2022, 5, 11, 11, 30), "nouvelle fonctionnalité Ma Réunion", "Le client souhaite une fonctionnalité supplémentaire", DUMMY_PARTICIPANT1),
+                new Meeting(1003, 6, new GregorianCalendar(2022, 5, 14, 9, 15), new GregorianCalendar(2022, 5, 14, 10, 15), "Avancement appli Pizza", "Faire le point sur ce qui est fait et ce qu'il reste à écrire, point bloquants", DUMMY_PARTICIPANT2),
+                new Meeting(1004, 4, new GregorianCalendar(2022, 5, 14, 14, 0), new GregorianCalendar(2022, 5, 14, 14, 45), "Repas de Fin d'année", "Choisir le restaurant et le menu", DUMMY_PARTICIPANT3),
+                new Meeting(1005, 7, new GregorianCalendar(2022, 5, 14, 9, 10), new GregorianCalendar(2022, 5, 14, 10, 5), "Repas de la nouvelle année", "Choisir la salle et le traiteur", DUMMY_PARTICIPANT3)
 
         );
     }
@@ -92,7 +92,7 @@ public class DummyMaReuGenerator {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 
-    static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_COWORKERS); }
+    public static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_COWORKERS); }
 
 
     /**
