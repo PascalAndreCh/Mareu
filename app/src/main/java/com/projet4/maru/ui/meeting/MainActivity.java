@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
+        mApiService.deleteObsoleteMeetings();
         mMeetingArrayList = new ArrayList<>(mApiService.getMeetings());
     }
 

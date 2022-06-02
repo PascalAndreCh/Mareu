@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/reunion2"
+    android:layout_height="wrap_content"
     tools:context=".ui.meeting.AddMeetingActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/reunion2">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textMeetingtitle"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:maxLines="1"
-        android:lines="1"
-        android:hint="Titre de la Réunion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:texte="application pizza">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textMeetingtitleEdit"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textMeetingtitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:layout_margin="8dp"
+            android:hint="Titre de la Réunion"
             android:lines="1"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:texte="application pizza">
 
-
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textMeetingtitleEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -111,21 +113,21 @@
             app:layout_constraintTop_toTopOf="@id/hourStartMeeting"
             tools:text="10h30" />
 
-    <TextView
-        android:id="@+id/errorTextStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorred"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@+id/hourStartText"
-        app:layout_constraintTop_toBottomOf="@+id/hourStartText"
-        tools:text=""/>
+        <TextView
+            android:id="@+id/errorTextStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorred"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/hourStartText"
+            app:layout_constraintTop_toBottomOf="@+id/hourStartText"
+            tools:text="" />
 
         <ImageButton
             android:id="@+id/durationMeeting"
@@ -153,22 +155,21 @@
             app:layout_constraintTop_toTopOf="@id/durationMeeting"
             tools:text="120 mn" />
 
-    <TextView
-        android:id="@+id/errorTextDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="0dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorred"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@+id/durationMeeting"
-        app:layout_constraintTop_toBottomOf="@+id/durationMeeting"
-        tools:text=""/>
-
+        <TextView
+            android:id="@+id/errorTextDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorred"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/durationMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/durationMeeting"
+            tools:text="" />
 
 
         <ImageView
@@ -226,58 +227,58 @@
             app:layout_constraintStart_toEndOf="@id/participantMeeting"
             app:layout_constraintTop_toTopOf="@id/participantMeeting" />
 
-    <TextView
-        android:id="@+id/participantNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toEndOf="@id/participantText"
-        app:layout_constraintTop_toTopOf="@id/participantText"
-        tools:text="6"/>
+        <TextView
+            android:id="@+id/participantNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/participantText"
+            app:layout_constraintTop_toTopOf="@id/participantText"
+            tools:text="6" />
 
-    <TextView
-        android:id="@+id/errorTextParticipant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="0dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorred"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@+id/participantMeeting"
-        app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
-        tools:text=""/>
+        <TextView
+            android:id="@+id/errorTextParticipant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorred"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/participantMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
+            tools:text="" />
 
-    <TextView
-        android:id="@+id/textParticipant"
-        android:layout_width="382dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:ellipsize="end"
-        android:gravity="top"
-        android:hint="Participants"
-        android:inputType="textMultiLine"
-        android:lines="10"
-        android:maxLines="10"
-        android:text="Participants "
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@+id/participantMeeting"
-        app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
-        tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
+        <TextView
+            android:id="@+id/textParticipant"
+            android:layout_width="382dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:hint="Participants"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:maxLines="10"
+            android:text="Participants "
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/participantMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/participantMeeting"
+            tools:texte="Mathieu DUPONT   , Development      , Developer front end      , mathieu.dupont@pme.fr" />
 
-    <ImageButton
+        <ImageButton
             android:id="@+id/roomMeeting"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -303,21 +304,21 @@
             app:layout_constraintTop_toTopOf="@id/roomMeeting"
             tools:text="Salle 104, Madagascar, 1er étage, 6 personnes max" />
 
-    <TextView
-        android:id="@+id/errorTextRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="0dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorred"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="@+id/roomMeeting"
-        app:layout_constraintTop_toBottomOf="@+id/roomMeeting"
-        tools:text=""/>
+        <TextView
+            android:id="@+id/errorTextRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorred"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/roomMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/roomMeeting"
+            tools:text="" />
 
         <Button
             android:id="@+id/meeting_set"
@@ -328,4 +329,6 @@
             app:layout_constraintTop_toBottomOf="@+id/roomMeeting" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

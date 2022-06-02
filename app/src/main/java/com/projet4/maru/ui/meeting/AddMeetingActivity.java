@@ -210,6 +210,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
         timeStart.setTime(dateStart.getTime());
         SimpleDateFormat format2 = new SimpleDateFormat("HH:mm", Locale.FRANCE);

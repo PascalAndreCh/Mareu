@@ -69,7 +69,7 @@ public class UnitTest {
     @Test
     public void getparticipantWithSuccess() {
         List<Participant> participants = service.getParticipants();
-        List<Participant> expectedParticipants = DummyMaReuGenerator.DUMMY_PARTICIPANTS;
+        List<Participant> expectedParticipants = DummyMaReuGenerator.DUMMY_COWORKERS;
         assertThat(participants, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedParticipants.toArray()));
     }
 
@@ -103,7 +103,7 @@ public class UnitTest {
         int salleA = 4;
         int salleB = 2;
         assertTrue(service.getMeetingsByRoom(salleA).size() == 2);
-        assertEquals(service.getMeetingsByRoom(salleA).get(0).getId(), 1001);
+        assertEquals(service.getMeetingsByRoom(salleA).get(0).getId(), 1000);
         assertEquals(service.getMeetingsByRoom(salleA).get(1).getId(), 1004);
         assertTrue(service.getMeetingsByRoom(salleB).size() == 0);
     }
@@ -111,22 +111,24 @@ public class UnitTest {
     @Test
     public void getMeetingfiltereddate() {
         List<Meeting> meetings = service.getMeetings();
-        Calendar dateA = new GregorianCalendar(2022, 3, 14);
-        Calendar dateB = new GregorianCalendar(2022, 3, 15);
-        assertTrue(service.getMeetingsByDate(dateA).size() == 2);
+        Calendar dateA = new GregorianCalendar(2022, 6, 12);
+        Calendar dateB = new GregorianCalendar(2022, 6, 15);
+        assertTrue(service.getMeetingsByDate(dateA).size() == 3);
         assertEquals(service.getMeetingsByDate(dateA).get(0).getId(), 1003);
         assertEquals(service.getMeetingsByDate(dateA).get(1).getId(), 1004);
+        assertEquals(service.getMeetingsByDate(dateA).get(2).getId(), 1005);
         assertTrue(service.getMeetingsByDate(dateB).size() == 0);
     }
 
     @Test
     public void getRoomDate() {
         List<Meeting> meetings = service.getMeetings();
-        Calendar dateA = new GregorianCalendar(2022, 3, 14);
-        Calendar dateB = new GregorianCalendar(2022, 3, 15);
-        assertEquals(2, service.getRoomsByDates(dateA).size());
-        assertEquals(service.getRoomsByDates(dateA).get(0).getIdRoom(), 7);
+        Calendar dateA = new GregorianCalendar(2022, 6, 12);
+        Calendar dateB = new GregorianCalendar(2022, 6, 15);
+        assertEquals(3, service.getRoomsByDates(dateA).size());
+        assertEquals(service.getRoomsByDates(dateA).get(0).getIdRoom(), 6);
         assertEquals(service.getRoomsByDates(dateA).get(1).getIdRoom(), 4);
+        assertEquals(service.getRoomsByDates(dateA).get(2).getIdRoom(), 7);
         assertEquals(0, service.getRoomsByDates(dateB).size());
 
     }
@@ -134,37 +136,37 @@ public class UnitTest {
     @Test
     public void roomFree() {
 
-        long roomA = 4;     // la salle est réservée le 14 avril 2022 de 14h00 à 14h45
+        long roomA = 4;     // la salle est réservée le 12 juillet 2022 de 14h00 à 14h45
 
         //disponible avant
-        Calendar dateA1Top = new GregorianCalendar(2022, 03, 14, 9, 0, 0);
-        Calendar dateA1End = new GregorianCalendar(2022, 03, 14, 10, 0, 0);
+        Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 8, 0, 0);
+        Calendar dateA1End = new GregorianCalendar(2022, 03, 14, 9, 0, 0);
 
         //disponible après
-        Calendar dateA2Top = new GregorianCalendar(2022, 03, 14, 15, 0, 0);
-        Calendar dateA2End = new GregorianCalendar(2022, 03, 14, 16, 0, 0);
+        Calendar dateA2Top = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
+        Calendar dateA2End = new GregorianCalendar(2022, 06, 12, 16, 0, 0);
 
         // Non disponible, exactement les mêmes créneaux demandés
-        Calendar dateA3Top = new GregorianCalendar(2022, 03, 14, 14, 0, 0);
-        Calendar dateA3End = new GregorianCalendar(2022, 03, 14, 14, 45, 0);
+        Calendar dateA3Top = new GregorianCalendar(2022, 06, 12, 14, 0, 0);
+        Calendar dateA3End = new GregorianCalendar(2022, 06, 12, 14, 45, 0);
 
         // Non disponible, créneau compris dans le créneau déjà réservé
-        Calendar dateA4Top = new GregorianCalendar(2022, 03, 14, 14, 10, 0);
-        Calendar dateA4End = new GregorianCalendar(2022, 03, 14, 14, 40, 0);
+        Calendar dateA4Top = new GregorianCalendar(2022, 06, 12, 14, 10, 0);
+        Calendar dateA4End = new GregorianCalendar(2022, 06, 12, 14, 40, 0);
 
         // Non disponible, créneau englobe le créneau déjà réservé
-        Calendar dateA5Top = new GregorianCalendar(2022, 03, 14, 13, 45, 0);
-        Calendar dateA5End = new GregorianCalendar(2022, 03, 14, 14, 55);
+        Calendar dateA5Top = new GregorianCalendar(2022, 06, 12, 13, 45, 0);
+        Calendar dateA5End = new GregorianCalendar(2022, 06, 12, 14, 55);
 
         // Non disponible, heure de fin inclue dans le créneau déjà réservé
-        Calendar dateA6Top = new GregorianCalendar(2022, 03, 14, 13, 00, 0);
-        Calendar dateA6End = new GregorianCalendar(2022, 03, 14, 14, 15, 0);
+        Calendar dateA6Top = new GregorianCalendar(2022, 06, 12, 13, 00, 0);
+        Calendar dateA6End = new GregorianCalendar(2022, 06, 12, 14, 15, 0);
 
         // Non disponible, heure de début inclue dans le créneau déjà réservé
-        Calendar dateA7Top = new GregorianCalendar(2022, 03, 14, 14, 30, 0);
-        Calendar dateA7End = new GregorianCalendar(2022, 03, 14, 15, 15, 0);
+        Calendar dateA7Top = new GregorianCalendar(2022, 06, 12, 14, 30, 0);
+        Calendar dateA7End = new GregorianCalendar(2022, 06, 12, 15, 15, 0);
 
-        long roomB = 6; // la salle n'a aucune réservation, donc, disponible quelquesoit le créneau choisi
+        long roomB = 5; // la salle n'a aucune réservation, donc, disponible quelquesoit le créneau choisi
 
         assertTrue(service.roomIsFree(roomA, dateA1Top, dateA1End));
         assertTrue(service.roomIsFree(roomA, dateA2Top, dateA2End));
@@ -179,35 +181,35 @@ public class UnitTest {
     @Test
     public void participantfree() {
 
-        long idpartA = 6;     // la personne participa à une réunion le 14 avril 2022 de 14h00 à 14h45
+        long idpartA = 6;     // la personne participa à une réunion le 12 juillet 2022 de 14h00 à 14h45
 
         //disponible avant
-        Calendar dateA1Top = new GregorianCalendar(2022, 03, 14, 9, 0, 0);
-        Calendar dateA1End = new GregorianCalendar(2022, 03, 14, 10, 0, 0);
+        Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 8, 0, 0);
+        Calendar dateA1End = new GregorianCalendar(2022, 06, 12, 9, 0, 0);
 
         //disponible après
-        Calendar dateA2Top = new GregorianCalendar(2022, 03, 14, 15, 0, 0);
-        Calendar dateA2End = new GregorianCalendar(2022, 03, 14, 16, 0, 0);
+        Calendar dateA2Top = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
+        Calendar dateA2End = new GregorianCalendar(2022, 03, 12, 16, 0, 0);
 
         // Non disponible, exactement les mêmes créneaux demandés
-        Calendar dateA3Top = new GregorianCalendar(2022, 03, 14, 14, 0, 0);
-        Calendar dateA3End = new GregorianCalendar(2022, 03, 14, 14, 45, 0);
+        Calendar dateA3Top = new GregorianCalendar(2022, 06, 12, 14, 0, 0);
+        Calendar dateA3End = new GregorianCalendar(2022, 06, 12, 14, 45, 0);
 
         // Non disponible, créneau compris dans le créneau déjà réservé
-        Calendar dateA4Top = new GregorianCalendar(2022, 03, 14, 14, 10, 0);
-        Calendar dateA4End = new GregorianCalendar(2022, 03, 14, 14, 40, 0);
+        Calendar dateA4Top = new GregorianCalendar(2022, 06, 12, 14, 10, 0);
+        Calendar dateA4End = new GregorianCalendar(2022, 06, 12, 14, 40, 0);
 
         // Non disponible, créneau englobe le créneau déjà réservé
-        Calendar dateA5Top = new GregorianCalendar(2022, 03, 14, 13, 45, 0);
-        Calendar dateA5End = new GregorianCalendar(2022, 03, 14, 14, 55);
+        Calendar dateA5Top = new GregorianCalendar(2022, 06, 12, 13, 45, 0);
+        Calendar dateA5End = new GregorianCalendar(2022, 06, 12, 14, 55);
 
         // Non disponible, heure de fin inclue dans le créneau déjà réservé
-        Calendar dateA6Top = new GregorianCalendar(2022, 03, 14, 13, 00, 0);
-        Calendar dateA6End = new GregorianCalendar(2022, 03, 14, 14, 15, 0);
+        Calendar dateA6Top = new GregorianCalendar(2022, 06, 12, 13, 00, 0);
+        Calendar dateA6End = new GregorianCalendar(2022, 06, 12, 14, 15, 0);
 
         // Non disponible, heure de début inclue dans le créneau déjà réservé
-        Calendar dateA7Top = new GregorianCalendar(2022, 03, 14, 14, 30, 0);
-        Calendar dateA7End = new GregorianCalendar(2022, 03, 14, 15, 15, 0);
+        Calendar dateA7Top = new GregorianCalendar(2022, 06, 12, 14, 30, 0);
+        Calendar dateA7End = new GregorianCalendar(2022, 06, 12, 15, 15, 0);
 
         long idPartB = 8; // la personne ne participa à aucune réunion
 
@@ -227,20 +229,20 @@ public class UnitTest {
     public void listRoomFr() {
 
         //10 de disponibles
-        Calendar dateA1Top = new GregorianCalendar(2022, 03, 14, 15, 0, 0);
-        Calendar dateA1End = new GregorianCalendar(2022, 03, 14, 18, 0, 0);
+        Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
+        Calendar dateA1End = new GregorianCalendar(2022, 03, 12, 18, 0, 0);
 
         //8 de disponibles
-        Calendar dateA2Top = new GregorianCalendar(2022, 03, 14, 10, 0, 0);
-        Calendar dateA2End = new GregorianCalendar(2022, 03, 14, 14, 30, 0);
+        Calendar dateA2Top = new GregorianCalendar(2022, 06, 12, 10, 0, 0);
+        Calendar dateA2End = new GregorianCalendar(2022, 06, 12, 14, 30, 0);
 
         //9 de disponibles
-        Calendar dateA3Top = new GregorianCalendar(2022, 03, 14, 14, 0, 0);
-        Calendar dateA3End = new GregorianCalendar(2022, 03, 14, 16, 0, 0);
+        Calendar dateA3Top = new GregorianCalendar(2022, 06, 12, 14, 0, 0);
+        Calendar dateA3End = new GregorianCalendar(2022, 06, 12, 16, 0, 0);
 
         assertEquals(service.listRoomsFree(dateA1Top, dateA1End).size(), 10);
 
-        assertEquals(service.listRoomsFree(dateA2Top, dateA2End).size(), 8);
+        assertEquals(service.listRoomsFree(dateA2Top, dateA2End).size(), 7);
         assertFalse(service.listRoomsFree(dateA2Top, dateA2End).contains(service.getRooms().get(3)));
         assertFalse(service.listRoomsFree(dateA2Top, dateA2End).contains(service.getRooms().get(6)));
 
@@ -253,8 +255,8 @@ public class UnitTest {
     public void roombetter() {
 
         //10 de disponibles
-        Calendar dateA1Top = new GregorianCalendar(2022, 03, 14, 14, 30, 0);
-        Calendar dateA1End = new GregorianCalendar(2022, 03, 14, 15, 0, 0);
+        Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 14, 30, 0);
+        Calendar dateA1End = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
         long idRoom = 5;
         int nbperson = 4;
         int capacité = 5;
@@ -306,7 +308,7 @@ public class UnitTest {
 
         service.deleteObsoleteMeetings();
 
-        assertEquals(service.getMeetings().size(), nb);
+        assertEquals(service.getMeetings().size(), nb-1);
         assertFalse(service.getMeetings().contains(newMeeting1));
         assertFalse(service.getMeetings().contains(newMeeting2));
     }
@@ -319,8 +321,8 @@ public class UnitTest {
 
     @Test
     public void inputDate() {
-        Calendar dateDe1 = new GregorianCalendar(2022, 2,15, 10,30);
-        Calendar dateDe2 = new GregorianCalendar(2022, 4,15, 10,30);
+        Calendar dateDe1 = new GregorianCalendar(2022, 4,15, 10,30);
+        Calendar dateDe2 = new GregorianCalendar(2022, 6,15, 10,30);
         assertFalse(service.inputDateSuperiorToThisDay(dateDe1));
         assertTrue(service.inputDateSuperiorToThisDay(dateDe2));
     }
@@ -338,11 +340,11 @@ public class UnitTest {
     @Test
     public void endDateMet() {
         Calendar dateDeb = GregorianCalendar.getInstance();
-        dateDeb.set(2022, 2, 30, 18, 0,0);
+        dateDeb.set(2022, 6, 30, 18, 0,0);
         int duration = 45;
         Calendar dateFin = GregorianCalendar.getInstance();
         dateFin.setTime(dateDeb.getTime());
-        dateFin.set(2022, 2,30,18,45, 0);
+        dateFin.set(2022, 6,30,18,45, 0);
         assertEquals(service.endDateMeeting(dateDeb, duration).getTime(), dateFin.getTime());
     }
 }
