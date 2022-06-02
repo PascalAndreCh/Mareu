@@ -27,16 +27,18 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
     private OnRoomClickListener listener;
     private Calendar dateStart;
     private Calendar dateEnd;
+    private long idMeet;
     private MaReuApiService mApiService = DI.getStartListApiService();
     private MaReuApiService service;
 
-    public MyRoomRecyclerViewAdapter(List<Room> rooms, Long idRoom, int nbPeople2, Calendar dateStart, Calendar dateEnd, OnRoomClickListener listener) {
+    public MyRoomRecyclerViewAdapter(List<Room> rooms, Long idRoom, int nbPeople2, Calendar dateStart, Calendar dateEnd, long idMeet, OnRoomClickListener listener) {
         this.rooms = rooms;
         this.listener = listener;
         this.idRoom = idRoom;
         this.nbPeople2 = nbPeople2;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.idMeet = idMeet;
     }
 
     @NonNull
@@ -82,12 +84,10 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
             roomText.setText("Salle " + room.getNumberRoom() + " " + room.getNameRoom() + " Etage : " + room.getStageRoom());
             nbPeople.setText(Integer.toString(room.getMaximumParticipantRoom()));
 
-//            mApiService.impDate(dateStart);
-//            mApiService.impDate(dateEnd);
 
              if (idRoom == 0) {
                 if (nbPeople2 != 0 && nbPeople2 > room.getMaximumParticipantRoom()) {
-                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd)) {
+                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd, idMeet)) {
                         itemRoomSelectButton.setImageResource(R.drawable.ic_baseline_no_meeting_room_small_busy_24);
                         type.setText("SB");
                     } else {
@@ -95,7 +95,7 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
                         type.setText("S ");
                     }
                 } else {
-                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd)) {
+                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd, idMeet)) {
                         itemRoomSelectButton.setImageResource(R.drawable.ic_baseline_no_meeting_room_busy_24);
                         type.setText("B ");
                     } else {
@@ -105,7 +105,7 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
                 }
             } else {
                 if (nbPeople2 != 0 && nbPeople2 > room.getMaximumParticipantRoom()) {
-                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd)) {
+                    if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd, idMeet)) {
                         itemRoomSelectButton.setImageResource(R.drawable.ic_baseline_no_meeting_room_small_busy_24);
                         type.setText("SB");
                     } else {
@@ -117,7 +117,7 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
                         itemRoomSelectButton.setImageResource(R.drawable.ic_baseline_meeting_room_24);
                         type.setText("  ");
                     } else {
-                        if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd)) {
+                        if (!mApiService.roomIsFree(room.getIdRoom(), dateStart, dateEnd, idMeet)) {
                             itemRoomSelectButton.setImageResource(R.drawable.ic_baseline_no_meeting_room_busy_24);
                             type.setText("B ");
                         } else {

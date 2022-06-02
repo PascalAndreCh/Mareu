@@ -29,7 +29,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     private final Meeting meeting;
     private List<Room> rooms = DummyMaReuGenerator.generateRooms();
     private MyMeetingRecyclerViewAdapter.OnMeetingClickListener listener;
-//    private static MaReuApiService mApiService;
     private final MaReuApiService mApiService = DI.getStartListApiService();
 
     public MyMeetingRecyclerViewAdapter(ArrayList<Meeting> mMeetingArrayList, Meeting meeting, OnMeetingClickListener listener) {

@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
-
-//        MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(meetings, meeting, this);
         MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(mMeetingArrayList, meeting, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
@@ -123,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (resultCode == RESULT_OK) {
             if (requestCode == 0) {
                 idRoom = data.getExtras().getInt("MESSAGE");
-
             }
         }
     }

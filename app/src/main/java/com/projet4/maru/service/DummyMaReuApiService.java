@@ -147,19 +147,17 @@ public class DummyMaReuApiService implements MaReuApiService {
      * @param mMeetingDateEnd
      * @return
      */
-    public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
+    public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd, long idMeet) {
         for (Meeting meet : this.meetings) {
-//            if (meet.getIdRoom()==6){
-//                impDate(meet.getTimeStart());
-//                impDate(meet.getTimeEnd());
-//            }
              if (idRoom == meet.getIdRoom()) {
                 if (mMeetingDateEnd.before(meet.getTimeStart()) || mMeetingDateEnd.equals(meet.getTimeStart())) {
                     continue;
                 } else if (mMeetingDateStart.after(meet.getTimeEnd()) || mMeetingDateStart.equals(meet.getTimeEnd())) {
                     continue;
                 } else {
-                    return false;
+                    if (meet.getId() != idMeet) {
+                       return false;
+                    }
                 }
             }
         }
@@ -174,17 +172,8 @@ public class DummyMaReuApiService implements MaReuApiService {
      * @param mMeetingDateEnd
      * @return
      */
-    public boolean participantIsFree(long idParticipant, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
+    public boolean participantIsFree(long idParticipant, Calendar mMeetingDateStart, Calendar mMeetingDateEnd, long idMeet) {
         for (Meeting meeting : this.meetings) {
-            if (meeting.getIdRoom()==6){
-                impDate(meeting.getTimeStart());
-                impDate(meeting.getTimeEnd());
-                impDate(mMeetingDateStart);
-                impDate(mMeetingDateEnd);
-            }
-
-
-
             participants = (List<Participant>) meeting.getParticipants();
             for (Participant participant : participants) {
                 if (idParticipant == participant.getId()) {
@@ -193,7 +182,9 @@ public class DummyMaReuApiService implements MaReuApiService {
                     } else if (mMeetingDateStart.after(meeting.getTimeEnd()) || mMeetingDateStart.equals(meeting.getTimeEnd())) {
                         continue;
                     } else {
-                        return false;
+                        if (meeting.getId() != idMeet) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -212,7 +203,7 @@ public class DummyMaReuApiService implements MaReuApiService {
     public List<Room> listRoomsFree(Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         List<Room> roomFree = new ArrayList<Room>();
         for (Room room : this.rooms) {
-            if (roomIsFree(room.getIdRoom(), mMeetingDateStart, mMeetingDateEnd)) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
+            if (roomIsFree(room.getIdRoom(), mMeetingDateStart, mMeetingDateEnd, 0)) {  // crée une liste contenant toutes les salles libres pour le créneau choisie
                 roomFree.add(room);
             }
         }
@@ -398,6 +389,11 @@ public class DummyMaReuApiService implements MaReuApiService {
         return duree;
     }
 
+    /**
+     *  Ne sert que lors des essais de l'application pour afficher les dates et vérifier leur exactitude
+     * @param dateX
+     * @return
+     */
     public Calendar impDate (Calendar dateX) {
         int h1= dateX.get(Calendar.YEAR);
         int h2= dateX.get(Calendar.MONTH);
@@ -420,15 +416,6 @@ public class DummyMaReuApiService implements MaReuApiService {
         Calendar dateX = GregorianCalendar.getInstance();
         SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy HH:mm:00", Locale.FRANCE);
         dateX.setTime(format0.parse(stringDate));
-
-//        String h1s = stringDate.substring(0,2);
-//        String h2s = stringDate.substring(3,5);
-//        String h3s = stringDate.substring(6,10);
-//        String h4s = stringDate.substring(11,13);
-//        String h5s = stringDate.substring(14,16);
-//        String h6s = stringDate.substring(17,19);
-//        dateX.set(Integer.valueOf(h3s), Integer.valueOf(h2s),Integer.valueOf(h1s), Integer.valueOf(h4s),Integer.valueOf(h5s), Integer.valueOf(h6s) );
-
         impDate(dateX);
         return dateX;
     }

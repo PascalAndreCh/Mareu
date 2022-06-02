@@ -4,6 +4,7 @@ package com.projet4.maru.ui.meeting;
 
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_END;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_START;
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.ID_MEET;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,22 +34,20 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
 
     private ActivitySelectcoworkerBinding binding;
-//    private List<Participant> allPossibleParticipantArrayList;
     private final MaReuApiService mApiService = DI.getStartListApiService();
     public List<Participant> participantsList = new ArrayList<>();
     private List<Participant> allPossibleParticipantArrayList = DummyMaReuGenerator.generateParticipants();
     Calendar dateStart;
     Calendar dateEnd;
     String stringDate;
+    long idMeet;
 
-
-//    public List<Participant> participantsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        allPossibleParticipantArrayList = new ArrayList<>(mApiService.getParticipants());
         Intent intent = getIntent();
+        idMeet = intent.getLongExtra(ID_MEET,0);
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
         stringDate = intent.getStringExtra(DATE_START);
@@ -64,11 +63,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
                        String zz = "erreur format";
         }
 
-//        initData();
         initUI();
-
-
-        Toast.makeText(this, "Part 1 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -85,7 +80,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
 
-        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, this);
+        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, idMeet,this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -107,14 +102,11 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 //            participantsList.remove(participant);
 //        }
 
-         Toast.makeText(this, "Part 3 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View view) {
         if (view == binding.addCoworker) {
-
-//            allPossibleParticipantArrayList = mApiService.getParticipants();
 
             // on passe la liste en retour de Selectcoworker à AddMeeting
             Intent data = new Intent();
@@ -122,7 +114,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
             args.putSerializable("ARRAYLIST1",(Serializable)participantsList);
             data.putExtra("BUNDLE",args);
             setResult(RESULT_OK, data);
-            Toast.makeText(this, "Part 4 : " + participantsList.size(), Toast.LENGTH_SHORT).show();
             finish();
          }
     }

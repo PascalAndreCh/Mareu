@@ -58,6 +58,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     public static final String NBPEOPLE = "NBPEOPLE";
     public static final String DATE_START = "DATE_START";
     public static final String DATE_END = "DATE_END";
+    public static final String ID_MEET = "ID_MEET";
     public static Room room;
     public static Room room2;
     public static Room room3;
@@ -66,7 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     private int durationNumber = 0;
     private int nbParticipants;
     private List<Room> rooms1;
-    public long idMax;
+    public long idMeet;
     public int provenance;
     public int selectedHourNumber = 0;
     public int selectedMinuteNumber = 0;
@@ -162,6 +163,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(AddMeetingActivity.this, SelectcoworkerActivity.class);
                 Bundle args = new Bundle();
                 args.putSerializable("ARRAYLIST1", (Serializable) participantsList);
+                intent.putExtra(ID_MEET, idMeet);
                 intent.putExtra("BUNDLE", args);
                 dateString = service.dateToString(dateStart);
                 intent.putExtra(DATE_START, dateString);
@@ -184,15 +186,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                     binding.errorTextRoom.setText("Choice before some participants");
                 } else {
                     Intent intent2 = new Intent(AddMeetingActivity.this, SelectroomActivity.class);
-//                Bundle args = new Bundle();
                     intent2.putExtra(ID_ROOM, idRoom);
+                    intent2.putExtra(ID_MEET, idMeet);
                     intent2.putExtra(NBPEOPLE, participantsList.size());
                     dateString = service.dateToString(dateStart);
                     intent2.putExtra(DATE_START, dateString);
                     dateString = service.dateToString(dateEnd);
                     intent2.putExtra(DATE_END, dateString);
-//                intent2.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateStart );
-//                args.putSerializable("ARRAYLIST4", (Serializable) dateStart.getTime());
                     startActivityForResult(intent2, 2);
                 }
             }
@@ -383,7 +383,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 }
                 String textPart = "";
                 for (Participant part : participantsList) {
-                    textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
+                    textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + " \t " + part.getAttachment() + " \t " + part.getJob() + "\n";
                 }
                 binding.textParticipant.setText(textPart);
             } else {
@@ -398,27 +398,28 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                     binding.roomText.setText("N° " + room2.getNumberRoom() + " " + room2.getNameRoom() + "        étage " + room2.getStageRoom() + "      " + room2.getMaximumParticipantRoom() + " person max");
                     binding.roomText.setError(null);
                     binding.errorTextRoom.setText("");
-                    if (!service.roomIsFree(idRoom, timeStart, timeEnd)) {
-                        binding.roomText.setError("Please choice another room, this room is not free");
-                        binding.errorTextRoom.setText("Please choice another room, this room is not free");
-                    }
                     if (participantsList.size() != 0) {
                         if (!service.roomToSmall(idRoom, participantsList.size())) {
                             binding.roomText.setError("This room is to small ");
                             binding.errorTextRoom.setText("This room is to small ");
                         }
-                        long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
-                        if (idRoomB != idRoom) {
-                            for (Room room : mApiService.getRooms()) {
-                                if (room.getIdRoom() == idRoomB) {
-                                    room3 = room;
-                                    break;
-                                }
-                            }
-                            binding.roomText.setError("This room is better " + room3.getNameRoom());
-                            binding.errorTextRoom.setText("This room is better " + room3.getNameRoom());
-                        }
                     }
+                    long idRoomB = service.roomIsBetter(idRoom, room2.getMaximumParticipantRoom(), participantsList.size(), timeStart, timeEnd);
+                    if (idRoomB != idRoom) {
+                        for (Room room : mApiService.getRooms()) {
+                            if (room.getIdRoom() == idRoomB) {
+                                room3 = room;
+                                break;
+                            }
+                        }
+                        binding.roomText.setError("This room is better : " + room3.getNameRoom());
+                        binding.errorTextRoom.setText("This room is better : " + room3.getNameRoom());
+                    }
+                    if (!service.roomIsFree(idRoom, timeStart, timeEnd, idMeet)) {
+                        binding.roomText.setError("Please choice another room, this room is not free");
+                        binding.errorTextRoom.setText("Please choice another room, this room is not free");
+                    }
+
                 }
             }
         }
@@ -460,6 +461,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         meetings = (List<Meeting>) args.getSerializable("ARRAYLIST3");
 
         if (provenance == 3) {
+        idMeet = 0;
         selectedYear = dateStart.get(Calendar.YEAR);
         selectedMonth = dateStart.get(Calendar.MONTH);
         selectedDayOfMonth = dateStart.get(Calendar.DAY_OF_MONTH);
@@ -468,7 +470,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
         if (provenance == 4) {
-            idMax = meeting.getId();
+            idMeet = meeting.getId();
             idRoom = meeting.getIdRoom();
             timeStart = meeting.getTimeStart();
             dateStart = meeting.getTimeStart();
@@ -497,7 +499,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             }
             textPart = "";
             for (Participant part : participantsList) {
-                textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + "\n";
+                textPart = textPart + part.getName() + " \t " + part.getMailAddresses() + " \t " + part.getAttachment() + " \t " + part.getJob() + "\n";
             }
         }
     }

@@ -26,16 +26,17 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
     private Calendar dateStart;
     private Calendar dateEnd;
     private MaReuApiService mApiService = DI.getStartListApiService();
+    private long idMeet;
 
 
 
-
-    public MyCoworkerRecyclerViewAdapter(List<Participant> allPossibleParticipantArrayList, List<Participant> participantsList, Calendar dateStart, Calendar dateEnd, OnCoworkerClickListener listener) {
+    public MyCoworkerRecyclerViewAdapter(List<Participant> allPossibleParticipantArrayList, List<Participant> participantsList, Calendar dateStart, Calendar dateEnd, long idMeet, OnCoworkerClickListener listener) {
         this.participantsList = participantsList;
         this.listener = listener;
         this.allPossibleParticipantArrayList = allPossibleParticipantArrayList;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.idMeet = idMeet;
     }
 
     @NonNull
@@ -55,7 +56,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
             public void onClick(View view) {
                 Participant p = allPossibleParticipantArrayList.get(viewHolder.getAdapterPosition());
                 if (participantsList.contains(p)) {
-                    if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {
+                    if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd, idMeet)) {
                         viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_off_24);
                     } else {
                         viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);
@@ -95,7 +96,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
             if (participantsList.contains(participant)) {
                 itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
             } else {
-                if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd)) {
+                if (!mApiService.participantIsFree(participant.getId(), dateStart, dateEnd, idMeet)) {
                     itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_off_24);
                 } else {
                     itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_standby_24);

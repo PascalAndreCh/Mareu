@@ -94,11 +94,4 @@ public class DummyMaReuGenerator {
 
     public static List<Participant> generateParticipants() { return new ArrayList<>(DUMMY_COWORKERS); }
 
-
-    /**
-     * Les dates rentrées sont le 11/04/2022 de 10h30 à 11h30
-     * et le 14/04/2022 de 14h00 à 14h45
-     * à modifier si les dates sont dépassées
-     */
-
 }

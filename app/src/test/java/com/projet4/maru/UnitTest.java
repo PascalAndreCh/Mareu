@@ -168,14 +168,14 @@ public class UnitTest {
 
         long roomB = 5; // la salle n'a aucune réservation, donc, disponible quelquesoit le créneau choisi
 
-        assertTrue(service.roomIsFree(roomA, dateA1Top, dateA1End));
-        assertTrue(service.roomIsFree(roomA, dateA2Top, dateA2End));
-        assertFalse(service.roomIsFree(roomA, dateA3Top, dateA3End));
-        assertFalse(service.roomIsFree(roomA, dateA4Top, dateA4End));
-        assertFalse(service.roomIsFree(roomA, dateA5Top, dateA5End));
-        assertFalse(service.roomIsFree(roomA, dateA6Top, dateA6End));
-        assertFalse(service.roomIsFree(roomA, dateA7Top, dateA7End));
-        assertTrue(service.roomIsFree(roomB, dateA1Top, dateA1End));
+        assertTrue(service.roomIsFree(roomA, dateA1Top, dateA1End,0));
+        assertTrue(service.roomIsFree(roomA, dateA2Top, dateA2End,0));
+        assertFalse(service.roomIsFree(roomA, dateA3Top, dateA3End,0));
+        assertFalse(service.roomIsFree(roomA, dateA4Top, dateA4End,0));
+        assertFalse(service.roomIsFree(roomA, dateA5Top, dateA5End,0));
+        assertFalse(service.roomIsFree(roomA, dateA6Top, dateA6End,0));
+        assertFalse(service.roomIsFree(roomA, dateA7Top, dateA7End,0));
+        assertTrue(service.roomIsFree(roomB, dateA1Top, dateA1End,0));
     }
 
     @Test
@@ -213,14 +213,14 @@ public class UnitTest {
 
         long idPartB = 8; // la personne ne participa à aucune réunion
 
-        assertTrue(service.participantIsFree(idpartA, dateA1Top, dateA1End));
-        assertTrue(service.participantIsFree(idpartA, dateA2Top, dateA2End));
-        assertFalse(service.participantIsFree(idpartA, dateA3Top, dateA3End));
-        assertFalse(service.participantIsFree(idpartA, dateA4Top, dateA4End));
-        assertFalse(service.participantIsFree(idpartA, dateA5Top, dateA5End));
-        assertFalse(service.participantIsFree(idpartA, dateA6Top, dateA6End));
-        assertFalse(service.participantIsFree(idpartA, dateA7Top, dateA7End));
-        assertTrue(service.participantIsFree(idPartB, dateA1Top, dateA1End));
+        assertTrue(service.participantIsFree(idpartA, dateA1Top, dateA1End,0));
+        assertTrue(service.participantIsFree(idpartA, dateA2Top, dateA2End,0));
+        assertFalse(service.participantIsFree(idpartA, dateA3Top, dateA3End,0));
+        assertFalse(service.participantIsFree(idpartA, dateA4Top, dateA4End,0));
+        assertFalse(service.participantIsFree(idpartA, dateA5Top, dateA5End,0));
+        assertFalse(service.participantIsFree(idpartA, dateA6Top, dateA6End,0));
+        assertFalse(service.participantIsFree(idpartA, dateA7Top, dateA7End,0));
+        assertTrue(service.participantIsFree(idPartB, dateA1Top, dateA1End,0));
 
     }
 

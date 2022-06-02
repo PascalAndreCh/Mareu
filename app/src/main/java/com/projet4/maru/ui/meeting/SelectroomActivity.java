@@ -2,6 +2,7 @@ package com.projet4.maru.ui.meeting;
 
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_END;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.DATE_START;
+import static com.projet4.maru.ui.meeting.AddMeetingActivity.ID_MEET;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.ID_ROOM;
 import static com.projet4.maru.ui.meeting.AddMeetingActivity.NBPEOPLE;
 
@@ -31,6 +32,7 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
     private List<Room> allPossibleRoomArrayList;
     private final MaReuApiService mApiService = DI.getStartListApiService();
     long idRoom;
+    long idMeet;
     int nbPeople;
     Calendar dateStart;
     Calendar dateEnd;
@@ -41,10 +43,7 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-//        Bundle args = intent.getBundleExtra("BUNDLE");
-//        dateStart = (Calendar) args.getSerializable(CalendarContract.EXTRA_EVENT_BEGIN_TIME);
-//        dateStart = (Calendar) args.getSerializable("ARRAYLIST4");
-
+        idMeet = intent.getLongExtra(ID_MEET,0);
         idRoom = intent.getLongExtra(ID_ROOM, 0);
         nbPeople = intent.getIntExtra(NBPEOPLE, 0);
 
@@ -77,7 +76,7 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
-        MyRoomRecyclerViewAdapter mAdapter = new MyRoomRecyclerViewAdapter(allPossibleRoomArrayList, idRoom, nbPeople, dateStart, dateEnd, this);
+        MyRoomRecyclerViewAdapter mAdapter = new MyRoomRecyclerViewAdapter(allPossibleRoomArrayList, idRoom, nbPeople, dateStart, dateEnd, idMeet, this);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
                 layoutManager.getOrientation());
@@ -91,7 +90,6 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRoomClick(Room room) {
-         Toast.makeText(this, "Part 3 : " + room, Toast.LENGTH_SHORT).show();
 
         Intent data2 = new Intent();
         data2.putExtra(ID_ROOM,room.getIdRoom());
