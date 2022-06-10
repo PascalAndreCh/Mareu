@@ -5,7 +5,7 @@ Ce dépôt contient une mini-application pour le P4 du parcours **Grande École 
 ## Application **MA REUNION**
 ![]()
 ### Description
-Cette application permet je gérer des réunions et des réservations de salles
+Cette application permet je gérer des réunion et des réservation de salles
 
 ![]()
 ### Récupérer le projet Maréu
