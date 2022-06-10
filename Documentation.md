@@ -13,29 +13,29 @@ Il y a 10 Salles dont les informations données sont : le numéro de salle, le n
 ## Tour d'horizon de l'application  
 
 
-__ Pour lancer l'application, cliquer sur son icone__
+__Pour lancer l'application, cliquer sur son icone__
   
 ![](images/Iconedel'application.png) 
 
 Au lancement de l'application, les meetings obsolètes seront supprimés avant l'affichage de la liste  
 
 
-__ A l'ouverture de l'application, la liste des meetings déjà créés et non obsolètes s'affichent.__  
+__A l'ouverture de l'application, la liste des meetings déjà créés et non obsolètes s'affichent.__  
 
 ![](images/EcranAccueil.png)  
 
 
-__ Vous pouvez filtrer les meetings par date ou par salle__  
+__Vous pouvez filtrer les meetings par date ou par salle__  
 
 ![](images/Selectiondesfiltres.png)  
 
 
-__ Filtré par date__  
+__Filtré par date__  
 
 ![](images/Filtrepardate(12-07-22).png)   
 
 
-__ Filtré par salle__  
+__Filtré par salle__  
 
 Choisissez la salle et validez avec le bouton set  
 
@@ -50,12 +50,12 @@ Reset pour revenir à l'écran initial avec tous les meetings d'affichés.
 
 
 
-__ Pour supprimer un meeting, cliquez sur la corbeille et répondez oui à la question__  
+__Pour supprimer un meeting, cliquez sur la corbeille et répondez oui à la question__  
 
 ![](images/Suppressiond'unmeeting.png)  
 
 
-__ Pour consulter ou modifier un meeting, cliquer sur la ligne du meeting__  
+__Pour consulter ou modifier un meeting, cliquer sur la ligne du meeting__  
 
 L'écran de consultation modification apparait
 
@@ -66,7 +66,7 @@ Chaque zone est modifiable
 * la date
 * l'heure de départ
 * la durée
-  * (l'heure de fin n'est pas accéssible, elle est le résultat de l'heure de départ et de la durée)
+  * *(l'heure de fin n'est pas accéssible, elle est le résultat de l'heure de départ et de la durée)*
 * la liste des participants (vous pouvez en rajouter, en enlever, en changer)
 * la salle  
 
@@ -80,7 +80,7 @@ La validation vous ramène dans l'écran principal
 
 
 
-__ Pour créer un meeting, cliquer sur le bouton +__   
+__Pour créer un meeting, cliquer sur le bouton +__   
 
 ![](images/EcranAccueil.png)    
 
@@ -128,9 +128,9 @@ La sélection de la salle se fait aussi dans un écran à part
 ![](images/EcranCréationavantValidation.png)  
 
 
--- Il n'est pas possible de valider une création si la saisie est incomplète.--  
+__Il n'est pas possible de valider une création si la saisie est incomplète.__  
 
-__ <span style=color: #FF0921#>Les salles doivent être rendues propres__</span>  
+__color:red Les salles doivent être rendues propres__  
 
 
 
