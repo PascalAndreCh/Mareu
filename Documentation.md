@@ -13,30 +13,30 @@ Il y a 10 Salles dont les information données sont : le numéro de salle, le no
 ## Tour d'horizon de l'application
 
 pour lancer l'application, cliquer sur son icone
-![](images/Icone de l'application.png) 
+![](images/Iconedel'application.png) 
 
 Au lancement de l'application, les meetings obsolètes seront supprimés avant l'affichage de la liste
 
 A l'ouverture de l'application, la liste des meetings déjà créés et non obsolètes s'affichent.  
-![](images/Ecran Accueil.png)
+![](images/EcranAccueil.png)
 
 Vous pouvez filtrer les meetings par date ou par salle
-![](images/Selection des filtres.png)  
+![](images/Selectiondesfiltres.png)  
 
 Filtré par date
-![](images/Filtre par date (12-07-22).png) 
+![](images/Filtrepardate(12-07-22).png) 
 
 Filtré par salle
 Choisissez la salle et validez
-![](images/Ecran de sélection du filtre Room.png)  
-![](images/Liste de choix de la Salle pour filtre.png)  
-![](images/Affichage de la liste filtrée par Salle (Sicile).png)  
+![](images/EcrandesélectiondufiltreRoom.png)  
+![](images/ListedechoixdelaSallepourfiltre.png)  
+![](images/AffichagedelalistefiltréeparSalle(Sicile).png)  
 
 Reset pour revenir à l'écran initial avec tous les meetings d'affichés.  
-![](images/Ecran Accueil.png)
+![](images/EcranAccueil.png)
 
 Pour supprimer un meeting, cliquer sur la corbeille et répondez oui à la question
-![](images/Suppression d'un meeting.png)
+![](images/Suppressiond'unmeeting.png)
 
 Pour consulter ou modifier un meeting, cliquer sur la ligne du meeting
 L'écran de consultation modification apparait
@@ -52,14 +52,14 @@ Chaque zone est modifiable
 -la salle
 
 cliquer sur save meeting pour valider les modifications ou sur la flèche retour pour abandonner
-![](images/Ecran Consultation Modification.png)
+![](images/EcranConsultationModification.png)
 
 La validation vous ramène dans l'écran principal
 
 Pour créer un meeting, cliquer sur le bouton +
-![](images/Ecran Accueil.png)
+![](images/EcranAccueil.png)
 Vous êtes alors dans l'écran de création
-![](images/Ecran de Création.png)
+![](images/EcrandeCréation.png)
 
 Saisisser les différentes données
 
@@ -72,21 +72,21 @@ La date ne peut être inférieure à la date du jour
 La durée ne peut être suppérieure à 4 heures
 
 la sélection des participants se fait dans un écran spécifique.
-![](images/Ecran Sélection des Participants.png)
+![](images/EcranSélectiondesParticipants.png)
 Les participants pouvant être sélectionnés sont indiqués avec une icone grise
 Les participants déjà sélectionnés pour ce meetings ont une icone verte
 Les participants avec une icone rouge ne sont pas disponible, car déjà pris par un autre meeting à la même période (il sagit d'une indication, non bloquante)
 Si vous saisissez plus de 10 participants, vous aures un message d'alerte (non bloquant)
 
 La sélection de la salle se fait aussi dans un écran à part
-![](images/Ecran de Sélection de la Salle.png)
+![](images/EcrandeSélectiondelaSalle.png)
 Les salles sélectionnables ont une icone grise
 La salle sélectiionnée a une icone verte
 Une icone rouge indique que la salle n'est pas disponible (B pour buzy) car déjà prise à la même période par une autre réunion
 ou indique que la salle est trop petite pour le nombre de participants (S pour small). BS signifie qu'elle est trop petite et déjà utilisée.
 après validation, des message vous informent d'éventuels problèmes. L'un d'eux, vous indique si un meilleur choix est possible pour votre réunion
 Par exemple, vous être 4, vous avez choisi une salle pour 10 et il existe un salle pour 5 de libre, l'appli vous proposera cette salle, sans vous l'imposer.
-![](images/Ecran Création avant Validation.png)
+![](images/EcranCréationavantValidation.png)
 
 Il n'est pas possible de valider une création si la saisie est incomplète.
 
