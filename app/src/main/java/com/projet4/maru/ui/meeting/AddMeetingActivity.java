@@ -2,13 +2,11 @@ package com.projet4.maru.ui.meeting;
 
 
 import android.app.DatePickerDialog;
-import android.app.Service;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -27,15 +25,13 @@ import com.projet4.maru.service.MaReuApiService;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.Stack;
+
 
 
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
@@ -62,11 +58,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     public static Room room;
     public static Room room2;
     public static Room room3;
-    public static Participant part;
     public static Meeting meeting;
     private int durationNumber = 0;
     private int nbParticipants;
-    private List<Room> rooms1;
     public long idMeet;
     public int provenance;
     public int selectedHourNumber = 0;
@@ -82,12 +76,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     private long idRoom;
 
-    private List<Participant> participants = new ArrayList<>();
     private List<Participant> participantsList = new ArrayList<>();
     private List<Meeting> meetings = new ArrayList<>();
 
-
-    public static final String MEETING2_LIST = "MEETING2_LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +91,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         initUI();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
     public void setup() {
         service = DI.getNewInstanceApiService();
     }
@@ -109,6 +107,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         View view = binding.getRoot();
         setContentView(view);
         setButton();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if (provenance == 3) {
             getSupportActionBar().setTitle("New meeting");
         }

@@ -1,5 +1,6 @@
 package com.projet4.maru.ui.meeting;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -45,9 +46,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         return new ViewHolder(view);
     }
 
-
+    //TODO
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+//    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         Meeting meeting = mMeetingArrayList.get(position);
         viewHolder.displayMeeting(meeting);
 

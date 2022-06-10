@@ -132,8 +132,6 @@ public interface MaReuApiService {
 
     Calendar duree (Calendar startDate, Calendar endDate);
 
-     Calendar impDate (Calendar dateX) ;
-
      String dateToString(Calendar dateX);
 
      Calendar stringToDate(String stringDate) throws ParseException;

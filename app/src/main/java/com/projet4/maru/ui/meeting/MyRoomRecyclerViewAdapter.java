@@ -1,6 +1,5 @@
 package com.projet4.maru.ui.meeting;
 
-import android.app.Service;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class MyRoomRecyclerViewAdapter extends RecyclerView.Adapter<MyRoomRecycl
     private Calendar dateEnd;
     private long idMeet;
     private MaReuApiService mApiService = DI.getStartListApiService();
-    private MaReuApiService service;
+//    private MaReuApiService service;
 
     public MyRoomRecyclerViewAdapter(List<Room> rooms, Long idRoom, int nbPeople2, Calendar dateStart, Calendar dateEnd, long idMeet, OnRoomClickListener listener) {
         this.rooms = rooms;

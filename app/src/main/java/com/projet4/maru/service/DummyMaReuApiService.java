@@ -389,22 +389,6 @@ public class DummyMaReuApiService implements MaReuApiService {
         return duree;
     }
 
-    /**
-     *  Ne sert que lors des essais de l'application pour afficher les dates et vérifier leur exactitude
-     * @param dateX
-     * @return
-     */
-    public Calendar impDate (Calendar dateX) {
-        int h1= dateX.get(Calendar.YEAR);
-        int h2= dateX.get(Calendar.MONTH);
-        int h3= dateX.get(Calendar.DAY_OF_MONTH);
-        int h4= dateX.get(Calendar.HOUR);
-        int h5= dateX.get(Calendar.MINUTE);
-        int h6= dateX.get(Calendar.SECOND);
-        int h7= dateX.get(Calendar.MILLISECOND);
-        return dateX;
-    }
-
     public String dateToString (Calendar dateX) {
         String stringDate = "";
         SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy HH:mm:00", Locale.FRANCE);
@@ -416,7 +400,6 @@ public class DummyMaReuApiService implements MaReuApiService {
         Calendar dateX = GregorianCalendar.getInstance();
         SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy HH:mm:00", Locale.FRANCE);
         dateX.setTime(format0.parse(stringDate));
-        impDate(dateX);
         return dateX;
     }
 

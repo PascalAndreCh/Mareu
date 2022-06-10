@@ -51,6 +51,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
         stringDate = intent.getStringExtra(DATE_START);
+        //TODO
         try {
             dateStart = mApiService.stringToDate(stringDate);
         } catch (Exception e) {
@@ -78,20 +79,21 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
     private void initRecyclerView() {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.recyclerview.setLayoutManager(layoutManager);
+        binding.recyclerviewcow.setLayoutManager(layoutManager);
 
         MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, idMeet,this);
         // Set CustomAdapter as the adapter for RecyclerView.
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerviewcow.getContext(),
                 layoutManager.getOrientation());
-        binding.recyclerview.addItemDecoration(dividerItemDecoration);
-        binding.recyclerview.setAdapter(mAdapter);
+        binding.recyclerviewcow.addItemDecoration(dividerItemDecoration);
+        binding.recyclerviewcow.setAdapter(mAdapter);
     }
 
     private void initData() {
 //        allPossibleParticipantArrayList = mApiService.getParticipants();
     }
 
+    //TODO
     @Override
     public void onCoworkerClick(Participant participant) {
         // On sélection un collaborateur. S'il existe dans la liste, on le supprime de la liste, sinon on l'ajoute à la liste

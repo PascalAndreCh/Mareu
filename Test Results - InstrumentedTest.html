@@ -2,7 +2,7 @@
 <html xmlns:str="http://exslt.org/strings" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Test Results &mdash; UnitTest</title>
+        <title>Test Results &mdash; InstrumentedTest</title>
         <style type="text/css">
           html {
             height: 100%
@@ -572,9 +572,9 @@ jQuery.cookie = function(name, value, options) {
     <body>
         <div id="container">
             <div id="header">
-                <div class="time" xmlns="">19 ms</div>
+                <div class="time" xmlns="">18.92 s</div>
                 <h1>
-                    UnitTest: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">20 total, </span><span class="passed">20 passed</span></strong>
+                    InstrumentedTest: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">5 total, </span><span class="passed">5 passed</span></strong>
                 </h1>
                 <div id="treecontrol">
                     <ul>
@@ -593,108 +593,33 @@ jQuery.cookie = function(name, value, options) {
                 <ul id="tree">
                     <li xmlns="" class="level top open">
                         <span><em class="time">
-                                <div class="time">19 ms</div>
-                            </em>com.projet4.maru.UnitTest</span>
+                                <div class="time">18.92 s</div>
+                            </em>com.projet4.maru.InstrumentedTest</span>
                         <ul>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">7 ms</div>
-                                    </em><em class="status">passed</em>getparticipantWithSuccess</span>
+                                        <div class="time">7.38 s</div>
+                                    </em><em class="status">passed</em>filter_select</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>deleteMeetingWithSuccess</span>
+                                        <div class="time">1.73 s</div>
+                                    </em><em class="status">passed</em>meetingList_click_shouldOpenAddMeetingActivity</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>deleteParticipantWithSuccess</span>
+                                        <div class="time">258 ms</div>
+                                    </em><em class="status">passed</em>ListMeetingshouldNotBeEmpty</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>deleteObsolete</span>
+                                        <div class="time">877 ms</div>
+                                    </em><em class="status">passed</em>meetingList_deleteAction_shouldRemoveItemOk</span>
                             </li>
                             <li class="level test">
                                 <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>roomSmall</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>roomFree</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>getMeetingsWithSuccess</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>getMeetingfiltereddate</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>getMeetingFilteredRoom</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">3 ms</div>
-                                    </em><em class="status">passed</em>listRoomFr</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>bigEnough</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>getRoomsWithSuccess</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>participantfree</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>roombetter</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>endDateMet</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">2 ms</div>
-                                    </em><em class="status">passed</em>endDateSup</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>inputDate</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>createParticipantWithSuccess</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">0 ms</div>
-                                    </em><em class="status">passed</em>getRoomDate</span>
-                            </li>
-                            <li class="level test">
-                                <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em><em class="status">passed</em>createMeetingWithSuccess</span>
+                                        <div class="time">8.68 s</div>
+                                    </em><em class="status">passed</em>addMeeting_click_shouldOpenAddMeetingActivity</span>
                             </li>
                         </ul>
                     </li>
@@ -702,7 +627,7 @@ jQuery.cookie = function(name, value, options) {
             </div>
         </div>
         <div id="footer">
-            <p>Generated by Android Studio on 10/06/2022 11:07</p>
+            <p>Generated by Android Studio on </p>
         </div>
     </body>
 </html>

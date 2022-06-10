@@ -75,13 +75,13 @@ public class SelectroomActivity extends AppCompatActivity implements View.OnClic
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.recyclerview.setLayoutManager(layoutManager);
+        binding.recyclerviewroom.setLayoutManager(layoutManager);
         MyRoomRecyclerViewAdapter mAdapter = new MyRoomRecyclerViewAdapter(allPossibleRoomArrayList, idRoom, nbPeople, dateStart, dateEnd, idMeet, this);
         // Set CustomAdapter as the adapter for RecyclerView.
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerviewroom.getContext(),
                 layoutManager.getOrientation());
-        binding.recyclerview.addItemDecoration(dividerItemDecoration);
-        binding.recyclerview.setAdapter(mAdapter);
+        binding.recyclerviewroom.addItemDecoration(dividerItemDecoration);
+        binding.recyclerviewroom.setAdapter(mAdapter);
     }
 
     private void initData() {

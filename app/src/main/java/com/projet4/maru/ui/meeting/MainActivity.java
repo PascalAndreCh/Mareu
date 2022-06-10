@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActivityMainBinding binding;
     private ArrayList<Meeting> mMeetingArrayList = new ArrayList<>();
     private Meeting meeting;
-    private Spinner spinner;
+//    private Spinner spinner;
     private int idRoom = -1;
-    int provenance = 0;
+//    int provenance = 0;
 
 
     @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             mMeetingArrayList.addAll(mApiService.getMeetingsByRoom(idRoom));
         }
-        binding.recyclerview.getAdapter().notifyDataSetChanged();
+        binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
     }
 
     private void initData() {
@@ -81,13 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.recyclerview.setLayoutManager(layoutManager);
+        binding.recyclerviewmain.setLayoutManager(layoutManager);
         MyMeetingRecyclerViewAdapter mAdapter = new MyMeetingRecyclerViewAdapter(mMeetingArrayList, meeting, this);
         // Set CustomAdapter as the adapter for RecyclerView.
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerview.getContext(),
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerviewmain.getContext(),
                 layoutManager.getOrientation());
-        binding.recyclerview.addItemDecoration(dividerItemDecoration);
-        binding.recyclerview.setAdapter(mAdapter);
+        binding.recyclerviewmain.addItemDecoration(dividerItemDecoration);
+        binding.recyclerviewmain.setAdapter(mAdapter);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         idRoom=-1;
         mMeetingArrayList.clear();
         mMeetingArrayList.addAll(mApiService.getMeetings());
-        binding.recyclerview.getAdapter().notifyDataSetChanged();
+        binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
     }
 
     private void dateDialog() {
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cal.set(i, i1, i2);
                 mMeetingArrayList.clear();
                 mMeetingArrayList.addAll(mApiService.getMeetingsByDate(cal));
-                binding.recyclerview.getAdapter().notifyDataSetChanged();
+                binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -216,4 +216,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("BUNDLE", args);
         startActivityForResult(intent, 4);
     }
+
 }
