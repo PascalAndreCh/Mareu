@@ -130,7 +130,7 @@ La sélection de la salle se fait aussi dans un écran à part
 
 __Il n'est pas possible de valider une création si la saisie est incomplète.__  
 
-__color:red Les salles doivent être rendues propres__  
+__<span style='color:red'>Les salles doivent être rendues propres</span>__  
 
 
 
