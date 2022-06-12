@@ -119,6 +119,7 @@ Saisissez les différentes données
 
 ![](images/EcranSélectiondesParticipants.png)  
 
+* Le cercle au début contient l'initiale du collaborateur
 * Les participants pouvant être sélectionnés sont indiqués avec une icone grise
 * Les participants déjà sélectionnés pour ce meetings ont une icone verte
 * Les participants avec une icone rouge ne sont pas disponibles, car déjà pris par un autre meeting à la même période (il s'agit d'une indication, non bloquante)
