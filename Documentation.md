@@ -22,7 +22,20 @@ Au lancement de l'application, les meetings obsolètes seront supprimés avant l
 
 __A l'ouverture de l'application, la liste des meetings déjà créés et non obsolètes s'affichent.__  
 
-![](images/EcranAccueil.png)  
+![](images/EcranPrincipalAvecNbPart.png) 
+
+La première ligne de chaque meeting contient :
+* le titre du meeting
+* la date
+* l'heure de départ
+* l'heure de fin
+* le nom de la salle
+
+La seconde ligne contient :
+* la liste des participants avec leur adresse mail
+
+Le cercle au début indique le nombre de participants à la réunion  
+
 
 
 __Vous pouvez filtrer les meetings par date ou par salle__  
@@ -118,6 +131,7 @@ La sélection de la salle se fait aussi dans un écran à part
 
 ![](images/EcrandeSélectiondelaSalle.png)  
 
+* Le cercle en début de ligne contient le nombre maximun que la salle peut accepter
 * Les salles sélectionnables ont une icone grise
 * La salle sélectiionnée a une icone verte
 * Une icone rouge indique que la salle n'est pas disponible (B pour buzy) car déjà prise à la même période par une autre réunion

@@ -19,6 +19,20 @@
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <TextView
+        android:id="@+id/nbParticipant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/picture"
+        app:layout_constraintEnd_toEndOf="@id/picture"
+        app:layout_constraintStart_toStartOf="@id/picture"
+        app:layout_constraintTop_toTopOf="@id/picture"
+        tools:text="6" />
+
+
     <ImageButton
         android:id="@+id/item_list_delete_button"
         android:layout_width="wrap_content"

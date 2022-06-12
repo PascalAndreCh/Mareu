@@ -96,12 +96,14 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView nbParticipant;
         public final TextView meetingText;
         public final TextView mails;
         public final ImageButton deleteButton;
 
         public ViewHolder(View view) {
             super(view);
+            nbParticipant = view.findViewById(R.id.nbParticipant);
             meetingText = view.findViewById(R.id.meetingText);
             mails = view.findViewById(R.id.mails);
             deleteButton = view.findViewById(R.id.item_list_delete_button);
@@ -118,7 +120,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 break;
             }
         }
-
+            nbParticipant.setText(Integer.toString(meeting.getParticipants().size()));
             meetingText.setText(meeting.getTitle()+" "+fmtOut.format(meeting.getTimeStart().getTime())+" "+fmtEnd.format(meeting.getTimeEnd().getTime())+" "+salle);
             String nom ="";
             int k = meeting.getParticipants().size();
