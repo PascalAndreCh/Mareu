@@ -14,7 +14,6 @@ import com.projet4.maru.di.DI;
 import com.projet4.maru.model.Participant;
 import com.projet4.maru.service.MaReuApiService;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -78,12 +77,14 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView initial;
         public final TextView coworkerText;
         public final TextView coworkerTextSuit;
         public final ImageButton itemCoworkerSelectButton;
 
         public ViewHolder(View view) {
             super(view);
+            initial = view.findViewById((R.id.initial));
             coworkerText = view.findViewById(R.id.coworkerText);
             coworkerTextSuit = view.findViewById(R.id.coworkerTextSuit);
             itemCoworkerSelectButton = view.findViewById(R.id.item_coworker_select_button);
@@ -92,6 +93,7 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
         public void displayCoworker(Participant participant) {
             coworkerText.setText(participant.getName());
             coworkerTextSuit.setText(participant.getMailAddresses());
+            initial.setText(participant.getName().substring(0,1).toUpperCase());
 
             if (participantsList.contains(participant)) {
                 itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
