@@ -130,12 +130,10 @@ public class UnitTest {
         assertEquals(service.getRoomsByDates(dateA).get(1).getIdRoom(), 4);
         assertEquals(service.getRoomsByDates(dateA).get(2).getIdRoom(), 7);
         assertEquals(0, service.getRoomsByDates(dateB).size());
-
     }
 
     @Test
     public void roomFree() {
-
         long roomA = 4;     // la salle est réservée le 12 juillet 2022 de 14h00 à 14h45
 
         //disponible avant
@@ -180,7 +178,6 @@ public class UnitTest {
 
     @Test
     public void participantfree() {
-
         long idpartA = 6;     // la personne participa à une réunion le 12 juillet 2022 de 14h00 à 14h45
 
         //disponible avant
@@ -221,13 +218,11 @@ public class UnitTest {
         assertFalse(service.participantIsFree(idpartA, dateA6Top, dateA6End,0));
         assertFalse(service.participantIsFree(idpartA, dateA7Top, dateA7End,0));
         assertTrue(service.participantIsFree(idPartB, dateA1Top, dateA1End,0));
-
     }
 
 
     @Test
     public void listRoomFr() {
-
         //10 de disponibles
         Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
         Calendar dateA1End = new GregorianCalendar(2022, 03, 12, 18, 0, 0);
@@ -253,7 +248,6 @@ public class UnitTest {
 
     @Test
     public void roombetter() {
-
         //10 de disponibles
         Calendar dateA1Top = new GregorianCalendar(2022, 06, 12, 14, 30, 0);
         Calendar dateA1End = new GregorianCalendar(2022, 06, 12, 15, 0, 0);
@@ -278,7 +272,6 @@ public class UnitTest {
         long idRoom = 7;
         int nbPeople = 5;
         assertFalse(service.roomToSmall(idRoom, nbPeople));
-
         nbPeople = 4;
         assertTrue(service.roomToSmall(idRoom, nbPeople));
     }

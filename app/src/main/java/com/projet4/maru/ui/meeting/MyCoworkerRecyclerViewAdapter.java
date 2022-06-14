@@ -21,7 +21,6 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     private final List<Participant> allPossibleParticipantArrayList;
     private final List<Participant> participantsList;
-    private OnCoworkerClickListener listener;
     private Calendar dateStart;
     private Calendar dateEnd;
     private MaReuApiService mApiService = DI.getStartListApiService();
@@ -29,9 +28,8 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
 
 
-    public MyCoworkerRecyclerViewAdapter(List<Participant> allPossibleParticipantArrayList, List<Participant> participantsList, Calendar dateStart, Calendar dateEnd, long idMeet, OnCoworkerClickListener listener) {
+    public MyCoworkerRecyclerViewAdapter(List<Participant> allPossibleParticipantArrayList, List<Participant> participantsList, Calendar dateStart, Calendar dateEnd, long idMeet) {
         this.participantsList = participantsList;
-        this.listener = listener;
         this.allPossibleParticipantArrayList = allPossibleParticipantArrayList;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -65,7 +63,6 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
                     viewHolder.itemCoworkerSelectButton.setImageResource(R.drawable.ic_baseline_person_green_24);
                     participantsList.add(p);
                 }
-                MyCoworkerRecyclerViewAdapter.this.listener.onCoworkerClick(p);
             }
         });
 
@@ -108,11 +105,6 @@ public class MyCoworkerRecyclerViewAdapter extends RecyclerView.Adapter<MyCowork
 
     }
 
-
-    public interface OnCoworkerClickListener {
-        void onCoworkerClick(Participant participant);
-
-    }
 
 }
 

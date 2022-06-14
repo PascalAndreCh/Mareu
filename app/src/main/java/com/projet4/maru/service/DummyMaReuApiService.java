@@ -18,11 +18,9 @@ public class DummyMaReuApiService implements MaReuApiService {
     private List<Meeting> meetings = DummyMaReuGenerator.generateMeetings();
     private List<Participant> participants = DummyMaReuGenerator.generateParticipants();
 
-    //    LocalDateTime thisDay = LocalDateTime.now();
     Calendar dateJ = GregorianCalendar.getInstance();
 
     /**
-     * @param meeting
      */
     @Override
     public void createMeeting(Meeting meeting) {
@@ -30,7 +28,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     /**
-     * @param meeting
      */
     @Override
     public void deleteMeeting(Meeting meeting) {
@@ -38,7 +35,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     /**
-     * @return
      */
     @Override
     public List<Meeting> getMeetings() {
@@ -49,7 +45,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     public void setMeeting(int i, Meeting meeting) {meetings.set(i, meeting);}
 
     /**
-     * @param participant
      */
     @Override
     public void createParticipant(Participant participant) {
@@ -57,7 +52,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     /**
-     * @param participant
      */
     @Override
     public void deleteParticipant(Participant participant) {
@@ -65,7 +59,6 @@ public class DummyMaReuApiService implements MaReuApiService {
     }
 
     /**
-     * @return
      */
     @Override
     public List<Participant> getParticipants() {
@@ -82,7 +75,6 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * etabli la liste des réunions pour une salle donnée (filtre réunions par salle)
-     *
      */
     @Override
     public List<Meeting> getMeetingsByRoom(int room) {
@@ -98,14 +90,10 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * établi la liste des réunions pour une date donnée (filtre réunions par date)
-     *
-     * @param date
-     * @return
      */
     public List<Meeting> getMeetingsByDate(Calendar date) {
         List<Meeting> meetingsFilteredByDate = new ArrayList<>();
         for (Meeting meeting : this.meetings) {
-            //           Calendar date2 = GregorianCalendar.getInstance();
             Calendar date2 = meeting.getTimeStart();
             if (date.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH) && date.get(Calendar.MONTH) == date2.get(Calendar.MONTH)
                     && date.get(Calendar.YEAR) == date2.get(Calendar.YEAR)) {
@@ -118,9 +106,6 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * établi la liste des salles utilisées une date donnée (filtre salles par date)
-     *
-     * @param date
-     * @return
      */
     public List<Room> getRoomsByDates(Calendar date) {
         List<Room> roomFilteredByDates = new ArrayList<>();
@@ -138,14 +123,8 @@ public class DummyMaReuApiService implements MaReuApiService {
         return roomFilteredByDates;
     }
 
-
     /**
      * Teste si la salle choisie est disponible pour la période souhaitée
-     *
-     * @param idRoom
-     * @param mMeetingDateStart
-     * @param mMeetingDateEnd
-     * @return
      */
     public boolean roomIsFree(long idRoom, Calendar mMeetingDateStart, Calendar mMeetingDateEnd, long idMeet) {
         for (Meeting meet : this.meetings) {
@@ -166,11 +145,6 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * Teste si la personne sélectionnée n'est pas déjà prise par une autre réunion
-     *
-     * @param idParticipant
-     * @param mMeetingDateStart
-     * @param mMeetingDateEnd
-     * @return
      */
     public boolean participantIsFree(long idParticipant, Calendar mMeetingDateStart, Calendar mMeetingDateEnd, long idMeet) {
         for (Meeting meeting : this.meetings) {
@@ -192,13 +166,8 @@ public class DummyMaReuApiService implements MaReuApiService {
         return true;
     }
 
-
     /**
      * Etabli la liste des salles libres pour la période souhaitée
-     *
-     * @param mMeetingDateStart
-     * @param mMeetingDateEnd
-     * @return
      */
     public List<Room> listRoomsFree(Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         List<Room> roomFree = new ArrayList<Room>();
@@ -207,21 +176,12 @@ public class DummyMaReuApiService implements MaReuApiService {
                 roomFree.add(room);
             }
         }
-        return roomFree; // tester si la liste n'ai pas vide au retour de la méthode
+        return roomFree;
     }
-
 
     /**
      * teste si la salle n'est pas surdimensionnée, ce qui aurait pour effet de la monopoliser inutilement
      * au détriment d'une autre réunion ayant plus de participants
-     */
-    /**
-     * @param idRoom
-     * @param capacityPeople
-     * @param nbPeople
-     * @param mMeetingDateStart
-     * @param mMeetingDateEnd
-     * @return
      */
     public long roomIsBetter(long idRoom, int capacityPeople, int nbPeople, Calendar mMeetingDateStart, Calendar mMeetingDateEnd) {
         long idRoomIsbetter = 0;
@@ -246,14 +206,8 @@ public class DummyMaReuApiService implements MaReuApiService {
         }
     }
 
-
     /**
      * Teste si la salle n'est pas trop petite
-     */
-    /**
-     * @param idRoom
-     * @param nbPeople
-     * @return
      */
     public boolean roomToSmall(long idRoom, int nbPeople) {
         for (Room room : this.rooms) {
@@ -267,7 +221,6 @@ public class DummyMaReuApiService implements MaReuApiService {
         }
         return false; // ne doit pas arriver, voir pour message d'erreur, salle non trouvée ?
     }
-
 
     /**
      * suppression des réunions obsoletes (à exécuter une fois à chaque lancement de l'application
@@ -283,9 +236,6 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * Sélectionne toutes les salles ayant la capacité d'accueillir la réunion
-     *
-     * @param nbPeople
-     * @return
      */
     public List<Room> bigEnoughRooms(int nbPeople) {
         List<Room> roomBigEnough = new ArrayList<Room>();
@@ -300,9 +250,6 @@ public class DummyMaReuApiService implements MaReuApiService {
 
     /**
      * Teste si la date et l'heure saisie sont antérieures à la date et l'heure actuelle
-     *
-     * @param inputDate
-     * @return
      */
     public boolean inputDateSuperiorToThisDay(Calendar inputDate) {
         if (dateJ.before(inputDate)) {
@@ -312,27 +259,16 @@ public class DummyMaReuApiService implements MaReuApiService {
         }
     }
 
-
     /**
      * Teste si la date et l'heure de fin de réunion est bien supérieure à la date et l'heure de début de réunion
-     *
-     * @param startDate
-     * @param endDate
-     * @return
      */
     public boolean endDateSuperiorToStartDate(Calendar startDate, Calendar endDate) {
         return startDate.before(endDate);
     }
 
-
     /**
      * Calucle la date de fin en fonction de la date de départ et de la durée de la réunion
-     *
-     * @param dateStart
-     * @param duration
-     * @return
      */
-
     public Calendar endDateMeeting(Calendar dateStart, int duration) {
         Calendar dateEnd = GregorianCalendar.getInstance();
         int k3 = dateStart.get(Calendar.YEAR);
@@ -345,8 +281,10 @@ public class DummyMaReuApiService implements MaReuApiService {
         return dateEnd;
      }
 
-     public int dureeMinutes (Calendar dateStart, Calendar dateEnd) {
 
+    /**
+     */
+     public int dureeMinutes (Calendar dateStart, Calendar dateEnd) {
          int h4 = dateStart.get(Calendar.HOUR_OF_DAY);
          int h5 = dateStart.get(Calendar.MINUTE);
          int h9 = dateEnd.get(Calendar.HOUR_OF_DAY);
@@ -364,6 +302,9 @@ public class DummyMaReuApiService implements MaReuApiService {
          return mm;
          }
 
+    /**
+     * Calucle la duré en heures et minutes
+     */
     public Calendar duree (Calendar dateStart, Calendar dateEnd) {
         int h1 = dateStart.get(Calendar.YEAR);
         int h2 = dateStart.get(Calendar.MONTH);
@@ -389,6 +330,9 @@ public class DummyMaReuApiService implements MaReuApiService {
         return duree;
     }
 
+    /**
+     * Transforme la date en String
+     */
     public String dateToString (Calendar dateX) {
         String stringDate = "";
         SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy HH:mm:00", Locale.FRANCE);
@@ -396,6 +340,9 @@ public class DummyMaReuApiService implements MaReuApiService {
         return stringDate;
     }
 
+    /**
+     * Transforme un String contenant ne contenant qu'une une date, en date
+     */
     public Calendar stringToDate (String stringDate) throws ParseException {
         Calendar dateX = GregorianCalendar.getInstance();
         SimpleDateFormat format0 = new SimpleDateFormat("dd-MM-yyyy HH:mm:00", Locale.FRANCE);

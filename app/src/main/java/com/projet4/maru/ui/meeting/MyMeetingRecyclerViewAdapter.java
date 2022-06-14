@@ -1,6 +1,5 @@
 package com.projet4.maru.ui.meeting;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.projet4.maru.service.MaReuApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
@@ -46,11 +44,9 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         return new ViewHolder(view);
     }
 
-    //TODO
     @Override
-//    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
-        Meeting meeting = mMeetingArrayList.get(position);
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        Meeting meeting = mMeetingArrayList.get(viewHolder.getAdapterPosition());
         viewHolder.displayMeeting(meeting);
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +62,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                     mMeetingArrayList.remove(meeting); // ???
                     mApiService.deleteMeeting(meeting);
 
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, mMeetingArrayList.size());
+                    notifyItemRemoved(viewHolder.getAdapterPosition());
+                    notifyItemRangeChanged(viewHolder.getAdapterPosition(), mMeetingArrayList.size());
                     viewHolder.itemView.setVisibility(View.GONE);
 
                     }

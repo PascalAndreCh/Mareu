@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mMeetingArrayList.addAll(mApiService.getMeetingsByRoom(idRoom));
         }
         binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+        initUI();
     }
+
 
     private void initData() {
         mApiService.deleteObsoleteMeetings();
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMeetingArrayList.clear();
         mMeetingArrayList.addAll(mApiService.getMeetings());
         binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+        initUI();
     }
 
     private void dateDialog() {

@@ -84,6 +84,4 @@ public class Participant implements Serializable {
         return Objects.hash(attachment, job);
     }
 
-
-
 }

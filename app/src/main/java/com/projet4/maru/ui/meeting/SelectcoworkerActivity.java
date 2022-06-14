@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class SelectcoworkerActivity extends AppCompatActivity implements View.OnClickListener, MyCoworkerRecyclerViewAdapter.OnCoworkerClickListener {
+public class SelectcoworkerActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ActivitySelectcoworkerBinding binding;
@@ -51,7 +51,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         Bundle args = intent.getBundleExtra("BUNDLE");
         participantsList = (List<Participant>) args.getSerializable("ARRAYLIST1");
         stringDate = intent.getStringExtra(DATE_START);
-        //TODO
         try {
             dateStart = mApiService.stringToDate(stringDate);
         } catch (Exception e) {
@@ -81,7 +80,7 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.recyclerviewcow.setLayoutManager(layoutManager);
 
-        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, idMeet,this);
+        MyCoworkerRecyclerViewAdapter mAdapter = new MyCoworkerRecyclerViewAdapter(allPossibleParticipantArrayList, participantsList, dateStart, dateEnd, idMeet);
         // Set CustomAdapter as the adapter for RecyclerView.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerviewcow.getContext(),
                 layoutManager.getOrientation());
@@ -91,19 +90,6 @@ public class SelectcoworkerActivity extends AppCompatActivity implements View.On
 
     private void initData() {
 //        allPossibleParticipantArrayList = mApiService.getParticipants();
-    }
-
-    //TODO
-    @Override
-    public void onCoworkerClick(Participant participant) {
-        // On sélection un collaborateur. S'il existe dans la liste, on le supprime de la liste, sinon on l'ajoute à la liste
-
-//        if (!participantsList.contains(participant)) {
-//            participantsList.add(participant);
-//        } else {
-//            participantsList.remove(participant);
-//        }
-
     }
 
     @Override

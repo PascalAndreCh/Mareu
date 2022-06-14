@@ -80,10 +80,6 @@ public class DummyMaReuGenerator {
         );
     }
 
-//    static List<Participant> generateCoworkers() {
-//        return new ArrayList<>(DUMMY_COWORKERS);
-//    }
-
     public static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
