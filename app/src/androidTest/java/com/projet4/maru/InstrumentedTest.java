@@ -8,27 +8,21 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-import android.view.View;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.test.espresso.ViewInteraction;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
@@ -216,5 +210,481 @@ public class InstrumentedTest {
                 .perform(click());
         onView(withId(R.id.recyclerviewmain)).check(withItemCount(4));
     }
+
+    /*
+    @Test
+    public void reaffichage() {
+
+    // création d'un meeting 1
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 1"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 1"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 21));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(9, 15));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(1, 15));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+        stop();
+
+        // création d'un meeting 2
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 2"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 2"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 22));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(9, 30));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(1, 30));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+        stop();
+
+        // création d'un meeting 3
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 3"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 3"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 23));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(9, 45));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(1, 45));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(6, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+        stop();
+
+        // création d'un meeting  4
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 4"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 4"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 24));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(10, 0));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(2, 0));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(7, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+        stop();
+
+        // création d'un meeting 5
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 5"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 5"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 25));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(10, 15));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(2, 15));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(6, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(8, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+
+        onView(withId(R.id.recyclerviewmain)).perform(
+                RecyclerViewActions.scrollToPosition(8));
+    stop();
+
+        // création d'un meeting 6
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        onView(withId(R.id.textMeetingtitleEdit)).check(matches(withText("")));
+
+        onView(withId(R.id.textMeetingtitleEdit))
+                .perform(replaceText("titre 6"), closeSoftKeyboard());
+
+        onView(withId(R.id.textMeetingCommentEdit))
+                .perform(replaceText("commentaire du titre 6"), closeSoftKeyboard());
+
+        onView(withId(R.id.dateMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 7, 26));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.hourStartMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(10, 30));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.durationMeeting))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(2, 30));
+        onView(withText("OK"))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        onView(withId(R.id.participantMeeting))
+                .perform(click());
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, click()));
+        onView(withId(R.id.recyclerviewcow))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(6, click()));   // séléction des participants
+
+        onView(withId(R.id.add_coworker))   // validation de la sélection des participants
+                .perform(click());
+        // retour dans la création du meeting avec affichage des participants sélectionnés
+
+        onView(withId(R.id.roomMeeting))    // clic sur l'icone "salle" pour aller sélectionner la salle
+                .perform(click());
+        // nous sommes dans l'écran de sélection des salles
+
+        onView(withId(R.id.recyclerviewroom))       // sélection de la 4eme salle (sicile)
+                .perform(RecyclerViewActions.actionOnItemAtPosition(6, click()));
+        // retour dans l'écran de création du meeting avec affichage de la salle sélectionnée
+
+        onView(withId(R.id.meeting_set))              // clic sur le bouton de création du meeting
+                .perform(click());
+        // retour dans l'affichage de tous les meetings
+
+        onView(withId(R.id.recyclerviewmain)).perform(
+                RecyclerViewActions.scrollToPosition(10));
+
+        stop();
+
+        onView(withId(R.id.recyclerviewmain))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, new DeleteViewAction()));
+        onView(withText("OUI")).inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        stop();
+
+        onView(withId(R.id.recyclerviewmain))
+                .perform(RecyclerViewActions.scrollToPosition(9));
+
+        stop();
+
+        onView(withId(R.id.recyclerviewmain))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, new DeleteViewAction()));
+        onView(withText("OUI")).inRoot(isDialog())
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        stop();
+        stop();
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Reset filter"))
+                .perform(click());
+
+        stop();
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Reset filter"))
+                .perform(click());
+
+        stop();
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Reset filter"))
+                .perform(click());
+
+        stop();
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Reset filter"))
+                .perform(click());
+
+        stop();
+
+
+    }
+
+    public void stop () {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+     */
 
 }

@@ -59,13 +59,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                 myPopup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                    mMeetingArrayList.remove(meeting); // ???
+                    mMeetingArrayList.remove(meeting);
                     mApiService.deleteMeeting(meeting);
 
                     notifyItemRemoved(viewHolder.getAdapterPosition());
-                    notifyItemRangeChanged(viewHolder.getAdapterPosition(), mMeetingArrayList.size());
-                    viewHolder.itemView.setVisibility(View.GONE);
-
                     }
                 });
                 myPopup.setNegativeButton("NON", new DialogInterface.OnClickListener() {

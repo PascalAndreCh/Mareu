@@ -1,6 +1,7 @@
 package com.projet4.maru.ui.meeting;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -34,6 +34,7 @@ import java.util.Calendar;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, MyMeetingRecyclerViewAdapter.OnMeetingClickListener {
@@ -41,10 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MaReuApiService mApiService = DI.getStartListApiService();
     private ActivityMainBinding binding;
     private ArrayList<Meeting> mMeetingArrayList = new ArrayList<>();
+    private ArrayList<Meeting> mMeetingArrayListTot = new ArrayList<>();
     private Meeting meeting;
-//    private Spinner spinner;
     private int idRoom = -1;
-//    int provenance = 0;
 
 
     @Override
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initUI();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume(){
         super.onResume();
@@ -63,14 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             mMeetingArrayList.addAll(mApiService.getMeetingsByRoom(idRoom));
         }
-        binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
-        initUI();
+        // binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(binding.recyclerviewmain.getAdapter()).notifyDataSetChanged();
     }
 
 
     private void initData() {
         mApiService.deleteObsoleteMeetings();
         mMeetingArrayList = new ArrayList<>(mApiService.getMeetings());
+        mMeetingArrayListTot = new ArrayList<>(mApiService.getMeetings());
     }
 
     private void initUI() {
@@ -132,12 +134,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(idRoomIntent,0);
      }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void resetFilter() {
         idRoom=-1;
         mMeetingArrayList.clear();
         mMeetingArrayList.addAll(mApiService.getMeetings());
-        binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
-        initUI();
+        // binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(binding.recyclerviewmain.getAdapter()).notifyDataSetChanged();
     }
 
     private void dateDialog() {
@@ -146,13 +149,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int selectedMonth = dateInit.get(Calendar.MONTH);
         int selectedDayOfMonth = dateInit.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 Calendar cal = GregorianCalendar.getInstance();
                 cal.set(i, i1, i2);
                 mMeetingArrayList.clear();
                 mMeetingArrayList.addAll(mApiService.getMeetingsByDate(cal));
-                binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+                // binding.recyclerviewmain.getAdapter().notifyDataSetChanged();
+                Objects.requireNonNull(Objects.requireNonNull(binding.recyclerviewmain).getAdapter()).notifyDataSetChanged();
             }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -192,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Meeting meeting = new Meeting (idMax, idRoom, timeStart, timeEnd, meetingtitle, meetingComment, participantsList ) ;
             intent.putExtra("PROVENANCE", 3);
             args.putSerializable("ARRAYLIST2", (Serializable) meeting);
-            args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayList);
+            args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayListTot);
             intent.putExtra("BUNDLE", args);
             startActivityForResult(intent,3);
         }
@@ -215,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bundle args = new Bundle();
         intent.putExtra("PROVENANCE", 4);
         args.putSerializable("ARRAYLIST2", (Serializable) meeting);
-        args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayList);
+        args.putSerializable("ARRAYLIST3", (Serializable) mMeetingArrayListTot);
         intent.putExtra("BUNDLE", args);
         startActivityForResult(intent, 4);
     }

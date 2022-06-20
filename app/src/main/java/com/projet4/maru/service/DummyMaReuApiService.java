@@ -303,7 +303,7 @@ public class DummyMaReuApiService implements MaReuApiService {
          }
 
     /**
-     * Calucle la duré en heures et minutes
+     * Calcule la duré en heures et minutes
      */
     public Calendar duree (Calendar dateStart, Calendar dateEnd) {
         int h1 = dateStart.get(Calendar.YEAR);
